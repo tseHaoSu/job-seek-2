@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  modules     Module[]
+  quizzes     Quiz[]
+
+  @@map("categories")
+}
+
+model Module {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  attempt    Boolean    @default(false)
+  categoryId  Int
+  Category    Category @relation(fields: [categoryId], references: [id])
+
+  @@map("modules")
+}
+
+model Quiz {
+  id           Int     @id @default(autoincrement())
+  title        String
+  description  String     @default("")
+  timeEstimate String     @default("5 minutes")
+  categoryId   Int
+  attempt      Boolean    @default(false)
+  questions    Question[]
+  category     Category   @relation(fields: [categoryId], references: [id])
+
+  @@map("quizzes")
+}
+
+model Question {
+  id            Int               @id @default(autoincrement())
+  quizId        Int
+  questionText  String
+  correctAnswer Boolean
+  explanation   String            @default("No explanation provided")
+  attempts      QuestionAttempt[]
+  quiz          Quiz              @relation(fields: [quizId], references: [id])
+
+  @@map("questions")
+}
+
+model QuestionAttempt {
+  id         Int      @id @default(autoincrement())
+  questionId Int
+  userAnswer Boolean?
+  completed  Boolean  @default(false)
+  timestamp  DateTime @default(now())
+  question   Question @relation(fields: [questionId], references: [id])
+
+  @@map("question_attempts")
+}
