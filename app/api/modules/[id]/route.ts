@@ -13,11 +13,14 @@ export async function PATCH(
         id: parseInt(id),
       },
     });
-    
+
     if (!foundModule) {
-      return NextResponse.json({ message: "Module not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: "Module not found" },
+        { status: 404 }
+      );
     }
-    
+
     // Update module attempt status
     const updatedModule = await prisma.module.update({
       where: {
@@ -27,7 +30,7 @@ export async function PATCH(
         attempt: true,
       },
     });
-    
+
     return NextResponse.json(updatedModule);
   } catch (error) {
     console.error("Failed to update module attempt status:", error);
