@@ -4,42 +4,52 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { BookOpen, Presentation } from "lucide-react";
+import { prisma } from "@/prisma/client";
+import { Category } from "@prisma/client";
+import {
+  BookOpen,
+  FileText,
+  Globe,
+  Heart,
+  Presentation,
+  Star,
+  Users,
+} from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
-const Categories = () => {
-  // Static data for two cards
-  const staticCategories = [
-    {
-      id: "course-tools",
-      title: "Course Tools",
-      description: "Explore the list of course tools to select your choice!",
-      icon: <BookOpen size={48} />,
-    },
-    {
-      id: "presentation-tools",
-      title: "Presentation Tools",
-      description: "Discover presentation tools for effective learning!",
-      icon: <Presentation size={48} />,
-    },
+const Categories = async () => {
+  const categories: Category[] = await prisma.category.findMany();
+
+  // Define the icon mapping
+  const icons = [
+    <BookOpen size={48} />,
+    <FileText size={48} />,
+    <Presentation size={48} />,
+    <Users size={48} />,
+    <Star size={48} />,
+    <Globe size={48} />,
   ];
+
+  const getIcon = () => {
+    const randomIndex = Math.floor(Math.random() * icons.length);
+    return icons[randomIndex];
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-      {staticCategories.map((category, index) => (
+      {categories.map((category, index) => (
         <Link
-          href="online-learning/tool-selection"
+          href={`/online-learning/${category.id}`}
           className="block"
           key={index}
         >
           <Card className="h-full rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-300 hover:scale-105 duration-300 cursor-pointer border-red-300">
             <div className="flex justify-center pt-8 text-red-700">
-              {category.icon}
+              {getIcon()}
             </div>
             <CardHeader className="text-center">
               <CardTitle className="text-xl font-bold text-gray-800">
-                {category.title}
+                {category.name}
               </CardTitle>
               <CardDescription className="text-sm text-gray-600">
                 {category.description}

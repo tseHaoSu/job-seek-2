@@ -21,7 +21,7 @@ model Module {
   id          Int      @id @default(autoincrement())
   name        String
   description String?
-  attempt    Boolean    @default(false)
+  attempt     Boolean  @default(false)
   categoryId  Int
   Category    Category @relation(fields: [categoryId], references: [id])
 
@@ -29,7 +29,7 @@ model Module {
 }
 
 model Quiz {
-  id           Int     @id @default(autoincrement())
+  id           Int        @id @default(autoincrement())
   title        String
   description  String     @default("")
   timeEstimate String     @default("5 minutes")

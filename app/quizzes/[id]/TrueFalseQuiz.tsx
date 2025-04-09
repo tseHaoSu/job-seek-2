@@ -150,7 +150,7 @@ const TrueFalseQuiz = () => {
 
               <button
                 onClick={() => setStartQuiz(true)}
-                className="mt-4 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition duration-300 text-sm w-1/2 text-center"
+                className="mt-4 bg-red-800 hover:bg-red-900 text-white font-medium py-2 px-4 rounded-md transition duration-300 text-sm w-1/3 text-center"
               >
                 Start Quiz
               </button>
