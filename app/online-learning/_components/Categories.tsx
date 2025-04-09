@@ -18,9 +18,9 @@ const Categories = () => {
       icon: <BookOpen size={48} />,
     },
     {
-      id: "presentation-tools",
-      title: "Presentation Tools",
-      description: "Discover presentation tools for effective learning!",
+      id: "recommendation",
+      title: "Recommendation",
+      description: "Get a personalized recommendation based on your needs.",
       icon: <Presentation size={48} />,
     },
   ];

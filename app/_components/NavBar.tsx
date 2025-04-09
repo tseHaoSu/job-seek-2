@@ -42,7 +42,7 @@ const NavBar = () => {
     },
     {
       label: "Experience Wall",
-      href: "/experience-support",
+      href: "/experience-wall",
       icon: <MessageSquare className="w-4 h-4 mr-1" />,
     },
   ];

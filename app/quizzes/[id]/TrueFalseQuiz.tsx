@@ -27,7 +27,7 @@ const TrueFalseQuiz = () => {
 
   // Dummy quiz data
   const quiz = {
-    title: "JavaScript Fundamentals",
+    title: "Microsoft Word",
     description:
       "Test your knowledge of JavaScript core concepts including variables, functions, objects, and modern ES6+ features.",
     timeEstimate: "5 minutes",
@@ -172,7 +172,7 @@ const TrueFalseQuiz = () => {
       {startQuiz && (
         <div id="quiz-questions" className="mt-8 scroll-mt-8">
           {showResults ? (
-            <Card className="max-w-6xl mx-auto border-none shadow-none bg-transparent">
+            <Card className="mx-auto border-none shadow-none bg-transparent">
               <CardHeader>
                 <CardTitle className="scroll-m-20 text-4xl font-semibold tracking-tight text-red-900 flex items-center">
                   <Trophy className="mr-2 h-10 w-10 text-red-600" />
@@ -190,7 +190,6 @@ const TrueFalseQuiz = () => {
                     )}
                     %
                   </p>
-
                   <div className="w-3/4 bg-gray-200 rounded-full h-4 mb-6">
                     <div
                       className={`h-4 rounded-full ${
@@ -207,7 +206,6 @@ const TrueFalseQuiz = () => {
                       }}
                     ></div>
                   </div>
-
                   {calculateScore() / quiz.questions.length >= 0.7 ? (
                     <p className="text-green-600 font-medium flex items-center">
                       <Star className="h-5 w-5 mr-2 text-yellow-500 fill-yellow-500" />
@@ -219,7 +217,6 @@ const TrueFalseQuiz = () => {
                     </p>
                   )}
                 </div>
-
                 <h3 className="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight mb-4">
                   Question Review:
                 </h3>
@@ -290,11 +287,9 @@ const TrueFalseQuiz = () => {
                     }}
                   ></div>
                 </div>
-
                 <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-red-900 mb-4">
                   Question {currentQuestionIndex + 1}
                 </h3>
-
                 <div className="pt-4 flex flex-col gap-5">
                   <div className="flex gap-4">
                     <button
@@ -307,7 +302,6 @@ const TrueFalseQuiz = () => {
                     >
                       True
                     </button>
-
                     <button
                       onClick={() => handleAnswer(false)}
                       className={`px-6 py-1 text-sm font-medium rounded-md transition duration-300 ${
@@ -319,7 +313,6 @@ const TrueFalseQuiz = () => {
                       False
                     </button>
                   </div>
-
                   <div className="flex  items-center pt-6">
                     <button
                       onClick={goToPreviousQuestion}
