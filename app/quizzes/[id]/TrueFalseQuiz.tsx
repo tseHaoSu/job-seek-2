@@ -27,46 +27,47 @@ const TrueFalseQuiz = () => {
 
   // Dummy quiz data
   const quiz = {
-    title: "Microsoft Word",
+    title: "Microsoft PowerPoint",
     description:
-      "Test your knowledge of JavaScript core concepts including variables, functions, objects, and modern ES6+ features.",
+      "Test your knowledge of PowerPoint core concepts including fonts, themes, and slide layouts.",
     timeEstimate: "5 minutes",
     questions: [
       {
         id: 1,
-        question: "JavaScript is a statically typed language.",
+        question: "Can I create a new slide by pressing this icon?",
         correctAnswer: false,
         explanation:
-          "JavaScript is a dynamically typed language, which means variable types are determined at runtime rather than compile time.",
+          "Click the image icon to choose to insert pictures into slide",
       },
       {
         id: 2,
-        question: "The === operator checks both value and type in JavaScript.",
+        question:
+          "Select the 'Slide Show' tab and select the two buttons below to start playing the slide show.",
         correctAnswer: true,
         explanation:
-          "The strict equality operator (===) checks both value and data type without performing type conversion.",
+          "To start a slide show in PowerPoint, you need to select the 'Slide Show' tab and click either 'From Beginning' or 'From Current Slide' button.",
       },
       {
         id: 3,
-        question: "Arrays in JavaScript can store different types of data.",
-        correctAnswer: true,
+        question: "There are not PowerPoint related features in this icons list",
+        correctAnswer: false,
         explanation:
-          "JavaScript arrays can store mixed data types including strings, numbers, objects, and even other arrays.",
+          "The slideshow icon is used to start a presentation, the new slide icon is used to add a new slide.",
       },
       {
         id: 4,
-        question: "JavaScript has block-scoped variables.",
-        correctAnswer: true,
+        question: "The data and time icon is used to insert the date and time for the PowerPoint.",
+        correctAnswer: false,
         explanation:
           "With the introduction of let and const in ES6, JavaScript now has block-scoped variables.",
       },
       {
         id: 5,
         question:
-          "All JavaScript objects inherit directly from Object.prototype.",
-        correctAnswer: false,
+          "All these icons can allow users to insert images to the PowerPoint.",
+        correctAnswer: true,
         explanation:
-          "JavaScript objects inherit from their constructor's prototype. While many objects do inherit from Object.prototype, this isn't always the case, especially with objects created with Object.create(null).",
+          "The icons shown are all related to inserting images into PowerPoint slides. The images can be inserted in album, screenshots, or from files.",
       },
     ],
   };
@@ -196,8 +197,8 @@ const TrueFalseQuiz = () => {
                         calculateScore() / quiz.questions.length >= 0.7
                           ? "bg-green-500"
                           : calculateScore() / quiz.questions.length >= 0.4
-                          ? "bg-yellow-500"
-                          : "bg-red-500"
+                            ? "bg-yellow-500"
+                            : "bg-red-500"
                       }`}
                       style={{
                         width: `${
@@ -213,7 +214,7 @@ const TrueFalseQuiz = () => {
                     </p>
                   ) : (
                     <p className="text-red-600 font-medium leading-6 mt-2">
-                      You might need to study more before retaking this quiz.
+                      Try again next time !
                     </p>
                   )}
                 </div>
@@ -241,8 +242,8 @@ const TrueFalseQuiz = () => {
                             {userAnswers[index] === true
                               ? "True"
                               : userAnswers[index] === false
-                              ? "False"
-                              : "Not answered"}
+                                ? "False"
+                                : "Not answered"}
                           </p>
                           <p className="text-sm text-green-700 mt-1">
                             Correct answer:{" "}
@@ -290,6 +291,9 @@ const TrueFalseQuiz = () => {
                 <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-red-900 mb-4">
                   Question {currentQuestionIndex + 1}
                 </h3>
+                <p className="text-lg text-gray-700 mb-4">
+                  {currentQuestion.question}
+                </p>
                 <div className="pt-4 flex flex-col gap-5">
                   <div className="flex gap-4">
                     <button
@@ -347,15 +351,15 @@ const TrueFalseQuiz = () => {
                 </div>
               </div>
               <div className="order-1 lg:order-2">
-                <div className="rounded-2xl shadow-2xl w-full h-80 bg-gray-100 flex items-center justify-center hover:shadow-red-200 duration-300 transform hover:scale-105 transition-all">
-                  <div className="text-center p-8">
-                    <h3 className="text-2xl font-bold text-red-900 mb-4">
-                      Question {currentQuestionIndex + 1}
-                    </h3>
-                    <p className="text-lg text-gray-700">
-                      {currentQuestion.question}
-                    </p>
-                  </div>
+                <div className="w-full h-100 flex items-center justify-center overflow-hidden">
+                  <Image
+                    src={`/images/${currentQuestionIndex + 1}.png`}
+                    width={300}
+                    height={300}
+                    alt="Quiz featured image"
+                    className="rounded-2xl object-contain max-h-full max-w-full"
+                    style={{ objectFit: "contain" }}
+                  />
                 </div>
               </div>
             </div>

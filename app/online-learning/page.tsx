@@ -10,10 +10,6 @@ const Page = () => {
       <Banner />
       <Header2 />
       <Categories />
-      <Header2
-        title="Get recommendation"
-        subtitle="Take a quick test and let us help you choose a course to start studying"
-      />
     </div>
   );
 };

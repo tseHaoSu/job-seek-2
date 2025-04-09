@@ -22,7 +22,7 @@ const ModuleCard = ({ module }: { module: Module }) => {
     setIsLoading(true);
     try {
       await axios.patch(`/api/modules/${module.id}`);
-      router.push(`/modules/${module.id}`);
+      router.push(`/online-learning/modules/${module.id}`);
       router.refresh();
     } catch (error) {
       console.error("Error starting module:", error);

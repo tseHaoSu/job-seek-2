@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
-import React from "react";
 import Image from "next/image";
 
 const header = () => {
