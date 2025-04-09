@@ -49,14 +49,16 @@ const TrueFalseQuiz = () => {
       },
       {
         id: 3,
-        question: "There are not PowerPoint related features in this icons list",
+        question:
+          "There are not PowerPoint related features in this icons list",
         correctAnswer: false,
         explanation:
           "The slideshow icon is used to start a presentation, the new slide icon is used to add a new slide.",
       },
       {
         id: 4,
-        question: "The data and time icon is used to insert the date and time for the PowerPoint.",
+        question:
+          "The data and time icon is used to insert the date and time for the PowerPoint.",
         correctAnswer: false,
         explanation:
           "With the introduction of let and const in ES6, JavaScript now has block-scoped variables.",
@@ -224,7 +226,7 @@ const TrueFalseQuiz = () => {
                 {quiz.questions.map((question, index) => (
                   <Card
                     key={question.id}
-                    className="mb-4 hover:border-red-200 transition-colors duration-200"
+                    className="mb-4 transition-colors duration-200 border-none bg-gray-50"
                   >
                     <CardContent className="p-4">
                       <div className="flex items-start">

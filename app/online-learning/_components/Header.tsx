@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const header = () => {
   return (
@@ -23,13 +24,17 @@ const header = () => {
           tempora sapiente fuga, illo vitae hic itaque. Quisquam, iusto? Quasi,
           corrupti!
         </h3>
+        <div>
+          <Link href="/online-learning/1">
             <Button
               variant="outline"
-              className="bg-red-800 hover:bg-red-900 text-white text-lg w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
+              className="bg-red-800 hover:bg-red-900 text-white text-lg w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300 hover:text-white"
             >
               <Sparkles className="mr-2" />
               Try it out
             </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

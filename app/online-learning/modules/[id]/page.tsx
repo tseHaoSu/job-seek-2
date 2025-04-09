@@ -188,9 +188,11 @@ const page = () => {
           >
             I have Finished this module!
           </label>
+        </div>
+        <div className="flex justify-center mt-10">
           <Link
             href="/online-learning/tool-selection"
-            className="px-4 py-2 bg-red-500 text-white rounded-md"
+            className="px-4 py-2 bg-red-700 text-white rounded-md hover:bg-red-800 transition-colors duration-300"
           >
             Back to Tools Guide
           </Link>
