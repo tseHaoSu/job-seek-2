@@ -61,7 +61,7 @@ const TrueFalseQuiz = () => {
           "The data and time icon is used to insert the date and time for the PowerPoint.",
         correctAnswer: false,
         explanation:
-          "With the introduction of let and const in ES6, JavaScript now has block-scoped variables.",
+          "In PowerPoint, the Date and Time feature allows you to insert the current date and time (or a fixed date) into your slides",
       },
       {
         id: 5,

@@ -47,7 +47,7 @@ const QuizCard = ({ quiz }: { quiz: Quiz }) => {
               : "text-red-600 border-red-600 bg-red-50"
           }`}
         >
-          {quiz.attempt ? "Attempted" : "Not Attempted"}
+          {quiz.attempt ? "Completed" : "Not Started"}
         </Badge>
       </div>
       <h3 className="text-xl font-bold text-gray-900 mb-2">{quiz.title}</h3>
