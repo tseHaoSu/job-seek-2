@@ -21,8 +21,8 @@ import { populationData } from "../constants/constants";
 // Transform the data from separate arrays into an array of objects
 const chartData = populationData.date.map((date, index) => ({
   date,
-  over50: populationData.percentage_50_plus[index],
-  under50: populationData.percentage_under_50[index],
+  over50: Math.round(populationData.percentage_50_plus[index]),
+  under50: Math.round(populationData.percentage_under_50[index]),
 }));
 
 const chartConfig = {
@@ -122,16 +122,7 @@ const Data = () => {
       </CardContent>
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              50+ population {isTrendingDown ? "trending down" : "trending up"}{" "}
-              by {Math.abs(lastMonthChange)}% this month{" "}
-              {isTrendingDown ? (
-                <TrendingDown className="h-4 w-4 text-red-500" />
-              ) : (
-                <TrendingUp className="h-4 w-4 text-green-500" />
-              )}
-            </div>
+          <div className="grid gap-2">   
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               October 2022 - February 2025
             </div>
