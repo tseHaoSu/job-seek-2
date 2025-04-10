@@ -131,7 +131,6 @@ const TrueFalseQuiz = () => {
 
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8">
-      {/* Quiz Header Section - Only visible before quiz starts */}
       {!startQuiz && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           <div className="order-2 lg:order-1 space-y-6">

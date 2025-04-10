@@ -191,7 +191,7 @@ const page = () => {
         </div>
         <div className="flex justify-center mt-10">
           <Link
-            href="/online-learning/tool-selection"
+            href="/online-learning/1"
             className="px-4 py-2 bg-red-700 text-white rounded-md hover:bg-red-800 transition-colors duration-300"
           >
             Back to Tools Guide
