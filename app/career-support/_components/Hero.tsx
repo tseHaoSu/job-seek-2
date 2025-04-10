@@ -8,12 +8,11 @@ const Hero = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       <div className="space-y-8">
         <h1 className="text-4xl font-extrabold lg:text-5xl text-red-900 leading-tight">
-          Select a Module to Start Learning!
+          Career Support
         </h1>
         <h3 className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-          tempora sapiente fuga, illo vitae hic itaque. Quisquam, iusto? Quasi,
-          corrupti!
+          Build your resume and learn how to use job platforms—no stress, just
+          support.
         </h3>
         <Button
           variant="outline"
