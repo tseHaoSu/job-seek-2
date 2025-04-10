@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles } from 'lucide-react';
 import React from 'react'
 import Image from "next/image";
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -14,13 +15,17 @@ const Hero = () => {
           Build your resume and learn how to use job platforms—no stress, just
           support.
         </h3>
-        <Button
-          variant="outline"
-          className="bg-red-800 hover:bg-red-900 text-white text-lg w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
-        >
-          <Sparkles className="mr-2" />
-          Try it out
-        </Button>
+        <div>
+          <Link href="/career-support/resume-support">
+            <Button
+              variant="outline"
+              className="bg-red-800 hover:bg-red-900 text-white text-lg w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
+            >
+              <Sparkles className="mr-2" />
+              Try it out
+            </Button>
+          </Link>
+        </div>
       </div>
       <div className="md:mt-0">
         <Image

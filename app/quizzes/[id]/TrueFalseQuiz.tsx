@@ -24,6 +24,8 @@ import {
 const TrueFalseQuiz = () => {
   const router = useRouter();
   const [startQuiz, setStartQuiz] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [slideDirection, setSlideDirection] = useState("right"); // "right" or "left"
 
   // Dummy quiz data
   const quiz = {
@@ -94,17 +96,31 @@ const TrueFalseQuiz = () => {
   };
 
   const goToNextQuestion = () => {
-    if (currentQuestionIndex < quiz.questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      setShowResults(true);
-    }
+    if (userAnswers[currentQuestionIndex] === null) return;
+
+    setSlideDirection("right");
+    setIsAnimating(true);
+
+    setTimeout(() => {
+      if (currentQuestionIndex < quiz.questions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      } else {
+        setShowResults(true);
+      }
+      setIsAnimating(false);
+    }, 300); // Match this timing with the CSS transition duration
   };
 
   const goToPreviousQuestion = () => {
-    if (currentQuestionIndex > 0) {
+    if (currentQuestionIndex <= 0) return;
+
+    setSlideDirection("left");
+    setIsAnimating(true);
+
+    setTimeout(() => {
       setCurrentQuestionIndex(currentQuestionIndex - 1);
-    }
+      setIsAnimating(false);
+    }, 300); // Match this timing with the CSS transition duration
   };
 
   const calculateScore = () => {
@@ -124,9 +140,23 @@ const TrueFalseQuiz = () => {
     setStartQuiz(false);
   };
 
+  const handleStartQuiz = () => {
+    setStartQuiz(true);
+  };
+
   const exitQuiz = () => {
     // Navigate to the homepage or desired exit destination
     router.push("/online-learning/1");
+  };
+
+  // Define animation classes based on the state
+  const getQuestionAnimationClass = () => {
+    if (isAnimating) {
+      return slideDirection === "right"
+        ? "translate-x-full opacity-0"
+        : "-translate-x-full opacity-0";
+    }
+    return "translate-x-0 opacity-100";
   };
 
   return (
@@ -151,7 +181,7 @@ const TrueFalseQuiz = () => {
               </span>
 
               <button
-                onClick={() => setStartQuiz(true)}
+                onClick={handleStartQuiz}
                 className="mt-4 bg-red-800 hover:bg-red-900 text-white font-medium py-2 px-4 rounded-md transition duration-300 text-sm w-1/3 text-center"
               >
                 Start Quiz
@@ -276,11 +306,13 @@ const TrueFalseQuiz = () => {
               </CardFooter>
             </Card>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mx-auto">
+            <div
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mx-auto transition-all duration-300 ease-in-out ${getQuestionAnimationClass()}`}
+            >
               <div className="order-2 lg:order-1 space-y-8">
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    className="h-2 bg-green-500 rounded-full"
+                    className="h-2 bg-green-500 rounded-full transition-all duration-300"
                     style={{
                       width: `${
                         ((currentQuestionIndex + 1) / quiz.questions.length) *
@@ -318,11 +350,15 @@ const TrueFalseQuiz = () => {
                       False
                     </button>
                   </div>
-                  <div className="flex  items-center pt-6">
+                  <div className="flex items-center pt-6">
                     <button
                       onClick={goToPreviousQuestion}
                       disabled={currentQuestionIndex === 0}
-                      className="flex items-center px-3 py-1 rounded-md text-m  text-red-600"
+                      className={`flex items-center px-3 py-1 rounded-md text-m text-red-600 ${
+                        currentQuestionIndex === 0
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
                     >
                       <ArrowLeft className="h-4 w-4 mr-1" />
                       Previous
@@ -331,7 +367,11 @@ const TrueFalseQuiz = () => {
                     <button
                       onClick={goToNextQuestion}
                       disabled={userAnswers[currentQuestionIndex] === null}
-                      className="flex items-center px-3 py-1 rounded-md text-m text-red-600"
+                      className={`flex items-center px-3 py-1 rounded-md text-m text-red-600 ${
+                        userAnswers[currentQuestionIndex] === null
+                          ? "opacity-50 cursor-not-allowed"
+                          : ""
+                      }`}
                     >
                       {currentQuestionIndex === quiz.questions.length - 1
                         ? "Finish Quiz"

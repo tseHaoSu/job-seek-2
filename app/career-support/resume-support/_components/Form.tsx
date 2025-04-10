@@ -79,7 +79,7 @@ const Form = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border-none">
       <Card className="w-full max-w-4xl mx-auto mb-6 border-none">
         <CardHeader>
-          <CardTitle className="text-red-800">Resume Information</CardTitle>
+          <CardTitle className="text-red-800">Your Personal Information</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>

@@ -17,7 +17,7 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
   return (
     <Card className="w-full max-w-4xl mx-auto border-none ">
       <CardHeader className=" border-none">
-        <CardTitle className="text-red-800">Generated Resume</CardTitle>
+        <CardTitle className="text-red-800">Generated Resume Guidance</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

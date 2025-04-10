@@ -5,7 +5,7 @@ import { BookOpen, Bot, Briefcase, Home, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { Gi3dHammer } from "react-icons/gi";
+import { FaClover } from "react-icons/fa6";
 import MobileSideBar from "./MobileSideBar";
 
 export interface NavLink {
@@ -63,7 +63,7 @@ const NavBar = () => {
           {/* Logo Section */}
           <div className="w-full h-20 bg-gradient-to-r from-red-50 to-red-100 flex flex-row items-center justify-between rounded-b-lg">
             <div className="flex items-center space-x-3 ml-4">
-              <Gi3dHammer className="text-red-800 text-3xl transition-transform duration-300 hover:rotate-12" />
+              <FaClover className="text-red-200 text-3xl transition-transform duration-300 hover:rotate-12" />
               <Link
                 href="/"
                 className="font-extrabold text-xl text-red-900 tracking-tight hover:text-red-800 transition-colors duration-300"
@@ -84,7 +84,7 @@ const NavBar = () => {
                     "relative px-2 py-1 transition-all duration-300 text-base font-medium hover:text-red-800 flex items-center transform",
                     {
                       "text-red-900": link.href === currentPath,
-                      "text-gray-700": link.href !== currentPath,
+                      "text-red-800": link.href !== currentPath,
                       "font-bold": link.href === currentPath,
                     },
                     link.href === currentPath
