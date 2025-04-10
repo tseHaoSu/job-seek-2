@@ -6,7 +6,7 @@ import React from 'react'
 const Cards = () => {
   return (
     <div className="flex flex-col md:flex-row gap-8">
-        <Card className="w-full rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-300 hover:scale-105 duration-300 cursor-pointer">
+        <Card className="w-full rounded-xl overflow-hidden hover:shadow-xl hover:border-red-300 hover:scale-105 duration-300 cursor-pointer border-red-100">
           <div className="flex justify-center pt-8 text-red-400">
             <Users size={64} />
           </div>
@@ -24,7 +24,7 @@ const Cards = () => {
           <Separator orientation="vertical" className="h-full bg-gray-300" />
         </div>
 
-        <Card className="w-full rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-300 hover:scale-105 duration-300 cursor-pointer">
+        <Card className="w-full rounded-xl overflow-hidden hover:shadow-xl hover:border-red-300 hover:scale-105 duration-300 cursor-pointer border-red-100">
           <div className="flex justify-center pt-8 text-red-400">
             <BookOpen size={64} />
           </div>
