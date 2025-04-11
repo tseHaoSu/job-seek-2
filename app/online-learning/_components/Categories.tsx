@@ -12,8 +12,8 @@ const Categories = () => {
   // Static data for two cards
   const staticCategories = [
     {
-      id: "course-tools",
-      title: "Course Tools",
+      id: "tools-guide",
+      title: "Tools Guide",
       description: "Explore the list of course tools to select your choice!",
       icon: <BookOpen size={48} />,
     },

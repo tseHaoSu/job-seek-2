@@ -51,9 +51,9 @@ const Categories = async () => {
               <CardTitle className="text-xl font-bold text-gray-800">
                 {category.name}
               </CardTitle>
-              <CardDescription className="text-sm text-gray-600">
+              {/* <CardDescription className="text-sm text-gray-600">
                 {category.description}
-              </CardDescription>
+              </CardDescription> */}
             </CardHeader>
           </Card>
         </Link>

@@ -40,16 +40,16 @@ const Form = () => {
           institution: "",
           degree_type: "",
           degree_name: "",
-          year_start: 2000,
-          year_end: 2004,
+          year_start: 2020,
+          year_end: 2024,
         },
       ],
       work_experience: [
         {
           organization: "",
           job_title: "",
-          year_start: 2010,
-          year_end: 2020,
+          year_start: 2024,
+          year_end: 2025,
         },
       ],
     },
@@ -60,7 +60,6 @@ const Form = () => {
     setServerError("");
     setSuccess(false);
     setResumeData(null);
-
     try {
       const response = await axios.post("/api/generate-cv", data);
       console.log("Submission successful:", response.data);
@@ -89,7 +88,6 @@ const Form = () => {
                 errors={errors}
                 isSubmitting={isSubmitting}
               />
-
               <EducationSection
                 control={control}
                 register={register}
