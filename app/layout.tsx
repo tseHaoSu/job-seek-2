@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "./_components/Footer";
-import NavBarContainer from "./_components/NavBarContainer";
+import NavBar from "./_components/NavBar";
 import PasswordProtect from "./_components/PasswordProtect";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 
 const geistSans = Geist({
@@ -33,9 +34,10 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <PasswordProtect>
-          <NavBarContainer />
+          <NavBar/>
           <main className="p-5 mt-10 max-w-[1200px] mx-auto mb-20">
             {children}
+            <SpeedInsights/>
           </main>
           <Footer />
         </PasswordProtect>
