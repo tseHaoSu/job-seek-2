@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "./_components/Footer";
 import NavBarContainer from "./_components/NavBarContainer";
+import PasswordProtect from "./_components/PasswordProtect";
 import "./globals.css";
 
 
@@ -31,11 +32,13 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
         suppressHydrationWarning
       >
-        <NavBarContainer />
-        <main className="p-5 mt-10 max-w-[1200px] mx-auto mb-20">
-          {children}
-        </main>
-        <Footer />
+        <PasswordProtect>
+          <NavBarContainer />
+          <main className="p-5 mt-10 max-w-[1200px] mx-auto mb-20">
+            {children}
+          </main>
+          <Footer />
+        </PasswordProtect>
       </body>
     </html>
   );

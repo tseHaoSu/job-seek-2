@@ -25,7 +25,7 @@ const TrueFalseQuiz = () => {
   const router = useRouter();
   const [startQuiz, setStartQuiz] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [slideDirection, setSlideDirection] = useState("right"); // "right" or "left"
+  const [slideDirection, setSlideDirection] = useState("right");
 
   // Dummy quiz data
   const quiz = {
