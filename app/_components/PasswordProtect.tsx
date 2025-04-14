@@ -10,13 +10,11 @@ const PasswordProtect = ({ children }: PasswordProtectProps) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const correctPassword = "abcd0000"; // pwd
-  const SESSION_KEY = "password_authenticated"; // Key for localStorage
+  const correctPassword = process.env.NEXT_PUBLIC_PASSWORD || "";
+  const SESSION_KEY = "password_authenticated";
 
-  // Check localStorage on component mount
   useEffect(() => {
-    // Get authentication status from localStorage
-    const sessionAuthenticated = localStorage.getItem(SESSION_KEY);
+    const sessionAuthenticated = sessionStorage.getItem(SESSION_KEY);
     if (sessionAuthenticated === "true") {
       setIsAuthenticated(true);
     } else {
@@ -28,7 +26,7 @@ const PasswordProtect = ({ children }: PasswordProtectProps) => {
     e.preventDefault();
     if (password === correctPassword) {
       // Save authentication status to localStorage
-      localStorage.setItem(SESSION_KEY, "true");
+      sessionStorage.setItem(SESSION_KEY, "true");
       setIsAuthenticated(true);
       setError("");
     } else {
@@ -38,7 +36,7 @@ const PasswordProtect = ({ children }: PasswordProtectProps) => {
 
   // Show nothing during initial authentication check
   if (isAuthenticated === null) {
-    return null; // Or a loading spinner if preferred
+    return null; //spinner
   }
 
   // Show protected content if authenticated
