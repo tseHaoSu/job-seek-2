@@ -5,6 +5,7 @@ import NavBar from "./_components/NavBar";
 import PasswordProtect from "./_components/PasswordProtect";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 
 const geistSans = Geist({
@@ -38,6 +39,7 @@ export default function RootLayout({
           <main className="p-5 mt-10 max-w-[1200px] mx-auto mb-20">
             {children}
             <SpeedInsights/>
+            <Analytics/>
           </main>
           <Footer />
         </PasswordProtect>
