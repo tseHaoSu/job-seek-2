@@ -11,13 +11,6 @@ interface Quiz {
   categoryId: number;
   title: string;
   attempt: boolean;
-  questions: {
-    id: number;
-    quizId: number;
-    questionText: string;
-    correctAnswer: boolean;
-    explanation: string;
-  }[];
 }
 
 const QuizCard = ({ quiz }: { quiz: Quiz }) => {

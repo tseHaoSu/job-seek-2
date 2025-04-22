@@ -5,18 +5,14 @@ import Hero from "./_components/Hero";
 import ModuleCard from "./_components/ModuleCard";
 import QuizCard from "./_components/QuizCard";
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+const page = async ({ params }: { params: Promise<{ id: string }>}) => {
   const { id } = await params;
   const category = await prisma.category.findUnique({
     where: {
       id: parseInt(id),
     },
     include: {
-      quizzes: {
-        include: {
-          questions: true,
-        },
-      },
+      quizzes: true,
       modules: true,
     },
   });
@@ -50,9 +46,6 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     progressPercentage,
   };
 
-  if (!category) {
-    notFound();
-  }
   return (
     <div className="mx-auto sm:px-6 lg:px-8">
       <Hero

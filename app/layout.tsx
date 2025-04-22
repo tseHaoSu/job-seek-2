@@ -36,7 +36,7 @@ export default function RootLayout({
       >
         <PasswordProtect>
           <NavBar/>
-          <main className="p-5 mt-10 max-w-[1200px] mx-auto mb-20">
+          <main className="max-w-[1200px] mx-auto mb-20">
             {children}
             <SpeedInsights/>
             <Analytics/>

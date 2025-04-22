@@ -6,7 +6,7 @@ import CareerCards from './_components/CareerCards';
 
 const page = () => {
   return (
-    <div className="space-y-20 p-4 sm:px-6 lg:px-8">
+    <div>
       <Hero />
       <Banner />
       <CareerCards />
