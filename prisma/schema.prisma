@@ -44,7 +44,7 @@ model Quiz {
 model Question {
   id            Int               @id @default(autoincrement())
   quizId        Int
-  questionText  String
+  question  String
   correctAnswer Boolean
   explanation   String            @default("No explanation provided")
   attempts      QuestionAttempt[]
