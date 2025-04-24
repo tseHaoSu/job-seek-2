@@ -27,126 +27,198 @@ const NavBar = () => {
   const currentPath = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
 
   // Set visibility after component mounts for slide-in effect
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Handle scroll transparency effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 10;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
+
   const handleDropdownToggle = (label: string, e: React.MouseEvent) => {
-    // Prevent the event from bubbling up to potential parent link elements
     e.preventDefault();
     e.stopPropagation();
     setOpenDropdown(openDropdown === label ? null : label);
   };
+
+  useEffect(() => {
+    setOpenDropdown(null);
+  }, [currentPath]);
 
   const isDropdownOpen = (label: string) => {
     return openDropdown === label;
   };
 
   const links: NavLink[] = [
-    { label: "Home", href: "/", icon: <Compass className="w-4 h-4 mr-1" /> },
+    {
+      label: "Home",
+      href: "/",
+      icon: <Compass className="w-4 h-4 mr-2" />,
+      children: [
+        {
+          label: "Dashboard",
+          href: "/dashboard",
+          icon: <BookOpen className="w-4 h-4 mr-2" />,
+        },
+      ],
+    },
     {
       label: "Tools Walkthrough",
       href: "/online-learning",
-      icon: <GraduationCap className="w-4 h-4 mr-1" />,
+      icon: <GraduationCap className="w-4 h-4 mr-2" />,
       children: [
         {
           label: "Tools Guide",
           href: "/online-learning/1",
-          icon: <BookOpen className="w-4 h-4 mr-1" />,
+          icon: <BookOpen className="w-4 h-4 mr-2" />,
         },
         {
           label: "Communication",
           href: "/online-learning/2",
-          icon: <MessageCircle className="w-4 h-4 mr-1" />,
+          icon: <MessageCircle className="w-4 h-4 mr-2" />,
         },
       ],
     },
     {
       label: "Career Support",
       href: "/career-support",
-      icon: <Coffee className="w-4 h-4 mr-1" />,
+      icon: <Coffee className="w-4 h-4 mr-2" />,
       children: [
         {
           label: "Resume Builder",
           href: "/career-support/resume-support",
-          icon: <BookOpen className="w-4 h-4 mr-1" />,
+          icon: <BookOpen className="w-4 h-4 mr-2" />,
         },
         {
           label: "Interview Prep",
           href: "/career-support/interview",
-          icon: <MessageCircle className="w-4 h-4 mr-1" />,
+          icon: <MessageCircle className="w-4 h-4 mr-2" />,
         },
       ],
     },
     {
       label: "AI Support",
       href: "/ai-support",
-      icon: <Lightbulb className="w-4 h-4 mr-1" />,
+      icon: <Lightbulb className="w-4 h-4 mr-2" />,
     },
     {
       label: "Experience Wall",
       href: "/experience-wall",
-      icon: <MessageCircle className="w-4 h-4 mr-1" />,
+      icon: <MessageCircle className="w-4 h-4 mr-2" />,
     },
   ];
 
   return (
     <>
+      {/* Mobile sidebar */}
       <div className="block md:hidden">
         <MobileSideBar links={links} />
       </div>
+
+      {/* Desktop navbar */}
       <header
-        className={`hidden md:block sticky top-0 z-50 shadow-md bg-white transition-all duration-500 transform ${
+        className={`hidden md:block sticky top-0 z-50 transition-all duration-300 transform ${
           isVisible
             ? "translate-y-0 opacity-100"
             : "-translate-y-full opacity-0"
+        } ${
+          scrolled
+            ? "bg-white/70 backdrop-blur shadow-sm"
+            : "bg-white/95 backdrop-blur-sm"
         }`}
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="w-full h-20 bg-gradient-to-r from-red-50 to-red-100 flex flex-row items-center justify-between rounded-b-lg">
-            <div className="flex items-center space-x-3 ml-4">
-              <FaClover className="text-red-200 text-3xl transition-transform duration-300 hover:rotate-12" />
+          {/* Combined navbar with logo and links */}
+          <div className="flex items-center justify-between h-16">
+            {/* Logo area */}
+            <div className="flex items-center space-x-3">
+              <div className="bg-gradient-to-r from-red-900 to-red-700 p-2 rounded-full">
+                <FaClover className="text-white text-2xl transition-all duration-300 transform hover:rotate-12 hover:scale-110" />
+              </div>
               <Link
                 href="/"
-                className="font-extrabold text-xl text-red-900 tracking-tight hover:text-red-800 transition-colors duration-300"
+                className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors duration-300"
               >
-                StillSkilled
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-red-800 to-red-700">
+                  StillSkilled
+                </span>
               </Link>
             </div>
-          </div>
 
-          {/* Link */}
-          <nav className="flex justify-between items-center border-b border-gray-200 p-4">
-            <ul className="flex flex-row space-x-8">
-              {links.map((link, index) => (
-                <li key={link.href} className="relative">
-                  {link.children ? (
-                    // Link with dropdown - Main label now acts as a link
-                    <div className="flex items-center group">
+            {/* Navigation links */}
+            <nav>
+              <ul className="flex flex-row space-x-6">
+                {links.map((link, index) => (
+                  <li key={link.href} className="relative group">
+                    {link.children ? (
+                      // Link with dropdown
+                      <div className="flex items-center">
+                        <Link
+                          href={link.href}
+                          className={classNames(
+                            "flex items-center px-3 py-2 transition-all duration-300 font-medium tracking-tight rounded-lg hover:bg-red-50 transform",
+                            {
+                              "text-red-900":
+                                currentPath.startsWith(link.href) ||
+                                link.href === currentPath,
+                              "text-red-900/80":
+                                !currentPath.startsWith(link.href) &&
+                                link.href !== currentPath,
+                            },
+                            isVisible
+                              ? "translate-y-0 opacity-100"
+                              : "translate-y-4 opacity-0"
+                          )}
+                          style={{
+                            transitionDelay: `${100 + index * 50}ms`,
+                          }}
+                        >
+                          <span>{link.icon}</span>
+                          <span className="tracking-tight">{link.label}</span>
+                        </Link>
+                        <button
+                          onClick={(e) => handleDropdownToggle(link.label, e)}
+                          className="ml-1 p-1 hover:bg-gray-100 focus:outline-none transition-colors duration-200 rounded-full"
+                          aria-expanded={isDropdownOpen(link.label)}
+                          aria-label={`Toggle ${link.label} dropdown`}
+                        >
+                          <ChevronDown
+                            className={`w-4 h-4 transition-transform duration-300 ${
+                              isDropdownOpen(link.label)
+                                ? "rotate-180 text-red-900"
+                                : "rotate-0 text-red-900/70"
+                            }`}
+                          />
+                        </button>
+                      </div>
+                    ) : (
+                      // Regular link without dropdown
                       <Link
                         href={link.href}
                         className={classNames(
-                          "flex items-center px-2 py-1 transition-all duration-300 text-base font-semibold hover:text-red-800 transform",
+                          "group flex items-center px-3 py-2 transition-all duration-300 font-medium tracking-tight rounded-lg hover:bg-red-50 transform",
                           {
                             "text-red-900":
-                              (currentPath.startsWith(link.href) &&
-                                link.href !== "/") ||
+                              currentPath.startsWith(link.href) ||
                               link.href === currentPath,
-                            "text-red-800":
-                              !currentPath.startsWith(link.href) ||
-                              (link.href === "/" && currentPath !== "/"),
-                            "font-bold":
-                              (currentPath.startsWith(link.href) &&
-                                link.href !== "/") ||
-                              link.href === currentPath,
+                            "text-red-900/80":
+                              !currentPath.startsWith(link.href) &&
+                              link.href !== currentPath,
                           },
-                          (currentPath.startsWith(link.href) &&
-                            link.href !== "/") ||
-                            link.href === currentPath
-                            ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900"
-                            : "",
                           isVisible
                             ? "translate-y-0 opacity-100"
                             : "translate-y-4 opacity-0"
@@ -155,98 +227,51 @@ const NavBar = () => {
                           transitionDelay: `${100 + index * 50}ms`,
                         }}
                       >
-                        {link.icon}
-                        {link.label}
+                        <span>{link.icon}</span>
+                        <span className="tracking-tight">{link.label}</span>
                       </Link>
-                      <button
-                        onClick={(e) => handleDropdownToggle(link.label, e)}
-                        className="ml-1 p-1 hover:text-red-800 focus:outline-none"
-                        aria-expanded={isDropdownOpen(link.label)}
-                        aria-label={`Toggle ${link.label} dropdown`}
-                      >
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform duration-300 text-red-900 ${
-                            isDropdownOpen(link.label)
-                              ? "rotate-180"
-                              : "rotate-0"
-                          }`}
-                        />
-                      </button>
-                    </div>
-                  ) : (
-                    // Regular link without dropdown
-                    <Link
-                      href={link.href}
-                      className={classNames(
-                        "group flex items-center px-2 py-1 transition-all duration-300 text-base font-semibold hover:text-red-800 transform",
-                        {
-                          "text-red-900":
-                            (currentPath.startsWith(link.href) &&
-                              link.href !== "/") ||
-                            link.href === currentPath,
-                          "text-red-800":
-                            !currentPath.startsWith(link.href) ||
-                            (link.href === "/" && currentPath !== "/"),
-                          "font-bold":
-                            (currentPath.startsWith(link.href) &&
-                              link.href !== "/") ||
-                            link.href === currentPath,
-                        },
-                        (currentPath.startsWith(link.href) &&
-                          link.href !== "/") ||
-                          link.href === currentPath
-                          ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900"
-                          : "",
-                        isVisible
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      )}
-                      style={{
-                        transitionDelay: `${100 + index * 50}ms`,
-                      }}
-                    >
-                      {link.icon}
-                      {link.label}
-                    </Link>
-                  )}
+                    )}
 
-                  {/* Dropdown menu */}
-                  {link.children && (
-                    <div
-                      className={`absolute left-0 mt-2 z-10 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 transition-all duration-300 ${
-                        isDropdownOpen(link.label)
-                          ? "transform scale-100 opacity-100"
-                          : "transform scale-95 opacity-0 pointer-events-none"
-                      }`}
-                    >
-                      <div className="py-1">
-                        {link.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className={classNames(
-                              "px-4 py-2 text-sm transition-colors duration-200 flex items-center",
-                              {
-                                "bg-red-50 text-red-900 font-bold":
-                                  child.href === currentPath,
-                                "text-red-800 hover:bg-red-50 hover:text-red-800":
-                                  child.href !== currentPath,
-                              }
-                            )}
-                          >
-                            <span className="flex items-center">
-                              {child.icon}
-                              <span className="ml-1">{child.label}</span>
-                            </span>
-                          </Link>
-                        ))}
+                    {/* Dropdown menu */}
+                    {link.children && (
+                      <div
+                        className={`absolute left-0 mt-1 z-10 min-w-[200px] rounded-lg shadow-md bg-white ring-1 ring-black/5 transition-all duration-200 origin-top-left ${
+                          isDropdownOpen(link.label)
+                            ? "transform scale-100 opacity-100"
+                            : "transform scale-95 opacity-0 pointer-events-none"
+                        }`}
+                      >
+                        <div className="py-1 rounded-lg overflow-hidden">
+                          {link.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className={classNames(
+                                "px-4 py-2 transition-all duration-200 flex items-center hover:bg-red-50",
+                                {
+                                  "text-red-900 font-semibold tracking-tight":
+                                    child.href === currentPath,
+                                  "text-red-900/80 font-medium":
+                                    child.href !== currentPath,
+                                }
+                              )}
+                            >
+                              <span className="flex items-center">
+                                <span>{child.icon}</span>
+                                <span className="tracking-tight">
+                                  {child.label}
+                                </span>
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
         </div>
       </header>
     </>

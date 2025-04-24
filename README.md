@@ -1,12 +1,11 @@
 # 🚀 StillSkilled
 
 <p align="center">
-  <img src="path-to-your-logo.png" alt="My Application Logo" width="200">
+  <img src="public/screenshot.png" alt="My Application Logo" width="200">
 </p>
 
 <p align="center">
   A powerful Next.js application built with Supabase integration
-  version.1: https://job-seek-2-f6996frge-tsehaosus-projects.vercel.app/
 </p>
 
 <p align="center">
@@ -17,6 +16,9 @@
   <a href="#🛠️-installation"><strong>Installation</strong></a> ·
   <a href="#📚-documentation"><strong>Documentation</strong></a>
 </p>
+
+
+ - version.1: https://job-seek-2-f6996frge-tsehaosus-projects.vercel.app/
 
 ## ✨ Features
 

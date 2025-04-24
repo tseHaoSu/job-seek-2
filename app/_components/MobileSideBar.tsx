@@ -22,7 +22,10 @@ const MobileSidebar = ({ links }: Props) => {
         <div className="flex justify-between items-center h-16 px-4 bg-gradient-to-r from-red-50 to-red-100">
           <div className="flex items-center gap-2">
             <FaClover className="text-red-800 text-3xl transition-transform duration-300 hover:rotate-12" />
-            <Link href="/" className="font-bold text-red-900">
+            <Link
+              href="/"
+              className="scroll-m-20 text-xl font-extrabold tracking-tight text-red-900"
+            >
               StillSkilled
             </Link>
           </div>
@@ -45,7 +48,9 @@ const MobileSidebar = ({ links }: Props) => {
           <div className="fixed right-0 top-0 h-full w-64 bg-white shadow-lg">
             {/* Close button */}
             <div className="flex justify-between items-center p-4 border-b border-red-100">
-              <h2 className="font-bold text-lg text-red-900">Menu</h2>
+              <h2 className="scroll-m-20 text-lg font-semibold tracking-tight text-red-900">
+                Menu
+              </h2>
               <button onClick={() => setIsOpen(false)}>
                 <X className="h-6 w-6 text-red-800" />
               </button>
@@ -61,8 +66,8 @@ const MobileSidebar = ({ links }: Props) => {
                       className={`flex items-center gap-3 p-2 rounded-md ${
                         currentPath === link.href ||
                         currentPath.startsWith(link.href + "/")
-                          ? "bg-red-100 text-red-900 font-medium"
-                          : "text-gray-700 hover:bg-red-50"
+                          ? "bg-red-100 text-red-900 font-medium tracking-tight"
+                          : "text-gray-700 hover:bg-red-50 tracking-tight"
                       }`}
                       onClick={() => setIsOpen(false)}
                     >
@@ -79,9 +84,9 @@ const MobileSidebar = ({ links }: Props) => {
                             <li key={child.href}>
                               <Link
                                 href={child.href}
-                                className={`flex items-center gap-2 p-1.5 rounded-md text-sm ${
+                                className={`flex items-center gap-2 p-1.5 rounded-md leading-7 ${
                                   currentPath === child.href
-                                    ? "bg-red-50 text-red-900 font-medium"
+                                    ? "bg-red-50 text-red-900 font-medium tracking-tight"
                                     : "text-gray-600 hover:bg-red-50"
                                 }`}
                                 onClick={() => setIsOpen(false)}
@@ -100,7 +105,7 @@ const MobileSidebar = ({ links }: Props) => {
 
             {/* Sign in button */}
             <div className="absolute bottom-8 left-0 right-0 px-4">
-              <button className="w-full bg-red-900 hover:bg-red-950 text-white p-3 rounded-md flex items-center justify-center gap-2 transition-colors">
+              <button className="w-full bg-red-900 hover:bg-red-950 text-white p-3 rounded-md flex items-center justify-center gap-2 transition-colors font-medium tracking-tight">
                 <LogIn className="w-5 h-5" />
                 Sign In
               </button>

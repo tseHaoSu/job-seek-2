@@ -8,7 +8,7 @@ const header = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center ">
       <div className="md:mt-0">
         <Image
-          src="/old-man.jpeg"
+          src="/stock/old-man.jpeg"
           width={500}
           height={500}
           alt="Picture of the author"
