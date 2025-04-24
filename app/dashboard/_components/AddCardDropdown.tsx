@@ -1,6 +1,6 @@
 import React from "react";
 import { X, Plus } from "lucide-react";
-import { CardData } from "./types";
+import { CardData } from "./card-data";
 
 interface AddCardDropdownProps {
   isOpen: boolean;
