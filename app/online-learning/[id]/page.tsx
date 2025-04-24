@@ -5,8 +5,10 @@ import Hero from "./_components/Hero";
 import ModuleCard from "./_components/ModuleCard";
 import QuizCard from "./_components/QuizCard";
 import Video from "@/app/_components/Video";
+import { ProgressConfetti } from "./_components/ProgressConfetti";
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+// Server component
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const category = await prisma.category.findUnique({
     where: {
@@ -54,6 +56,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         heading="Empowering Experience with Digital Confidence"
         subtext="Because learning never stops — nor should you."
       />
+      <ProgressConfetti progressPercentage={progressPercentage} />
+
       <div>
         <Hero
           category={{
@@ -99,4 +103,4 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   );
 };
 
-export default page;
+export default Page;

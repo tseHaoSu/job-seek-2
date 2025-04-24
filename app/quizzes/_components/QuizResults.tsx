@@ -1,112 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CheckCircle, XCircle, Trophy, Star, Home } from "lucide-react";
 import { useQuiz } from "./QuizContext";
-
-// Simple confetti component
-const Confetti = () => {
-  interface Particle {
-    id: number;
-    x: number;
-    y: number;
-    size: number;
-    color: string;
-    rotation: number;
-    speedX: number;
-    speedY: number;
-  }
-  
-  const [particles, setParticles] = useState<Particle[]>([]);
-
-  useEffect(() => {
-    // Create 100 confetti particles
-    const newParticles = [];
-    const colors = [
-      "#f44336",
-      "#e91e63",
-      "#9c27b0",
-      "#673ab7",
-      "#3f51b5",
-      "#2196f3",
-      "#03a9f4",
-      "#00bcd4",
-      "#009688",
-      "#4CAF50",
-      "#8BC34A",
-      "#CDDC39",
-      "#FFEB3B",
-      "#FFC107",
-      "#FF9800",
-      "#FF5722",
-    ];
-
-    for (let i = 0; i < 100; i++) {
-      newParticles.push({
-        id: i,
-        x: Math.random() * 100, // Random x position (0-100%)
-        y: -20 - Math.random() * 80, // Start above the viewport
-        size: 5 + Math.random() * 10, // Random size
-        color: colors[Math.floor(Math.random() * colors.length)], // Random color
-        rotation: Math.random() * 360, // Random rotation
-        speedX: -2 + Math.random() * 4, // Random horizontal speed
-        speedY: 2 + Math.random() * 2, // Random fall speed
-      });
-    }
-
-    setParticles(newParticles);
-
-    // Animation loop
-    let animationId: number;
-    let startTime = Date.now();
-
-    const animate = () => {
-      const currentTime = Date.now();
-      const elapsed = currentTime - startTime;
-
-      if (elapsed > 5000) {
-        // Stop after 5 seconds
-        cancelAnimationFrame(animationId);
-        return;
-      }
-
-      setParticles((prevParticles) =>
-        prevParticles.map((particle) => ({
-          ...particle,
-          y: particle.y + particle.speedY,
-          x: particle.x + particle.speedX,
-          rotation: particle.rotation + 1,
-        }))
-      );
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-50">
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="absolute"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            width: `${particle.size}px`,
-            height: `${particle.size}px`,
-            backgroundColor: particle.color,
-            transform: `rotate(${particle.rotation}deg)`,
-            opacity: 0.8,
-          }}
-        />
-      ))}
-    </div>
-  );
-};
+import Confetti from "./Confetti";
 
 const QuizResults = () => {
   const { quiz, userAnswers, resetQuiz, exitQuiz } = useQuiz();
@@ -115,13 +10,6 @@ const QuizResults = () => {
   // Start confetti on component mount
   useEffect(() => {
     setShowConfetti(true);
-
-    // Optional: Hide confetti after some time
-    const timer = setTimeout(() => {
-      setShowConfetti(false);
-    }, 6000);
-
-    return () => clearTimeout(timer);
   }, []);
 
   // Show a simple message if quiz is null
@@ -166,7 +54,11 @@ const QuizResults = () => {
 
   return (
     <>
-      {showConfetti && <Confetti />}
+      <Confetti
+        isVisible={showConfetti}
+        duration={6000}
+        onComplete={() => setShowConfetti(false)}
+      />
 
       <div className="mx-auto">
         <div className="mb-8">
