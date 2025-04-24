@@ -5,12 +5,12 @@ import Header2 from "./_components/Header2";
 
 const Page = () => {
   return (
-    <div>
+    <>
       <Header />
       <Banner />
       <Header2 />
       <Categories />
-    </div>
+    </>
   );
 };
 

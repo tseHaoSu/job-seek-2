@@ -26,9 +26,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     })),
   };
   return (
-    <div>
+    <>
       <TrueFalseQuiz quiz={quizData} />
-    </div>
+    </>
   );
 };
 

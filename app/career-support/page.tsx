@@ -6,11 +6,11 @@ import CareerCards from './_components/CareerCards';
 
 const page = () => {
   return (
-    <div>
+    <>
       <Hero />
       <Banner />
       <CareerCards />
-    </div>
+    </>
   );
 }
 

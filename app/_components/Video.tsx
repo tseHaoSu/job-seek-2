@@ -14,7 +14,7 @@ const Video = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* Content overlay with improved layout */}
+      {/* Content overlay */}
       <div className="absolute inset-0 bg-black/40 flex items-center">
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <div className="max-w-3xl">
