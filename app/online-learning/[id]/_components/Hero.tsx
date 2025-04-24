@@ -52,8 +52,8 @@ const Hero = ({ category, stats, imagePath = "/old-man.jpeg" }: HeroProps) => {
             <BookOpen className="h-4 w-4 mr-1" />
             {completedModules} out of {totalModules} Modules Complete
           </span>
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-300 text-red-600 w-fit">
-            <BookOpen className="h-4 w-4 mr-1" />
+          
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-300 text-red-600 w-fit">
             Reset Progress
           </span>
           <span className="flex flex-col gap-1">

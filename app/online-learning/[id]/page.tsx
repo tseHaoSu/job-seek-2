@@ -57,7 +57,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         subtext="Because learning never stops — nor should you."
       />
       <ProgressConfetti progressPercentage={progressPercentage} />
-
       <div>
         <Hero
           category={{
