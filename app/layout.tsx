@@ -7,7 +7,6 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,11 +34,11 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <PasswordProtect>
-          <NavBar/>
-          <main className="max-w-[1200px] mx-auto mb-20">
+          <NavBar />
+          <main className="max-w-[1200px] mx-auto mb-20 space-y-20 sm:px-6 lg:px-8">
             {children}
-            <SpeedInsights/>
-            <Analytics/>
+            <SpeedInsights />
+            <Analytics />
           </main>
           <Footer />
         </PasswordProtect>

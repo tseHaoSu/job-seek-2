@@ -2,10 +2,16 @@ import Banner from "./_components/Banner";
 import Categories from "./_components/Categories";
 import Header from "./_components/Header";
 import Header2 from "./_components/Header2";
+import Video from "@/app/_components/Video";
 
 const Page = () => {
   return (
     <>
+      <Video
+        videoSrc="/video/learning.mp4"
+        heading="Explore in demand technologies"
+        subtext="Because learning never stops — nor should you."
+      />
       <Header />
       <Banner />
       <Header2 />

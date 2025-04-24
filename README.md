@@ -6,6 +6,7 @@
 
 <p align="center">
   A powerful Next.js application built with Supabase integration
+  version.1: https://job-seek-2-f6996frge-tsehaosus-projects.vercel.app/
 </p>
 
 <p align="center">

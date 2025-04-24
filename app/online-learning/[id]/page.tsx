@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import Hero from "./_components/Hero";
 import ModuleCard from "./_components/ModuleCard";
 import QuizCard from "./_components/QuizCard";
+import Video from "@/app/_components/Video";
 
-const page = async ({ params }: { params: Promise<{ id: string }>}) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const category = await prisma.category.findUnique({
     where: {
@@ -47,47 +48,54 @@ const page = async ({ params }: { params: Promise<{ id: string }>}) => {
   };
 
   return (
-    <div className="mx-auto sm:px-6 lg:px-8">
-      <Hero
-        category={{
-          name: category.name,
-          description: category.description || "No description available.",
-        }}
-        stats={stats}
+    <>
+      <Video
+        videoSrc="/video/question.mp4"
+        heading="Empowering Experience with Digital Confidence"
+        subtext="Because learning never stops — nor should you."
       />
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
-        <Trophy className="mr-2 h-7 w-7 text-red-600" />
-        Simple Action Guides
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-        {category.modules.map((module) => (
-          <ModuleCard key={module.id} module={module} />
-        ))}
-        {category.modules.length === 0 && (
-          <div className="col-span-full text-center py-8">
-            <p className="text-gray-500 text-lg">
-              No learning modules available in this category yet.
-            </p>
-          </div>
-        )}
+      <div>
+        <Hero
+          category={{
+            name: category.name,
+            description: category.description || "No description available.",
+          }}
+          stats={stats}
+        />
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+          <Trophy className="mr-2 h-7 w-7 text-red-600" />
+          Simple Action Guides
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {category.modules.map((module) => (
+            <ModuleCard key={module.id} module={module} />
+          ))}
+          {category.modules.length === 0 && (
+            <div className="col-span-full text-center py-8">
+              <p className="text-gray-500 text-lg">
+                No learning modules available in this category yet.
+              </p>
+            </div>
+          )}
+        </div>
+        <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
+          <Award className="mr-2 h-7 w-7 text-red-600" />
+          Try it Yourself!
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {category.quizzes.map((quiz) => (
+            <QuizCard key={quiz.id} quiz={quiz} />
+          ))}
+          {category.quizzes.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">
+                No quizzes available in this category.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-      <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
-        <Award className="mr-2 h-7 w-7 text-red-600" />
-        Try it Yourself!
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {category.quizzes.map((quiz) => (
-          <QuizCard key={quiz.id} quiz={quiz} />
-        ))}
-        {category.quizzes.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
-              No quizzes available in this category.
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

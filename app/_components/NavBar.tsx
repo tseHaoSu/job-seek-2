@@ -35,6 +35,7 @@ const NavBar = () => {
 
   const handleDropdownToggle = (label: string, e: React.MouseEvent) => {
     // Prevent the event from bubbling up to potential parent link elements
+    e.preventDefault();
     e.stopPropagation();
     setOpenDropdown(openDropdown === label ? null : label);
   };
@@ -50,11 +51,6 @@ const NavBar = () => {
       href: "/online-learning",
       icon: <GraduationCap className="w-4 h-4 mr-1" />,
       children: [
-        {
-          label: "Tools Home",
-          href: "/online-learning",
-          icon: <GraduationCap className="w-4 h-4 mr-1" />,
-        },
         {
           label: "Tools Guide",
           href: "/online-learning/1",
@@ -72,11 +68,6 @@ const NavBar = () => {
       href: "/career-support",
       icon: <Coffee className="w-4 h-4 mr-1" />,
       children: [
-        {
-          label: "Career Support Home",
-          href: "/career-support",
-          icon: <Coffee className="w-4 h-4 mr-1" />,
-        },
         {
           label: "Resume Builder",
           href: "/career-support/resume-support",
@@ -132,51 +123,62 @@ const NavBar = () => {
               {links.map((link, index) => (
                 <li key={link.href} className="relative">
                   {link.children ? (
-                    // If link has children, make it a div for dropdown
-                    <div
-                      className={classNames(
-                        "group flex items-center px-2 py-1 cursor-pointer transition-all duration-300 text-base font-medium hover:text-red-800 transform",
-                        {
-                          "text-red-900":
-                            (currentPath.startsWith(link.href) &&
-                              link.href !== "/") ||
-                            link.href === currentPath,
-                          "text-red-800":
-                            !currentPath.startsWith(link.href) ||
-                            (link.href === "/" && currentPath !== "/"),
-                          "font-bold":
-                            (currentPath.startsWith(link.href) &&
-                              link.href !== "/") ||
-                            link.href === currentPath,
-                        },
-                        (currentPath.startsWith(link.href) &&
-                          link.href !== "/") ||
-                          link.href === currentPath
-                          ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900"
-                          : "",
-                        isVisible
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      )}
-                      style={{
-                        transitionDelay: `${100 + index * 50}ms`,
-                      }}
-                      onClick={(e) => handleDropdownToggle(link.label, e)}
-                    >
-                      {link.icon}
-                      {link.label}
-                      <ChevronDown
-                        className={`ml-1 w-4 h-4 transition-transform duration-300 ${
-                          isDropdownOpen(link.label) ? "rotate-180" : "rotate-0"
-                        }`}
-                      />
+                    // Link with dropdown - Main label now acts as a link
+                    <div className="flex items-center group">
+                      <Link
+                        href={link.href}
+                        className={classNames(
+                          "flex items-center px-2 py-1 transition-all duration-300 text-base font-semibold hover:text-red-800 transform",
+                          {
+                            "text-red-900":
+                              (currentPath.startsWith(link.href) &&
+                                link.href !== "/") ||
+                              link.href === currentPath,
+                            "text-red-800":
+                              !currentPath.startsWith(link.href) ||
+                              (link.href === "/" && currentPath !== "/"),
+                            "font-bold":
+                              (currentPath.startsWith(link.href) &&
+                                link.href !== "/") ||
+                              link.href === currentPath,
+                          },
+                          (currentPath.startsWith(link.href) &&
+                            link.href !== "/") ||
+                            link.href === currentPath
+                            ? "after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-red-900"
+                            : "",
+                          isVisible
+                            ? "translate-y-0 opacity-100"
+                            : "translate-y-4 opacity-0"
+                        )}
+                        style={{
+                          transitionDelay: `${100 + index * 50}ms`,
+                        }}
+                      >
+                        {link.icon}
+                        {link.label}
+                      </Link>
+                      <button
+                        onClick={(e) => handleDropdownToggle(link.label, e)}
+                        className="ml-1 p-1 hover:text-red-800 focus:outline-none"
+                        aria-expanded={isDropdownOpen(link.label)}
+                        aria-label={`Toggle ${link.label} dropdown`}
+                      >
+                        <ChevronDown
+                          className={`w-4 h-4 transition-transform duration-300 text-red-900 ${
+                            isDropdownOpen(link.label)
+                              ? "rotate-180"
+                              : "rotate-0"
+                          }`}
+                        />
+                      </button>
                     </div>
                   ) : (
-                    // If link has no children, make it a Link for direct navigation
+                    // Regular link without dropdown
                     <Link
                       href={link.href}
                       className={classNames(
-                        "group flex items-center px-2 py-1 transition-all duration-300 text-base font-medium hover:text-red-800 transform",
+                        "group flex items-center px-2 py-1 transition-all duration-300 text-base font-semibold hover:text-red-800 transform",
                         {
                           "text-red-900":
                             (currentPath.startsWith(link.href) &&

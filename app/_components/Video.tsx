@@ -1,8 +1,14 @@
 import React from "react";
 
-const Video = () => {
+interface VideoProps {
+  videoSrc: string;
+  heading: string;
+  subtext: string;
+}
+
+const Video: React.FC<VideoProps> = ({ videoSrc, heading, subtext }) => {
   return (
-    <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-[800px] mb-12">
+    <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-[600px] mb-12">
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
         autoPlay
@@ -10,7 +16,7 @@ const Video = () => {
         muted
         playsInline
       >
-        <source src="/teaching.mp4" type="video/mp4" />
+        <source src={videoSrc} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
@@ -19,11 +25,9 @@ const Video = () => {
         <div className="container mx-auto px-4 md:px-8 lg:px-12">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Empowering Experience with Digital Confidence
+              {heading}
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-8">
-              Because learning never stops — nor should you.
-            </p>
+            <p className="text-xl md:text-2xl text-white mb-8">{subtext}</p>
           </div>
         </div>
       </div>
