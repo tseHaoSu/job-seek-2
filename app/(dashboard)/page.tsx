@@ -5,6 +5,7 @@ import DataSection from "../_components/DataSection";
 import Hero from "../_components/Hero";
 import SecondBanner from "../_components/SecondBanner";
 import Video from "../_components/Video";
+import AIAssistant from "../_components/AIAssistant";
 
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         <SecondBanner />
         <DataSection />
       </div>
+      <AIAssistant />
     </>
   );
 }
