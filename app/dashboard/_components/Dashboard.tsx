@@ -27,7 +27,7 @@ import {
 
 import { SaveSuccessMessage } from "./SaveSuccessMessage";
 import { AddCardDropdown } from "./AddCardDropdown";
-import { initialCards, additionalCardTemplates } from "./card-data";
+import { cards } from "./card-data";
 import { CardItem } from "./CardItem";
 import { DashboardHeader } from "./DashboardHeader";
 import { SortableCard } from "./SortableCard";
@@ -37,10 +37,7 @@ import { CardData } from "./card-data";
 
 const Dashboard = () => {
   // Combine initial cards with additional card templates
-  const [allCards, setAllCards] = useState<CardData[]>([
-    ...initialCards,
-    ...additionalCardTemplates,
-  ]);
+  const [allCards, setAllCards] = useState<CardData[]>([...cards]);
 
   const [activeId, setActiveId] = useState<number | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);

@@ -1,28 +1,27 @@
 import {
-    BarChart,
-    Book,
-    Briefcase,
-    CalendarDays,
-    FileText,
-    GraduationCap,
-    MessageSquare,
-    Users,
-    Video,
+  BarChart,
+  Book,
+  Briefcase,
+  CalendarDays,
+  FileText,
+  GraduationCap,
+  MessageSquare,
+  Users,
+  Video,
 } from "lucide-react";
-
-import { FC } from "react";
 
 export interface CardData {
   id: number;
   title: string;
   description: string;
   url: string;
-  icon: FC<{ className?: string }>;
+  icon: React.ElementType;
   pinned?: boolean;
   hidden?: boolean;
 }
 
-export const initialCards: CardData[] = [
+export const cards = [
+  // Initial visible cards
   {
     id: 1,
     title: "Resume Builder",
@@ -68,34 +67,8 @@ export const initialCards: CardData[] = [
     url: "/tools/resources",
     icon: Book,
   },
-  {
-    id: 7,
-    title: "Event Calendar",
-    description:
-      "Stay updated with upcoming career fairs and networking events",
-    url: "/tools/events",
-    icon: CalendarDays,
-  },
-  {
-    id: 8,
-    title: "Mentorship",
-    description:
-      "Connect with industry professionals for guidance and advice. Get matched with mentors in your field who can provide personalized career coaching.",
-    url: "/tools/mentorship",
-    icon: MessageSquare,
-  },
-  {
-    id: 9,
-    title: "Career Analytics",
-    description:
-      "View insights and trends to optimize your job search strategy",
-    url: "/tools/analytics",
-    icon: BarChart,
-  },
-];
 
-// Additional card templates that can be added from the dropdown
-export const additionalCardTemplates: CardData[] = [
+  // Additional hidden cards
   {
     id: 10,
     title: "Salary Calculator",
@@ -118,6 +91,33 @@ export const additionalCardTemplates: CardData[] = [
     description: "Learn effective networking strategies for career growth",
     url: "/tools/networking",
     icon: Users,
+    hidden: true,
+  },
+  {
+    id: 7,
+    title: "Event Calendar",
+    description:
+      "Stay updated with upcoming career fairs and networking events",
+    url: "/tools/events",
+    icon: CalendarDays,
+    hidden: true,
+  },
+  {
+    id: 8,
+    title: "Mentorship",
+    description:
+      "Connect with industry professionals for guidance and advice. Get matched with mentors in your field who can provide personalized career coaching.",
+    url: "/tools/mentorship",
+    icon: MessageSquare,
+    hidden: true,
+  },
+  {
+    id: 9,
+    title: "Career Analytics",
+    description:
+      "View insights and trends to optimize your job search strategy",
+    url: "/tools/analytics",
+    icon: BarChart,
     hidden: true,
   },
 ];

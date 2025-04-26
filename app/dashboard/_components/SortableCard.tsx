@@ -38,13 +38,15 @@ export const SortableCard: React.FC<SortableCardProps> = ({
     ? "border border-gray-200 bg-white shadow-xl ring-2 ring-red-500"
     : "border border-gray-200 bg-white shadow-md";
 
+  // Safely render the icon using dynamic component
+  const IconComponent = card.icon;
+
   return (
     <div ref={setNodeRef} style={style} className="h-full">
       <div
         className={`${cardClass} p-6 rounded-2xl ${
           isDragging ? "shadow-none opacity-0" : "shadow-md"
         } hover:shadow-lg transition-all duration-300 h-full flex flex-col relative group backdrop-blur-sm`}
-        style={{ visibility: isDragging ? "hidden" : "visible" }}
       >
         {/* Action buttons that appear on hover */}
         <div className="absolute top-3 right-3 flex space-x-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-20">
@@ -60,7 +62,6 @@ export const SortableCard: React.FC<SortableCardProps> = ({
               <Pin className="h-4 w-4" />
             )}
           </button>
-
           {/* Remove button */}
           <button
             onClick={() => onRemove(card.id)}
@@ -69,7 +70,6 @@ export const SortableCard: React.FC<SortableCardProps> = ({
           >
             <X className="h-4 w-4" />
           </button>
-
           {/* Drag handle */}
           <div
             {...attributes}
@@ -79,7 +79,6 @@ export const SortableCard: React.FC<SortableCardProps> = ({
             <GripVertical className="h-4 w-4 text-red-400" />
           </div>
         </div>
-
         {/* Card indicators (pinned) */}
         {card.pinned && (
           <div className="absolute top-4 right-4 flex z-10">
@@ -91,24 +90,26 @@ export const SortableCard: React.FC<SortableCardProps> = ({
 
         <div className="mb-6 relative z-10">
           <div className="p-3 bg-gradient-to-br from-red-50 to-red-100 rounded-2xl inline-flex items-center justify-center">
-            <card.icon className="h-6 w-6 text-red-600" />
+            {React.createElement(IconComponent, {
+              className: "h-6 w-6 text-red-600",
+            })}
           </div>
         </div>
 
         <h3 className="scroll-m-20 text-xl font-semibold tracking-tight text-gray-900 mb-3 relative z-10">
           {card.title}
         </h3>
-
         <p className="leading-7 text-gray-600 mb-6 flex-grow relative z-10">
           {card.description}
         </p>
-
-        <Link href={card.url} className="block mt-auto">
-          <Button className="w-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white rounded-xl py-2.5 relative z-10 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center font-medium">
-            Access Tool
-            <ExternalLink className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
+        <div className="flex justify- mt-auto">
+          <Link href={card.url} className="block mt-auto">
+            <Button className="w-full bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white rounded-xl py-2.5 relative z-10 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center font-medium">
+              Access Tool
+              <ExternalLink className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );
