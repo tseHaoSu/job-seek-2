@@ -1,6 +1,6 @@
 export const DashboardHeader = () => {
   return (
-    <div className="mb-8">
+    <div className="mb-8 space-y-15">
       <h1 className="text-3xl font-extrabold text-red-900 mb-4">
         My Dashboard
       </h1>
@@ -11,9 +11,6 @@ export const DashboardHeader = () => {
             resource below to get started.
           </em>
         </h3>
-        <p className="mt-2 text-center text-red-700">
-          <em>Drag and drop cards to customize your dashboard layout!</em>
-        </p>
       </div>
     </div>
   );

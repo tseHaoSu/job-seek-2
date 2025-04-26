@@ -1,6 +1,7 @@
 import { prisma } from "@/prisma/client";
 import TrueFalseQuiz from "../_components/TrueFalseQuiz";
 import { notFound } from "next/navigation";
+import Video from "@/app/_components/Video";
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -27,6 +28,11 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   };
   return (
     <>
+      <Video
+        videoSrc="/video/question.mp4"
+        heading="Empowering Experience with Digital Confidence"
+        subtext="Because learning never stops — nor should you."
+      />
       <TrueFalseQuiz quiz={quizData} />
     </>
   );

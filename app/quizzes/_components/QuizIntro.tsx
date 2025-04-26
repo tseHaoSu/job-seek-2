@@ -49,7 +49,7 @@ const QuizIntro = () => {
       </div>
       <div className="order-1 lg:order-2">
         <Image
-          src="/double1.jpeg"
+          src="/stock/double1.jpeg"
           width={600}
           height={600}
           alt="Quiz featured image"

@@ -64,6 +64,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             description: category.description || "No description available.",
           }}
           stats={stats}
+          imagePath="/stock/old-man.jpeg"
         />
         <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
           <Trophy className="mr-2 h-7 w-7 text-red-600" />
