@@ -1,8 +1,11 @@
 "use client";
 
-import { BookOpen, Star } from "lucide-react";
-import React from "react";
+import { BookOpen, Star, X } from "lucide-react";
+import React, { useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export interface Category {
   name: string;
@@ -34,6 +37,21 @@ const Hero = ({ category, stats, imagePath = "/old-man.jpeg" }: HeroProps) => {
     progressPercentage,
   } = stats;
 
+  const [isResetting, setIsResetting] = useState(false);
+  const router = useRouter();
+
+  const resetProgress = async () => {
+    try {
+      setIsResetting(true);
+      await axios.patch("/api/attempt-change");
+      router.refresh();
+    } catch (error) {
+      console.error("Error resetting progress:", error);
+    } finally {
+      setIsResetting(false);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
       <div className="order-2 lg:order-1 space-y-6">
@@ -52,9 +70,12 @@ const Hero = ({ category, stats, imagePath = "/old-man.jpeg" }: HeroProps) => {
             <BookOpen className="h-4 w-4 mr-1" />
             {completedModules} out of {totalModules} Modules Complete
           </span>
-          
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-red-300 text-red-600 w-fit">
-            Reset Progress
+          <span
+            onClick={resetProgress}
+            className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-300 text-red-600 w-fit hover:bg-red-400 hover:text-red-700 transition-colors cursor-pointer"
+          >
+            <X className="h-4 w-4 mr-1" />
+            {isResetting ? "Resetting..." : "Reset Progress"}
           </span>
           <span className="flex flex-col gap-1">
             <div className="flex justify-between items-center text-sm text-gray-600 mb-1">
