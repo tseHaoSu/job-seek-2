@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const response = await fetch("http://20.5.25.37:8000/generate_cv", {
+    const response = await fetch("http://20.92.167.242:8000/generate_cv", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -18,6 +18,7 @@ import ResultCard from "./ResultCard";
 import { formSchema } from "./schema";
 import { ResumeData } from "./types";
 import WorkExperienceSection from "./WorkExperienceSection";
+import LoadingAnimation from "./LoadingAnimation";
 
 const Form = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -127,12 +128,24 @@ const Form = () => {
           </form>
         </CardContent>
       </Card>
-      {resumeData && (
-        <ResultCard
-          resumeData={resumeData}
-          onClose={() => setResumeData(null)}
-        />
+      
+      <div className="relative w-full max-w-4xl mx-auto">
+
+      {/* animation */}
+      {isSubmitting && (
+        <div className="absolute inset-0 bg-white/80 flex flex-col items-center justify-center z-50 rounded-md">
+          <LoadingAnimation />
+          <p className="text-red-800 mt-4 text-center text-lg">AI is generating your resume, please wait...</p>
+        </div>
       )}
+      
+        {resumeData && (
+          <ResultCard
+            resumeData={resumeData}
+            onClose={() => setResumeData(null)}
+          />
+        )}
+      </div>
     </div>
   );
 };

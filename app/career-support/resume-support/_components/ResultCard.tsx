@@ -1,3 +1,5 @@
+"use client";  // Ensure this is a client-side component
+
 import {
   Card,
   CardContent,
