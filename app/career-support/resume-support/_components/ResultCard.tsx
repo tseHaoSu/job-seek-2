@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DownloadIcon, XIcon } from "lucide-react";
+import { generateResumePDF } from "./generatePDF";
+
 
 interface ResultCardProps {
   resumeData: any;
@@ -87,7 +89,10 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
           <XIcon size={16} className="mr-1" />
           Close
         </Button>
-        <Button className="bg-red-800 hover:bg-red-900 focus:ring-red-400">
+        <Button
+          className="bg-red-800 hover:bg-red-900 focus:ring-red-400"
+          onClick={() => generateResumePDF(resumeData)}
+        >
           <DownloadIcon size={16} className="mr-1" />
           Download PDF
         </Button>
