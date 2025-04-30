@@ -57,7 +57,6 @@ npm install
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to see your application in action!
 
 ## 📋 Requirements
 

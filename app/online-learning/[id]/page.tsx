@@ -6,6 +6,7 @@ import ModuleCard from "./_components/ModuleCard";
 import QuizCard from "./_components/QuizCard";
 import Video from "@/app/_components/Video";
 import { ProgressConfetti } from "./_components/ProgressConfetti";
+import Hint from "@/app/_components/Hint";
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -55,7 +56,9 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
         heading="Empowering Experience with Digital Confidence"
         subtext="Because learning never stops — nor should you."
       />
-      <ProgressConfetti progressPercentage={progressPercentage} />
+      <Hint label="Learn in-demand tools!" side="top" sideOffset={20}>
+        <ProgressConfetti progressPercentage={progressPercentage} />
+      </Hint>
       <div>
         <Hero
           category={{

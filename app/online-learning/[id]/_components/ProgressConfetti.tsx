@@ -39,11 +39,11 @@ export function ProgressConfetti({
       {showReplayButton && (
         <button
           onClick={replayConfetti}
-          className="fixed bottom-6 right-6 z-50 h-14 w-14 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg transform transition-transform hover:scale-110 focus:outline-none"
+          className="fixed bottom-32 right-8 z-50 h-16 w-16 flex items-center justify-center bg-red-600 hover:bg-red-700 text-white rounded-full shadow-lg transform transition-transform hover:scale-110 focus:outline-none"
           aria-label="Replay celebration"
           title="Replay celebration"
         >
-          <span className="text-2xl">🎉</span>
+          <span className="text-3xl">🎉</span>
         </button>
       )}
     </>
