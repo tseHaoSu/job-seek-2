@@ -28,10 +28,10 @@ const header = () => {
           <Link href="/online-learning/1">
             <Button
               variant="outline"
-              className="bg-red-800 hover:bg-red-900 text-white text-lg w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300 hover:text-white"
+              className="bg-red-800 hover:bg-red-900 text-white text-md w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300 hover:text-white"
             >
               <Sparkles className="mr-2" />
-              Try it out
+              Start Learning!
             </Button>
           </Link>
         </div>

@@ -15,13 +15,13 @@ const Hero = () => {
           Because learning never stops — and neither should you.
         </h3>
         <div>
-          <Link href="/online-learning/tool-selection">
+          <Link href="/online-learning/dashboard">
             <Button
-              variant="outline"
-              className="bg-red-800 hover:bg-red-900 text-white text-lg w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
+              variant="default"
+              className="bg-red-800 hover:bg-red-900 text-white text-md w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
             >
               <Sparkles className="mr-2" />
-              Try it out
+              Go to Dashboard
             </Button>
           </Link>
         </div>

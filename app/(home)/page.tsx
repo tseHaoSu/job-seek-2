@@ -6,6 +6,7 @@ import SecondBanner from "../_components/SecondBanner";
 import Video from "../_components/Video";
 import AIAssistant from "../_components/AIAssistant";
 import { PrismaClient } from "@prisma/client";
+import Dashboard from "../dashboard/_components/Dashboard";
 
 export default function Home() {
   return (

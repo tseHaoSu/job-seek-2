@@ -69,30 +69,7 @@ export const cards = [
   },
 
   // Additional hidden cards
-  {
-    id: 10,
-    title: "Salary Calculator",
-    description: "Compare salaries across industries and regions",
-    url: "/tools/salary",
-    icon: BarChart,
-    hidden: true,
-  },
-  {
-    id: 11,
-    title: "Portfolio Builder",
-    description: "Create a professional online portfolio to showcase your work",
-    url: "/tools/portfolio",
-    icon: Briefcase,
-    hidden: true,
-  },
-  {
-    id: 12,
-    title: "Networking Tips",
-    description: "Learn effective networking strategies for career growth",
-    url: "/tools/networking",
-    icon: Users,
-    hidden: true,
-  },
+  
   {
     id: 7,
     title: "Event Calendar",

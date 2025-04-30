@@ -173,10 +173,7 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 ">
-      {/* Dashboard Header */}
       <DashboardHeader />
-
-      {/* Dashboard Actions */}
       <div className="flex justify-between items-center mb-6">
         <div>{saveSuccess && <SaveSuccessMessage />}</div>
         <div className="flex items-center space-x-3 relative">

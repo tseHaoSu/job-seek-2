@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRive, useStateMachineInput, Layout, Fit, Alignment } from "@rive-app/react-canvas";
+import Hint from "./Hint";
 
 const AIAssistant = () => {
   const [open, setOpen] = useState(false);  // Controls the visibility of the chat window
@@ -65,35 +66,41 @@ const AIAssistant = () => {
   return (
     <>
       {/* Icon part */}
-      <div
-        onMouseEnter={handleMouseEnter}  // Trigger hovered animation on mouse enter
-        onMouseLeave={handleMouseLeave}   // Trigger idle animation on mouse leave
-        onClick={handleClick}  // Trigger clicked animation on click
-        style={{
-          position: "fixed",
-          bottom: "40px",  // Increased space between icon and the bottom edge
-          right: "30px",   // Increased space between icon and the right edge
-          width: "14vw",    // Adjusted icon size with viewport width
-          height: "14vw",   // Adjusted icon size with viewport width
-          maxWidth: "160px", // Set a maximum size for the icon
-          maxHeight: "160px", // Set a maximum size for the icon
-          cursor: "pointer",
-          zIndex: 1000,
-          background: "transparent",
-        }}
+      <Hint
+        label="Chat with me!"
+        side="top"
+        sideOffset={80}
       >
-        <RiveComponent />
-      </div>
+        <div
+          onMouseEnter={handleMouseEnter} // Trigger hovered animation on mouse enter
+          onMouseLeave={handleMouseLeave} // Trigger idle animation on mouse leave
+          onClick={handleClick} // Trigger clicked animation on click
+          style={{
+            position: "fixed",
+            bottom: "10px", // Increased space between icon and the bottom edge
+            right: "10px", // Increased space between icon and the right edge
+            width: "14vw", // Adjusted icon size with viewport width
+            height: "14vw", // Adjusted icon size with viewport width
+            maxWidth: "120px", // Set a maximum size for the icon
+            maxHeight: "120px", // Set a maximum size for the icon
+            cursor: "pointer",
+            zIndex: 1000,
+            background: "transparent",
+          }}
+        >
+          <RiveComponent />
+        </div>
+      </Hint>
 
       {/* Chat window part */}
       {open && (
         <div
           style={{
             position: "fixed",
-            bottom: "190px",  // Increased space between window and icon (moved up)
-            right: "30px",   // Increased space between window and right edge
-            width: "30vw",    // Dynamic width based on viewport size
-            height: "45vh",   // Dynamic height based on viewport height
+            bottom: "190px", // Increased space between window and icon (moved up)
+            right: "30px", // Increased space between window and right edge
+            width: "30vw", // Dynamic width based on viewport size
+            height: "45vh", // Dynamic height based on viewport height
             backgroundColor: "#fff",
             border: "1px solid #ccc",
             borderRadius: "10px",
@@ -102,13 +109,13 @@ const AIAssistant = () => {
             zIndex: 999,
             display: "flex",
             flexDirection: "column", // Align the contents vertically
-            maxWidth: "400px",  // Max width to prevent overflow
+            maxWidth: "400px", // Max width to prevent overflow
             maxHeight: "500px", // Max height to prevent overflow
           }}
         >
           <div
             style={{
-              backgroundColor: "#D35D5D",  // Red color for the top bar
+              backgroundColor: "#D35D5D", // Red color for the top bar
               color: "white",
               padding: "10px",
               borderRadius: "5px",
@@ -117,7 +124,9 @@ const AIAssistant = () => {
               alignItems: "center",
             }}
           >
-            <div style={{ fontSize: "16px", fontWeight: "bold" }}>Chat with MoVA</div>
+            <div style={{ fontSize: "16px", fontWeight: "bold" }}>
+              Chat with MoVA
+            </div>
             <button
               onClick={handleClose}
               style={{
@@ -134,11 +143,11 @@ const AIAssistant = () => {
           {/* Message display part */}
           <div
             style={{
-              flexGrow: 1,  // Let this part take up all available space
+              flexGrow: 1, // Let this part take up all available space
               margin: "20px 0",
               fontSize: "14px",
               color: "#666",
-              overflowY: "auto",  // Enable scrolling if needed
+              overflowY: "auto", // Enable scrolling if needed
             }}
           >
             <p>Just logging you in now...</p>

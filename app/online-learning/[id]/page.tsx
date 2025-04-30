@@ -7,7 +7,6 @@ import QuizCard from "./_components/QuizCard";
 import Video from "@/app/_components/Video";
 import { ProgressConfetti } from "./_components/ProgressConfetti";
 
-// Server component
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const category = await prisma.category.findUnique({
@@ -48,7 +47,6 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     quizStats,
     progressPercentage,
   };
-
 
   return (
     <>

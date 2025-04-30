@@ -142,7 +142,6 @@ const NavBar = () => {
         }`}
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Combined navbar with logo and links */}
           <div className="flex items-center justify-between h-16">
             {/* Logo area */}
             <div className="flex items-center space-x-3">
@@ -159,13 +158,11 @@ const NavBar = () => {
               </Link>
             </div>
 
-            {/* Navigation links */}
             <nav>
               <ul className="flex flex-row space-x-6">
                 {links.map((link, index) => (
                   <li key={link.href} className="relative group">
                     {link.children ? (
-                      // Link with dropdown
                       <div className="flex items-center">
                         <Link
                           href={link.href}
@@ -190,6 +187,7 @@ const NavBar = () => {
                           <span>{link.icon}</span>
                           <span className="tracking-tight">{link.label}</span>
                         </Link>
+                        
                         <button
                           onClick={(e) => handleDropdownToggle(link.label, e)}
                           className="ml-1 p-1 hover:bg-gray-100 focus:outline-none transition-colors duration-200 rounded-full"
@@ -206,7 +204,6 @@ const NavBar = () => {
                         </button>
                       </div>
                     ) : (
-                      // Regular link without dropdown
                       <Link
                         href={link.href}
                         className={classNames(
