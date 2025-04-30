@@ -53,7 +53,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <>
       <Video
-        videoSrc="/video/question.mp4"
+        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
         heading="Empowering Experience with Digital Confidence"
         subtext="Because learning never stops — nor should you."
       />

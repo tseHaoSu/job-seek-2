@@ -3,8 +3,8 @@ import TrueFalseQuiz from "../_components/TrueFalseQuiz";
 import { notFound } from "next/navigation";
 import Video from "@/app/_components/Video";
 
-const page = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
   const quiz = await prisma.quiz.findUnique({
     where: { id: parseInt(id) },
     include: {
@@ -33,7 +33,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <Video
-        videoSrc="/video/question.mp4"
+        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
         heading="Empowering Experience with Digital Confidence"
         subtext="Because learning never stops — nor should you."
       />

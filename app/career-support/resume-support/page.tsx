@@ -7,7 +7,7 @@ const page = () => {
   return (
     <>
       <Video
-        videoSrc="/video/resume.mp4"
+        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//resume.mp4"
         heading="Empowering Experience with Digital Confidence"
         subtext="Because learning never stops — nor should you."
       />

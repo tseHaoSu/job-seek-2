@@ -27,7 +27,7 @@ const QuizQuestion = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimate(true);
-    }, 300); 
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [currentQuestionIndex]);
@@ -81,8 +81,7 @@ const QuizQuestion = () => {
             style={{
               left: animate ? `${progressPercentage}%` : "0%",
             }}
-          >
-          </div>
+          ></div>
         </div>
 
         {/* CSS for bubble animation */}
@@ -192,7 +191,7 @@ const QuizQuestion = () => {
       <div className="order-1 lg:order-2">
         <div className="w-full h-100 flex items-center justify-center overflow-hidden">
           <Image
-            src={currentQuestion.image || ""}
+            src={currentQuestion.image || "/stock/man.jpg"}
             width={300}
             height={300}
             alt="Quiz featured image"
