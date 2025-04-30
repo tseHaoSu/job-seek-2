@@ -18,14 +18,38 @@ model Category {
 }
 
 model Module {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String?
-  attempt     Boolean  @default(false)
+  attempt     Boolean   @default(false)
   categoryId  Int
-  Category    Category @relation(fields: [categoryId], references: [id])
+  Category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  Section     Section[]
 
   @@map("modules")
+}
+
+model Section {
+  id                  Int    @id @default(autoincrement())
+  title               String
+  moduleId            Int
+  steps               Step[]
+  questionText        String @default("")
+  questionAnswer      String @default("")
+  questionExplanation String @default("")
+  module              Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@map("sections")
+}
+
+model Step {
+  id        Int     @id @default(autoincrement())
+  text      String
+  subtext   String?
+  sectionId Int
+  section   Section @relation(fields: [sectionId], references: [id])
+
+  @@map("steps")
 }
 
 model Quiz {
@@ -44,10 +68,10 @@ model Quiz {
 model Question {
   id            Int               @id @default(autoincrement())
   quizId        Int
-  question  String
+  question      String
   correctAnswer Boolean
   explanation   String            @default("No explanation provided")
-  mediaUrl     String?           @default("")
+  mediaUrl      String?           @default("")
   attempts      QuestionAttempt[]
   quiz          Quiz              @relation(fields: [quizId], references: [id])
 

@@ -13,13 +13,19 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { prisma } from "@/prisma/client";
 
-export default async function ModulePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
+  
+  const module = await prisma.module.findUnique({
+    where: { id: parseInt(id) },
+    include: {
+      Category: true,
+    },
+  });
+
+  const categoryId = module?.Category?.id;
 
   const moduleData = Object.values(MODULES_DATA).find(
     (module) => module.id === id
@@ -33,7 +39,7 @@ export default async function ModulePage({
     <>
       {/* Keep the video static across all module pages */}
       <Video
-        videoSrc="/video/question.mp4"
+        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
         heading="Explore in demand technologies"
         subtext="Because learning never stops — nor should you."
       />
@@ -98,7 +104,7 @@ export default async function ModulePage({
               <Carousel className="w-full max-w-4xl mx-auto relative">
                 <CarouselContent>
                   <CarouselItem>
-                    <Card className="border-red-900 ">
+                    <Card className="border-red-900">
                       <CardContent className="p-6">
                         <div className="flex justify-center mb-4">
                           <Image
@@ -154,7 +160,7 @@ export default async function ModulePage({
         </div>
         <div className="flex justify-center mt-10">
           <Link
-            href="/online-learning/1"
+            href={`/online-learning/${categoryId}`}
             className="px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-900 transition-colors duration-300"
           >
             Back to Tools Guide
@@ -163,4 +169,6 @@ export default async function ModulePage({
       </div>
     </>
   );
-}
+};
+
+export default ModulePage;

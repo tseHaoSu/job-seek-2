@@ -10,6 +10,7 @@ export type Section = {
     text: string;
     answer: string;
     explanation: string;
+    subimage?: string;
   };
 };
 
@@ -29,11 +30,13 @@ export const MODULES_DATA: Record<string, ModuleData> = {
         steps: [
           {
             text: 'Click "New slide" in the upper toolbar to create a new slide page',
+            subimage: "",
           },
           {
             text: "Select the Insert tab at the top.",
             subtext:
               "Click the following icon to choose to insert pictures into PPT",
+            subimage: "",
           },
           {
             text: 'After adding the text box, return to the "Home" tab. You can see that you can start adjusting the text size and font as well as other functions.',
@@ -43,6 +46,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           text: "Can I create a new slide by pressing this icon?",
           answer: "No",
           explanation: "Click the icon to choose to insert pictures into slide",
+          subimage: "",
         },
       },
       {
@@ -50,9 +54,11 @@ export const MODULES_DATA: Record<string, ModuleData> = {
         steps: [
           {
             text: "Find the save icon in the upper toolbar and click it to save",
+            subimage: "",
           },
           {
             text: 'Click "File" on the far left of the upper toolbar, and select "Save as" in the list on the left to choose what file to save the file as.',
+            subimage: "",
           },
         ],
         question: {
@@ -60,6 +66,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           answer: "Yes",
           explanation:
             'Click "File" on the far left of the upper toolbar, and select "Save as" in the list on the left to choose what file to save the file as.',
+          subimage: "",
         },
       },
       {
@@ -90,12 +97,15 @@ export const MODULES_DATA: Record<string, ModuleData> = {
         steps: [
           {
             text: "Open Word and click on 'Blank document' from the start screen, or use Ctrl+N shortcut",
+            subimage: "",
           },
           {
             text: "Start typing your content in the blank document",
+            subimage: "",
           },
           {
             text: "Use the ribbon at the top to format your text and paragraphs",
+            subimage: "",
           },
         ],
         question: {
@@ -103,6 +113,7 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           answer: "No",
           explanation:
             "Ctrl+O is used to open existing documents. For creating new documents, use Ctrl+N.",
+          subimage: "",
         },
       },
       {
@@ -210,6 +221,149 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           answer: "Yes",
           explanation:
             "You can change the chart type by selecting the chart and using the 'Change Chart Type' option in the Chart Design tab.",
+        },
+      },
+    ],
+  },
+  zoom: {
+    id: "4",
+    title: "How to use Zoom",
+    sections: [
+      {
+        title: "Starting a New Meeting",
+        steps: [
+          {
+            text: "Open the Zoom desktop application and sign in to your account",
+          },
+          {
+            text: "Click on the 'New Meeting' button on the home screen",
+            subtext:
+              "You can also select whether to start with video on or off",
+          },
+          {
+            text: "Click 'Join with Computer Audio' when prompted to connect to the meeting audio",
+          },
+        ],
+        question: {
+          text: "Can I start a Zoom meeting without signing in to my account?",
+          answer: "No",
+          explanation:
+            "You need to be signed in to your Zoom account to start a new meeting as the host.",
+        },
+      },
+      {
+        title: "Inviting Participants",
+        steps: [
+          {
+            text: "Click the 'Participants' button in the meeting controls at the bottom of the screen",
+          },
+          {
+            text: "Click 'Invite' at the bottom of the Participants panel",
+            subtext: "You can copy the meeting link or send invites via email",
+          },
+          {
+            text: "Share the meeting ID and passcode with participants if needed",
+          },
+        ],
+        question: {
+          text: "Can I invite someone to join a meeting that's already in progress?",
+          answer: "Yes",
+          explanation:
+            "You can invite new participants at any time during a Zoom meeting by using the Participants panel and clicking 'Invite'.",
+        },
+      },
+      {
+        title: "Sharing Your Screen",
+        steps: [
+          {
+            text: "Click the 'Share Screen' button in the meeting controls",
+          },
+          {
+            text: "Select the window, application, or desktop you want to share",
+            subtext:
+              "You can also choose to share a whiteboard or your phone/tablet screen",
+          },
+          {
+            text: "Click the 'Share' button to begin screen sharing",
+          },
+        ],
+        question: {
+          text: "Can multiple participants share their screens simultaneously?",
+          answer: "Yes",
+          explanation:
+            "Zoom allows multiple participants to share screens simultaneously if the host enables this option in the meeting settings.",
+        },
+      },
+    ],
+  },
+  teams: {
+    id: "5",
+    title: "How to use Microsoft Teams",
+    sections: [
+      {
+        title: "Creating a New Team",
+        steps: [
+          {
+            text: "Click on 'Teams' in the left sidebar, then click 'Join or create a team' at the bottom",
+          },
+          {
+            text: "Select 'Create team' and choose the type of team you want to create",
+            subtext:
+              "Options include Private, Public, or From an existing team/group",
+          },
+          {
+            text: "Name your team, add an optional description, and click 'Create'",
+          },
+        ],
+        question: {
+          text: "Can I create a team that's visible to everyone in my organization?",
+          answer: "Yes",
+          explanation:
+            "You can create a 'Public' team that is visible to everyone in your organization, allowing them to join without approval.",
+        },
+      },
+      {
+        title: "Starting a Video Meeting",
+        steps: [
+          {
+            text: "Click on the 'Calendar' icon in the left sidebar and select 'New meeting'",
+          },
+          {
+            text: "Fill in the meeting details including title, date/time, and participants",
+            subtext:
+              "You can also schedule a meeting directly from a chat or channel",
+          },
+          {
+            text: "Click 'Send' to schedule the meeting and notify participants",
+          },
+        ],
+        question: {
+          text: "Can I start an immediate meeting without scheduling it first?",
+          answer: "Yes",
+          explanation:
+            "You can start an immediate meeting by clicking the 'Meet now' button in a channel or from the Calendar tab.",
+        },
+      },
+      {
+        title: "Sharing Files in Teams",
+        steps: [
+          {
+            text: "Navigate to the channel or chat where you want to share files",
+          },
+          {
+            text: "Click the paperclip icon in the compose box at the bottom",
+            subtext:
+              "You can also drag and drop files directly into the compose box",
+          },
+          {
+            text: "Select the file you want to share and click 'Open' to upload and share it",
+          },
+        ],
+        question: {
+          text: "Can team members collaborate on shared files in real-time?",
+          answer: "Yes",
+          explanation:
+            "Microsoft Teams integrates with Office 365, allowing multiple users to edit Word, Excel, and PowerPoint files simultaneously in real-time.",
         },
       },
     ],

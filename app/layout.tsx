@@ -42,11 +42,12 @@ export default function RootLayout({
             <SpeedInsights />
             <Analytics />
             <AIAssistant />
-            <Script
+            {/* <Script
               src="https://cdn.userway.org/widget.js"
               data-account="3hzArQPGi5"
               strategy="afterInteractive"
-            />
+              data-position="bottom-right"
+            /> */}
           </main>
           <Footer />
         </PasswordProtect>
