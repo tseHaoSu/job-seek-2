@@ -8,6 +8,7 @@ export interface Question {
   question: string;
   correctAnswer: boolean;
   explanation: string;
+  image?: string | null;
 }
 
 export interface Quiz {

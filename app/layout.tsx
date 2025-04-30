@@ -6,6 +6,8 @@ import PasswordProtect from "./_components/PasswordProtect";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
+import AIAssistant from "./_components/AIAssistant";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +41,12 @@ export default function RootLayout({
             {children}
             <SpeedInsights />
             <Analytics />
+            <AIAssistant />
+            <Script
+              src="https://cdn.userway.org/widget.js"
+              data-account="3hzArQPGi5"
+              strategy="afterInteractive"
+            />
           </main>
           <Footer />
         </PasswordProtect>

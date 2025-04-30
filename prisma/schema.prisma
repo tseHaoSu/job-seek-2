@@ -47,6 +47,7 @@ model Question {
   question  String
   correctAnswer Boolean
   explanation   String            @default("No explanation provided")
+  mediaUrl     String?           @default("")
   attempts      QuestionAttempt[]
   quiz          Quiz              @relation(fields: [quizId], references: [id])
 

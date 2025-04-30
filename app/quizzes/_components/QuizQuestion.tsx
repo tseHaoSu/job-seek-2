@@ -27,7 +27,7 @@ const QuizQuestion = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimate(true);
-    }, 300); // Short delay for better visual effect
+    }, 300); 
 
     return () => clearTimeout(timer);
   }, [currentQuestionIndex]);
@@ -192,7 +192,7 @@ const QuizQuestion = () => {
       <div className="order-1 lg:order-2">
         <div className="w-full h-100 flex items-center justify-center overflow-hidden">
           <Image
-            src={`/images/${currentQuestionIndex + 1}.png`}
+            src={currentQuestion.image || ""}
             width={300}
             height={300}
             alt="Quiz featured image"

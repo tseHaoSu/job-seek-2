@@ -23,7 +23,6 @@ export default function Home() {
         <SecondBanner />
         <DataSection />
       </div>
-      <AIAssistant />
     </>
   );
 }
