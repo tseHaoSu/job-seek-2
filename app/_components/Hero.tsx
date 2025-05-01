@@ -9,13 +9,14 @@ const Hero = () => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       <div className="space-y-8">
         <h1 className="text-4xl font-extrabold lg:text-5xl text-red-900 leading-tight">
-          Empowering Experience with Digital Confidence.
+          Start Your Digital Confidence Journey
         </h1>
         <h3 className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-          Because learning never stops — and neither should you.
+          Practical step-by-step help with the workplace tools you use every
+          day.
         </h3>
         <div>
-          <Link href="/online-learning/dashboard">
+          <Link href="/dashboard">
             <Button
               variant="default"
               className="bg-red-800 hover:bg-red-900 text-white text-md w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"

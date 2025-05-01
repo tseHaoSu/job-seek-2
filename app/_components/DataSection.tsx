@@ -8,24 +8,28 @@ const DataSection = () => {
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-red-900 leading-tight">
           Working Population by Age Group (Australia)
         </h1>
-        <ul className="my-6 ml-6 list-disc [&>li]:mt-2 text-xl md:text-l text-gray-700 leading-relaxed">
-          <li>
-            This visualization shows the percentage of people above 50 and below
-            50 in the working population, in Australia.
-          </li>
-          <li>
-            As clearly seen the percentage of people below 50 that are working
-            is steadily going down.
-          </li>
-          <li>
-            This is mainly due to them not being able to keep up with the
-            ever-changing technology that is needed to be relevant in most jobs.
-          </li>
-          <li>
-            Our website aims to bridge the gap that those mature age Aussies
-            face so that they can keep up with the ever changing technology.
-          </li>
-        </ul>
+        <p className="my-6 text-xl md:text-l text-gray-700 leading-relaxed">
+          Older Australians are quietly disappearing from the workforce — not
+          because they lack ability, but because they're being left behind by
+          digital change. Recent data shows a{" "}
+          <span className="font-bold text-red-600">
+            steady drop in workforce participation for Australians over 50
+          </span>
+          , while younger workers increasingly dominate. Between 2022 and 2025,
+          the{" "}
+          <span className="font-bold text-red-600">
+            percentage of workers under 50 has consistently grown
+          </span>{" "}
+          — highlighting a widening skills gap. This isn't about retirement.
+          It's about relevance. Without digital confidence, experienced workers
+          lose opportunities, income, and sometimes even their sense of purpose.{" "}
+          <span className="font-bold text-red-600">
+            StillSkilled is here to change that
+          </span>
+          . We offer mature-age Australians a safe, simple space to explore
+          digital tools and stay connected to modern work — confidently and on
+          their own terms.
+        </p>
       </div>
       <div>
         <Data />
