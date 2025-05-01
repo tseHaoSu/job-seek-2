@@ -1,6 +1,6 @@
 const Header = ({
   title = "Tools Walkthrough",
-  subtitle = "Navigate the job market with ease using practical, guided tools built to support your journey! Course Tools provide commonly used communication and practical tools. Choose recommended tools or select your own. Each tool includes a walkthrough to help you get started.",
+  subtitle = "Confidently learn workplace tools through easy, guided walkthroughs. Choose a recommended path or explore on your own to get started.",
 }) => {
   return (
     <div className="space-y-8 text-center">

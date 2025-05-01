@@ -17,12 +17,11 @@ const header = () => {
       </div>
       <div className="space-y-8">
         <h1 className="text-4xl font-extrabold lg:text-5xl text-red-900 leading-tight">
-          Select a Module to Start Learning!
+          Learn and Practise Everyday Digital Tools
         </h1>
         <h3 className="text-xl md:text-xl text-gray-700 leading-relaxed">
-          This section dives into the practical applications of the tools, providing
-          step-by-step instructions and real-world quizzes to help you master
-          each tool. 
+          Step-by-step guides and quick quizzes to help you build confidence
+          with tools like email, meetings, and documents.
         </h3>
         <div>
           <Link href="/online-learning/1">

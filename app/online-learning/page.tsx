@@ -9,8 +9,8 @@ const Page = () => {
     <>
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
-        heading="Explore in demand technologies"
-        subtext="Because learning never stops — nor should you."
+        heading="Master the Tools You Use at Work"
+        subtext="Step-by-step guides for Word, Zoom, Gmail, and more — designed just for you."
       />
       <Header />
       <Banner />

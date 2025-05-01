@@ -5,10 +5,9 @@ const Header2 = () => {
         Tools Guide
       </h1>
       <h3 className="text-xl md:text-xl text-gray-700 leading-relaxed">
-        Choose the digital tools you want help with and explore simple, guided
-        support at your own pace. Office Productivity provides a list of modules
-        with common office tools. Communication Tool provides a deep dive into
-        the common digital communication tools
+        Find the right digital tool to build your confidence. Start with office
+        or communication tools and follow simple, guided modules designed to
+        help you learn at your own pace.
       </h3>
     </div>
   );

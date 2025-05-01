@@ -8,8 +8,8 @@ const page = () => {
     <>
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//resume.mp4"
-        heading="Empowering Experience with Digital Confidence"
-        subtext="Because learning never stops — nor should you."
+        heading="Craft Your Resume with Confidence"
+        subtext="Let our AI guide you step-by-step to create a resume that stands out—simple, smart, and stress-free."
       />
       <div className="space-y-8 text-center">
         <h1 className="text-4xl font-extrabold lg:text-4xl text-red-900 leading-tight flex items-center justify-center gap-2">

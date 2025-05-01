@@ -89,8 +89,8 @@ const NavBar = () => {
           icon: <BookOpen className="w-4 h-4 mr-2" />,
         },
         {
-          label: "Communication",
-          href: "/online-learning/2",
+          label: "Recommendations",
+          href: "/online-learning/tool-selection",
           icon: <MessageCircle className="w-4 h-4 mr-2" />,
         },
       ],
