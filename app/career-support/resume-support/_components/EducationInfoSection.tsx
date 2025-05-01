@@ -32,6 +32,7 @@ const EducationSection = ({
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-medium text-red-700">Education</h3>
+        
         <Button
           type="button"
           variant="ghost"
@@ -52,7 +53,6 @@ const EducationSection = ({
           Add Education
         </Button>
       </div>
-
       {fields.map((field, index) => (
         <div
           key={field.id}

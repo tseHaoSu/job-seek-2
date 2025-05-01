@@ -21,7 +21,7 @@ export async function generateResumePDF(resumeData: any) {
     maxWidth = 495
   ) => {
     const cleanText = (text || "")
-      .replace(/\[.*?\]/g, "")
+      //.replace(/\[.*?\]/g, "")
       .replace(/[^\x00-\x7F]/g, "")
       .replace(/\n/g, " ")
       .trim();
@@ -72,7 +72,7 @@ export async function generateResumePDF(resumeData: any) {
     bold = false,
   ) => {
     const clean = (text || "")
-      .replace(/\[.*?\]/g, "")
+      //.replace(/\[.*?\]/g, "")
       .replace(/[^\x00-\x7F]/g, "")
       .replace(/\n/g, " ")
       .trim();
