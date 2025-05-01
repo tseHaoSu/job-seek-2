@@ -15,6 +15,8 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { FaClover } from "react-icons/fa6";
 import MobileSideBar from "./MobileSideBar";
+import NavLogo from "./NavLogo";
+
 
 export interface NavLink {
   label: string;
@@ -142,19 +144,11 @@ const NavBar = () => {
         }`}
       >
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo area */}
-            <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-r from-red-900 to-red-700 p-2 rounded-full">
-                <FaClover className="text-white text-2xl transition-all duration-300 transform hover:rotate-12 hover:scale-110" />
-              </div>
-              <Link
-                href="/"
-                className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors duration-300"
-              >
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-red-900 via-red-800 to-red-700">
-                  StillSkilled
-                </span>
+            <div className="flex items-center h-[200px] w-[200px]">
+              <Link href="/" aria-label="Home" className="w-full h-full block">
+                <NavLogo />
               </Link>
             </div>
 
