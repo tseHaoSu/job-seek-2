@@ -255,7 +255,7 @@ const AIAssistant = () => {
             }}
           >
             <div style={{ fontSize: "16px", fontWeight: "bold" }}>
-              StillSkilled AI
+              SkillBot
             </div>
             <button
               onClick={handleClose}
