@@ -74,7 +74,6 @@ const Hero = ({ category, stats, imagePath = "/old-man.jpeg" }: HeroProps) => {
           }
         }
       `}</style>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
         <div className="order-2 lg:order-1 space-y-6">
           <h1 className="text-4xl font-extrabold lg:text-5xl text-red-900 leading-tight">
