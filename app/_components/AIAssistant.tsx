@@ -434,7 +434,7 @@ const AIAssistant = () => {
                 disabled={isLoading}
                 onMouseOver={(e) => {
                   if (!isLoading) {
-                    e.currentTarget.style.backgroundColor = "#FF99AF"; // Slightly darker on hover
+                    e.currentTarget.style.backgroundColor = "#F08080"; // Slightly darker on hover
                   }
                 }}
                 onMouseOut={(e) => {
