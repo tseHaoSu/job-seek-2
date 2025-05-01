@@ -1,17 +1,36 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    console.log("Received:", body);
-
+    // Get request body
+    const bodyText = await request.text();
+    console.log("Received raw body:", bodyText);
+    
+    // Safely parse JSON
+    let body;
+    try {
+      body = JSON.parse(bodyText);
+      console.log("Parsed body:", body);
+    } catch (parseError) {
+      console.error("JSON parse error:", parseError);
+      return new Response(
+        JSON.stringify({
+          error: "Invalid JSON in request body",
+          details: parseError instanceof Error ? parseError.message : "Unknown parsing error"
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    
+    // Validate the incoming data
     if (!body) {
-      return NextResponse.json(
-        { error: "Missing request body" },
-        { status: 400 }
+      return new Response(
+        JSON.stringify({ error: "Missing request body" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
+    // Forward the request to the external streaming API
     const response = await fetch("http://20.92.167.242:8001/chat_stream", {
       method: "POST",
       headers: {
@@ -23,62 +42,32 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("External API error:", errorText);
-      return NextResponse.json(
-        {
-          error: `Failed to generate CV: ${response.statusText}`,
+      return new Response(
+        JSON.stringify({
+          error: `Failed to chat: ${response.statusText}`,
           details: errorText,
-        },
-        { status: response.status }
+        }),
+        { status: response.status, headers: { "Content-Type": "application/json" } }
       );
     }
 
-    const contentType = response.headers.get("content-type");
 
-    if (contentType?.includes("text/event-stream")) {
-      return new Response(response.body, {
-        headers: {
-          "Content-Type": "text/event-stream",
-          "Cache-Control": "no-cache",
-          Connection: "keep-alive",
-        },
-      });
-    } else if (
-      contentType?.includes("text/plain") ||
-      contentType?.includes("text/html")
-    ) {
-      const text = await response.text();
-      const processedData = processStreamText(text);
-      return NextResponse.json(processedData, { status: 200 });
-    } else {
-      const data = await response.json();
-      return NextResponse.json(data, { status: 200 });
-    }
-  } catch (error) {
-    console.error("CV generation error:", error);
-    return NextResponse.json(
-      {
-        error: "Failed to generate CV",
-        details: error instanceof Error ? error.message : "Unknown error",
+    // Return the stream directly to maintain streaming functionality
+    return new Response(response.body, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
       },
-      { status: 500 }
+    });
+  } catch (error) {
+    console.error("Chat API error:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Failed to process chat request",
+        details: error instanceof Error ? error.message : "Unknown error"
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
-}
-
-function processStreamText(text: string) {
-  const lines = text.split("\n");
-  const dataLines = lines.filter((line) => line.startsWith("data: "));
-
-  if (dataLines.length > 0) {
-    const lastDataLine = dataLines[dataLines.length - 1];
-    const jsonStr = lastDataLine.substring(6).trim();
-
-    try {
-      return JSON.parse(jsonStr);
-    } catch (e) {
-      return { result: jsonStr };
-    }
-  }
-
-  return { result: text };
 }
