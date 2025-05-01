@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const response = await fetch("http://20.92.167.242/generate_stream", {
+    const response = await fetch("http://20.92.167.242:8001/chat_stream", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,12 +32,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check content type to determine how to handle the response
     const contentType = response.headers.get("content-type");
 
-    // If it's a streaming response (likely SSE)
     if (contentType?.includes("text/event-stream")) {
-      // Stream the response directly to the client
       return new Response(response.body, {
         headers: {
           "Content-Type": "text/event-stream",
@@ -45,19 +42,14 @@ export async function POST(request: NextRequest) {
           Connection: "keep-alive",
         },
       });
-    }
-    // If it's text response with data: prefixes (SSE-like)
-    else if (
+    } else if (
       contentType?.includes("text/plain") ||
       contentType?.includes("text/html")
     ) {
       const text = await response.text();
-      // Process the text that likely contains "data: {json}" format
       const processedData = processStreamText(text);
       return NextResponse.json(processedData, { status: 200 });
-    }
-    // If it's standard JSON
-    else {
+    } else {
       const data = await response.json();
       return NextResponse.json(data, { status: 200 });
     }
@@ -73,25 +65,20 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Function to process text with "data:" prefixes
 function processStreamText(text: string) {
   const lines = text.split("\n");
   const dataLines = lines.filter((line) => line.startsWith("data: "));
 
   if (dataLines.length > 0) {
-    // Get the last complete data line (often contains the final result)
     const lastDataLine = dataLines[dataLines.length - 1];
-    const jsonStr = lastDataLine.substring(6).trim(); // Remove "data: " prefix
+    const jsonStr = lastDataLine.substring(6).trim();
 
     try {
       return JSON.parse(jsonStr);
     } catch (e) {
-      // If it's not valid JSON, return the processed text
       return { result: jsonStr };
     }
   }
 
-  // If no data lines found, return the original text
   return { result: text };
 }
-

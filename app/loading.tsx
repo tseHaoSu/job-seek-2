@@ -29,12 +29,12 @@ export function LoadingProgress() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto space-y-6 p-6 bg-white/5 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg animate-pulse">
+    <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto space-y-6 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg">
       <div className="relative">
         <Loader2 className="h-12 w-12 text-primary animate-spin mb-2" />
         <div
-          className="absolute inset-0 rounded-full bg-primary/20 animate-ping"
-          style={{ animationDuration: "2s" }}
+          className="absolute inset-0 rounded-full bg-primary/10 animate-ping"
+          style={{ animationDuration: "3s" }}
         ></div>
       </div>
 
@@ -45,7 +45,7 @@ export function LoadingProgress() {
       <div className="w-full relative">
         <Progress value={progress} className="w-full h-4 relative z-10" />
         <div
-          className="absolute inset-0 bg-primary/20 rounded-full animate-pulse"
+          className="absolute inset-0 bg-primary/5 rounded-full"
           style={{ animationDuration: "1.5s" }}
         ></div>
       </div>
