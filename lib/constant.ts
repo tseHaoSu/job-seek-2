@@ -1,4 +1,3 @@
-// constants.ts
 export type Section = {
   title: string;
   steps: {
@@ -364,6 +363,113 @@ export const MODULES_DATA: Record<string, ModuleData> = {
           answer: "Yes",
           explanation:
             "Microsoft Teams integrates with Office 365, allowing multiple users to edit Word, Excel, and PowerPoint files simultaneously in real-time.",
+        },
+      },
+    ],
+  },
+
+  linkedin: {
+    id: "6",
+    title: "How to Use LinkedIn",
+    sections: [
+      {
+        title: "Creating a Professional Profile",
+        steps: [
+          {
+            text: "Sign up for a LinkedIn account at linkedin.com",
+          },
+          {
+            text: "Add your professional photo, name, and a headline that summarizes your role or goal",
+          },
+          {
+            text: "Fill in sections like work experience, education, and skills to complete your profile",
+          },
+        ],
+        question: {
+          text: "Is it necessary to add a professional photo to your LinkedIn profile?",
+          answer: "Yes",
+          explanation:
+            "A professional photo makes your profile more credible and approachable.",
+        },
+      },
+      {
+        title: "Messaging and Connecting with Others",
+        steps: [
+          {
+            text: "Send connection requests to people you know or want to network with",
+          },
+          {
+            text: "Use LinkedIn Messaging to communicate with your existing connections",
+          },
+          {
+            text: "Upgrade to Premium to use InMail for messaging people outside your network",
+          },
+        ],
+        question: {
+          text: "Can you message someone outside your network without Premium?",
+          answer: "No",
+          explanation:
+            "Messaging people outside your network requires LinkedIn Premium or InMail credits.",
+        },
+      },
+      {
+        title: "Using LinkedIn to Find and Apply for Jobs",
+        steps: [
+          {
+            text: "Click on the 'Jobs' tab in the LinkedIn menu",
+          },
+          {
+            text: "Search for jobs using filters like location, company, or job title",
+          },
+          {
+            text: "Click 'Easy Apply' on jobs that allow direct applications through LinkedIn",
+          },
+        ],
+        question: {
+          text: "Can I apply for jobs directly through LinkedIn?",
+          answer: "Yes",
+          explanation:
+            "Many jobs on LinkedIn offer an 'Easy Apply' option that allows you to apply directly through the platform without visiting external websites.",
+        },
+      },
+      {
+        title: "Managing Privacy Settings",
+        steps: [
+          {
+            text: "Go to Settings & Privacy in your LinkedIn profile menu",
+          },
+          {
+            text: "Choose what information is visible to others, such as your profile picture and activity",
+          },
+          {
+            text: "Enable 'Open to Work' to privately signal recruiters that you're job hunting",
+          },
+        ],
+        question: {
+          text: "Can recruiters see that I'm looking for work without my current employer knowing?",
+          answer: "Yes",
+          explanation:
+            "LinkedIn's 'Open to Work' feature can be set to be visible only to recruiters, keeping this information private from your current employer.",
+        },
+      },
+      {
+        title: "Sharing Content on LinkedIn",
+        steps: [
+          {
+            text: "Click 'Start a post' on your homepage to share a thought, update, or article",
+          },
+          {
+            text: "Use images, videos, or links to make your posts more engaging",
+          },
+          {
+            text: "Write long-form articles using LinkedIn's publishing platform to build authority",
+          },
+        ],
+        question: {
+          text: "Can I schedule posts to be published at a later time on LinkedIn?",
+          answer: "No",
+          explanation:
+            "Standard LinkedIn accounts don't have a built-in scheduling feature. To schedule posts, you would need to use a third-party social media management tool.",
         },
       },
     ],

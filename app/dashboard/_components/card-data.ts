@@ -17,7 +17,7 @@ import {
   LifeBuoy,
   PenTool,
   FileSpreadsheet,
-  FilePresentation,
+  Presentation,
   VideoIcon,
 } from "lucide-react";
 
@@ -98,7 +98,7 @@ export const cards = [
     title: "PowerPoint Quiz",
     description: "Test out your Powerpoint skills!",
     url: "/quizzes/16",
-    icon: FilePresentation,
+    icon: Presentation,
     hidden: true,
   },
   {

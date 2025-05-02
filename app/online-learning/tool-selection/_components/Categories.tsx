@@ -1,36 +1,23 @@
 "use client";
 
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import axios from "axios";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { prisma } from "@/prisma/client";
 import {
   BookOpen,
   FileText,
   Globe,
-  Heart,
   Presentation,
   Star,
   Users,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState, useMemo } from "react";
+import { useMemo } from "react";
 
-
-interface Category {
-  id: string;
-  name: string;
-  description?: string;
-}
-
-const Categories = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
+const Categories = async () => {
+  const categories = (await prisma.category.findMany()).map((category) => ({
+    ...category,
+    id: category.id.toString(),
+  }));
   const icons = useMemo(
     () => [
       <BookOpen key="book" size={48} />,
@@ -46,35 +33,6 @@ const Categories = () => {
   const getIconForIndex = (index: number) => {
     return icons[index % icons.length];
   };
-
-  const fetchCategories = async () => {
-    if (categories.length === 0 && !isLoading) {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const response = await axios.get("/api"); 
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setError("Failed to load categories. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  if (isLoading) {
-    return <div className="text-center py-10">Loading categories...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center py-10 text-red-500">{error}</div>;
-  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
