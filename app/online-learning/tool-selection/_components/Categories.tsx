@@ -1,5 +1,4 @@
-"use client";
-
+// Categories.tsx
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { prisma } from "@/prisma/client";
 import {
@@ -11,24 +10,18 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
-import { useMemo } from "react";
 
 const Categories = async () => {
-  const categories = (await prisma.category.findMany()).map((category) => ({
-    ...category,
-    id: category.id.toString(),
-  }));
-  const icons = useMemo(
-    () => [
-      <BookOpen key="book" size={48} />,
-      <FileText key="file" size={48} />,
-      <Presentation key="presentation" size={48} />,
-      <Users key="users" size={48} />,
-      <Star key="star" size={48} />,
-      <Globe key="globe" size={48} />,
-    ],
-    []
-  );
+  const categories = await prisma.category.findMany();
+
+  const icons = [
+    <BookOpen key="book" size={48} />,
+    <FileText key="file" size={48} />,
+    <Presentation key="presentation" size={48} />,
+    <Users key="users" size={48} />,
+    <Star key="star" size={48} />,
+    <Globe key="globe" size={48} />,
+  ];
 
   const getIconForIndex = (index: number) => {
     return icons[index % icons.length];
