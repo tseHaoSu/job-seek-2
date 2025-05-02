@@ -22,6 +22,7 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
     where: { id: parseInt(id) },
     include: {
       Category: true,
+      
     },
   });
 
@@ -71,13 +72,13 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                               </p>
                             )}
                             <div className="flex justify-center">
-                              <Image
+                              {/* <Image
                                 src="/modules/1.png"
                                 alt={`Step ${stepIndex + 1} for ${section.title}`}
                                 width={300}
                                 height={300}
                                 className="rounded-md"
-                              />
+                              /> */}
                             </div>
                             {step.subimage && (
                               <div className="flex justify-center mt-4">
@@ -107,13 +108,13 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                     <Card className="border-red-900">
                       <CardContent className="p-6">
                         <div className="flex justify-center mb-4">
-                          <Image
+                          {/* <Image
                             src="/modules/5.png"
                             alt={`Question image for ${section.title}`}
                             width={300}
                             height={300}
                             className="rounded-md"
-                          />
+                          /> */}
                         </div>
                         <h3 className="font-semibold mb-2 text-red-900">
                           Question:

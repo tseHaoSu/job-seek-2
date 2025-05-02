@@ -10,7 +10,7 @@ const PasswordProtect = ({ children }: PasswordProtectProps) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const correctPassword = process.env.NEXT_PUBLIC_PASSWORD || "";
+  const correctPassword = process.env.NEXT_PUBLIC_PASSWORD!;
   const SESSION_KEY = "password_authenticated";
 
   useEffect(() => {
