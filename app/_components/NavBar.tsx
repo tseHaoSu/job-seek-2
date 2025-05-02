@@ -85,12 +85,12 @@ const NavBar = () => {
       children: [
         {
           label: "Tools Guide",
-          href: "/online-learning/1",
+          href: "/online-learning/tool-selection",
           icon: <BookOpen className="w-4 h-4 mr-2" />,
         },
         {
           label: "Recommendations",
-          href: "/online-learning/tool-selection",
+          href: "/ai-support",
           icon: <MessageCircle className="w-4 h-4 mr-2" />,
         },
       ],
