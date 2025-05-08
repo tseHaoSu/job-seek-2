@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { formSchema } from "./schema";
 
-// Type for the resume data derived from the schema
+// type from zod schema
 export type ResumeData = z.infer<typeof formSchema>;
 
-// Education entry type
+// Education entry 
 export type EducationEntry = {
   institution: string;
   degree_type: string;
@@ -13,7 +13,7 @@ export type EducationEntry = {
   year_end: number;
 };
 
-// Work experience entry type
+// Work experience entry 
 export type WorkExperienceEntry = {
   organization: string;
   job_title: string;

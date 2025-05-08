@@ -39,6 +39,44 @@ const PersonalInfoSection = ({
               <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
             )}
           </div>
+
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="email" className="text-red-800">
+              Email Address
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="your.email@example.com"
+              {...register("email")}
+              disabled={isSubmitting}
+              className="border-red-200 focus:border-red-300 focus:ring-red-200 placeholder:text-gray-300"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="phone" className="text-red-800">
+              Phone Number
+            </Label>
+            <Input
+              id="phone"
+              type="tel"
+              placeholder="+1 (123) 456-7890"
+              {...register("phone")}
+              disabled={isSubmitting}
+              className="border-red-200 focus:border-red-300 focus:ring-red-200 placeholder:text-gray-300"
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.phone.message}
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

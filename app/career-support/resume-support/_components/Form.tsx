@@ -130,8 +130,6 @@ const Form = () => {
       </Card>
       
       <div className="relative w-full max-w-4xl mx-auto">
-
-      {/* animation */}
       {isSubmitting && (
         <div className="absolute inset-0 bg-white/80 flex flex-col items-center justify-center z-50 rounded-md">
           <LoadingAnimation />

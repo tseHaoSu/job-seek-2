@@ -17,12 +17,11 @@ import { prisma } from "@/prisma/client";
 
 const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
-  
+
   const module = await prisma.module.findUnique({
     where: { id: parseInt(id) },
     include: {
       Category: true,
-      
     },
   });
 
@@ -38,7 +37,6 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <>
-      {/* Keep the video static across all module pages */}
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
         heading="Explore in demand technologies"
@@ -49,107 +47,82 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
       </h1>
 
       <div className="space-y-12">
-        {moduleData.sections.map((section, sectionIndex) => (
-          <section key={sectionIndex}>
-            <h2 className="mt-10 scroll-m-20 border-none pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
-              {section.title}
-            </h2>
-            <div className="my-6">
-              <Carousel className="w-full max-w-4xl mx-auto relative">
-                <CarouselContent>
-                  {section.steps.map((step, stepIndex) => (
-                    <CarouselItem key={stepIndex}>
-                      <div className="p-2">
-                        <Card className="border-red-900">
-                          <CardContent className="flex flex-col p-6">
-                            <span className="text-lg font-semibold mb-2 text-red-900">
-                              Step {stepIndex + 1}
-                            </span>
-                            <p className="mb-4">{step.text}</p>
-                            {step.subtext && (
-                              <p className="text-sm text-gray-600 mb-4">
-                                {step.subtext}
-                              </p>
-                            )}
-                            <div className="flex justify-center">
-                              {/* <Image
-                                src="/modules/1.png"
-                                alt={`Step ${stepIndex + 1} for ${section.title}`}
+        <Carousel className="w-full max-w-4xl mx-auto relative">
+          <CarouselContent>
+            {/* Create one slide for each section */}
+            {moduleData.sections.map((section, sectionIndex) => (
+              <CarouselItem key={`section-${sectionIndex}`}>
+                <div className="p-2">
+                  <Card className="border-red-900">
+                    <CardContent className="flex flex-col p-6">
+                      {/* Section title */}
+                      <h2 className="scroll-m-20 border-none pb-4 text-3xl font-semibold tracking-tight text-red-900 mb-6">
+                        {section.title}
+                      </h2>
+
+                      {/* Steps */}
+                      {section.steps.map((step, stepIndex) => (
+                        <div key={`step-content-${stepIndex}`} className="mb-8">
+                          <span className="text-lg font-semibold mb-2 text-red-900">
+                            Step {stepIndex + 1}
+                          </span>
+                          <p className="mb-4">{step.text}</p>
+                          {step.subtext && (
+                            <p className="text-sm text-gray-600 mb-4">
+                              {step.subtext}
+                            </p>
+                          )}
+                          {step.subimage && (
+                            <div className="flex justify-center mt-4">
+                              <Image
+                                src="/modules/2.png"
+                                alt={`Additional image for Step ${stepIndex + 1}`}
                                 width={300}
                                 height={300}
                                 className="rounded-md"
-                              /> */}
+                              />
                             </div>
-                            {step.subimage && (
-                              <div className="flex justify-center mt-4">
-                                <Image
-                                  src="/modules/2.png"
-                                  alt={`Additional image for Step ${stepIndex + 1}`}
-                                  width={300}
-                                  height={300}
-                                  className="rounded-md"
-                                />
-                              </div>
-                            )}
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 bg-red-800 text-white hover:bg-red-900 border-none shadow-md" />
-                <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 bg-red-800 text-white hover:bg-red-900 border-none shadow-md" />
-              </Carousel>
-            </div>
-            <div className="mt-8">
-              <Carousel className="w-full max-w-4xl mx-auto relative">
-                <CarouselContent>
-                  <CarouselItem>
-                    <Card className="border-red-900">
-                      <CardContent className="p-6">
-                        <div className="flex justify-center mb-4">
-                          {/* <Image
-                            src="/modules/5.png"
-                            alt={`Question image for ${section.title}`}
-                            width={300}
-                            height={300}
-                            className="rounded-md"
-                          /> */}
+                          )}
                         </div>
-                        <h3 className="font-semibold mb-2 text-red-900">
-                          Question:
-                        </h3>
-                        <p>{section.question.text}</p>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                  <CarouselItem>
-                    <Card className="border-red-900">
-                      <CardContent className="p-6">
-                        <h3 className="font-semibold mb-2 text-red-900">
-                          Answer:
-                        </h3>
-                        <p>{section.question.answer}</p>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                  <CarouselItem>
-                    <Card className="border-red-900">
-                      <CardContent className="p-6">
-                        <h3 className="font-semibold mb-2 text-red-900">
-                          Explanation:
-                        </h3>
-                        <p>{section.question.explanation}</p>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                </CarouselContent>
-                <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 bg-red-800 text-white hover:bg-red-900 border-none shadow-md" />
-                <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 bg-red-800 text-white hover:bg-red-900 border-none shadow-md" />
-              </Carousel>
-            </div>
-          </section>
-        ))}
+                      ))}
+
+                      {/* Q&A Section */}
+                      <div className="mt-8 pt-6 border-t border-gray-200">
+                        <div className="flex flex-col gap-8">
+                          {/* Question section */}
+                          <div>
+                            <h3 className="font-semibold mb-2 text-red-900">
+                              Question:
+                            </h3>
+                            <p>{section.question.text}</p>
+                          </div>
+
+                          {/* Answer section */}
+                          <div>
+                            <h3 className="font-semibold mb-2 text-red-900">
+                              Answer:
+                            </h3>
+                            <p>{section.question.answer}</p>
+                          </div>
+
+                          {/* Explanation section */}
+                          <div>
+                            <h3 className="font-semibold mb-2 text-red-900">
+                              Explanation:
+                            </h3>
+                            <p>{section.question.explanation}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 bg-red-800 text-white hover:bg-red-900 border-none shadow-md" />
+          <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 bg-red-800 text-white hover:bg-red-900 border-none shadow-md" />
+        </Carousel>
         <div className="flex items-center justify-center space-x-2 mt-8">
           <Checkbox id="terms" className="border-red-800 text-red-800" />
           <label

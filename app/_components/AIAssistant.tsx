@@ -10,6 +10,7 @@ import {
 } from "@rive-app/react-canvas";
 import Hint from "./Hint";
 import { z } from "zod";
+import Script from "next/script";
 
 const messageSchema = z
   .string()
@@ -199,6 +200,12 @@ const AIAssistant = () => {
 
   return (
     <>
+      <Script
+        src="https://cdn.userway.org/widget.js"
+        data-account="3hzArQPGi5"
+        strategy="afterInteractive"
+        data-position="bottom-left"
+      />
       <Hint label="Chat with me!" side="top" sideOffset={80}>
         <div
           onMouseEnter={handleMouseEnter}
@@ -233,7 +240,7 @@ const AIAssistant = () => {
             border: `1px solid ${themeColor}`,
             borderRadius: "20px", // More rounded corners
             padding: "15px",
-            boxShadow: `0 4px 20px rgba(255,182,193,0.30)`, // Shadow with theme color
+            boxShadow: `0 4px 20px rgba(255,182,193,0.30)`, 
             zIndex: 999,
             display: "flex",
             flexDirection: "column",
@@ -254,9 +261,7 @@ const AIAssistant = () => {
               marginBottom: "5px",
             }}
           >
-            <div style={{ fontSize: "16px", fontWeight: "bold" }}>
-              SkillBot
-            </div>
+            <div style={{ fontSize: "16px", fontWeight: "bold" }}>SkillBot</div>
             <button
               onClick={handleClose}
               style={{

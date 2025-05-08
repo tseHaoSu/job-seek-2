@@ -3,6 +3,8 @@ import { z } from "zod";
 // Define the schema for form validation
 export const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
+  email: z.string().min(1, "Email is required"),
+  phone: z.string().min(1, "Phone number is required"),
   education: z.array(
     z.object({
       institution: z.string().min(1, "Institution is required"),
