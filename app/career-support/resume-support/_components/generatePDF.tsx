@@ -3,7 +3,7 @@ import { saveAs } from "file-saver";
 
 export async function generateResumePDF(resumeData: any) {
   const pdfDoc = await PDFDocument.create();
-  let page = pdfDoc.addPage([595, 842]); // A4
+  let page = pdfDoc.addPage([595, 842]);
   const { width, height } = page.getSize();
 
   const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
@@ -12,7 +12,6 @@ export async function generateResumePDF(resumeData: any) {
   let y = height - 50;
   const lineHeight = 20;
 
-  // anto change line
   const drawWrappedText = (
     text: string,
     size = 12,
@@ -21,7 +20,6 @@ export async function generateResumePDF(resumeData: any) {
     maxWidth = 495
   ) => {
     const cleanText = (text || "")
-      //.replace(/\[.*?\]/g, "")
       .replace(/[^\x00-\x7F]/g, "")
       .replace(/\n/g, " ")
       .trim();
@@ -31,7 +29,10 @@ export async function generateResumePDF(resumeData: any) {
 
     for (let i = 0; i < words.length; i++) {
       const testLine = line + words[i] + " ";
-      const textWidth = (bold ? boldFont : font).widthOfTextAtSize(testLine, size);
+      const textWidth = (bold ? boldFont : font).widthOfTextAtSize(
+        testLine,
+        size
+      );
 
       if (textWidth > maxWidth) {
         page.drawText(line.trim(), {
@@ -66,13 +67,8 @@ export async function generateResumePDF(resumeData: any) {
     }
   };
 
-  const drawCenteredText = (
-    text: string,
-    size = 12,
-    bold = false,
-  ) => {
+  const drawCenteredText = (text: string, size = 12, bold = false) => {
     const clean = (text || "")
-      //.replace(/\[.*?\]/g, "")
       .replace(/[^\x00-\x7F]/g, "")
       .replace(/\n/g, " ")
       .trim();
@@ -91,13 +87,11 @@ export async function generateResumePDF(resumeData: any) {
     y -= lineHeight;
   };
 
-  // second title
   const drawTitle = (title: string) => {
     y -= 10;
     drawWrappedText(title, 16, true);
   };
 
-  // second title and year
   const drawLabelRight = (left: string, right: string) => {
     if (y < 50) {
       page = pdfDoc.addPage([595, 842]);
@@ -118,19 +112,15 @@ export async function generateResumePDF(resumeData: any) {
     y -= lineHeight;
   };
 
-  // === Header (Name + contact info) ===
   const lines = (resumeData.cv_heading || "").split("\n");
 
-  // Name
   const nameLine = lines[0]?.replace(/^Name:\s*/, "").trim();
   drawCenteredText(nameLine || "YOUR NAME", 20, true);
 
-  // Phone / E-mail
   for (let i = 1; i < lines.length; i++) {
     drawCenteredText(lines[i], 10, false);
   }
 
-  // Line
   page.drawLine({
     start: { x: 50, y },
     end: { x: 545, y },
@@ -139,27 +129,23 @@ export async function generateResumePDF(resumeData: any) {
   });
   y -= 10;
 
-  // === Profile ===
   drawTitle("Profile");
   drawWrappedText(resumeData.profile_content);
 
-  // === Education ===
   drawTitle("Education");
   resumeData.education_list?.forEach((item: string) => {
-    const [title, years] = item.split(/\((.*?)\)/).map(s => s.trim());
+    const [title, years] = item.split(/\((.*?)\)/).map((s) => s.trim());
     drawLabelRight(title, years?.replace(")", "") || "");
   });
   drawWrappedText(resumeData.education_content);
 
-  // === Experience ===
   drawTitle("Experience");
   resumeData.experience_list?.forEach((item: string) => {
-    const [title, years] = item.split(/\((.*?)\)/).map(s => s.trim());
+    const [title, years] = item.split(/\((.*?)\)/).map((s) => s.trim());
     drawLabelRight(title, years?.replace(")", "") || "");
   });
   drawWrappedText(resumeData.experience_content);
 
-  // === Save and download ===
   const pdfBytes = await pdfDoc.save();
   saveAs(new Blob([pdfBytes], { type: "application/pdf" }), "resume.pdf");
 }
