@@ -21,7 +21,6 @@ const PersonalInfoSection = ({
           Personal Information
         </h3>
       </div>
-
       <div className="p-4 border border-none rounded-md space-y-4 bg-red-50/40">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           <div className="flex flex-col space-y-1.5">
@@ -39,7 +38,6 @@ const PersonalInfoSection = ({
               <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
             )}
           </div>
-
           <div className="flex flex-col space-y-1.5">
             <Label htmlFor="email" className="text-red-800">
               Email Address
@@ -58,7 +56,6 @@ const PersonalInfoSection = ({
               </p>
             )}
           </div>
-
           <div className="flex flex-col space-y-1.5">
             <Label htmlFor="phone" className="text-red-800">
               Phone Number
@@ -70,7 +67,7 @@ const PersonalInfoSection = ({
               {...register("phone")}
               disabled={isSubmitting}
               className="border-red-200 focus:border-red-300 focus:ring-red-200 placeholder:text-gray-300"
-            />
+              />
             {errors.phone && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.phone.message}

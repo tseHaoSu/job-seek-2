@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import AIAssistant from "./_components/AIAssistant";
 import Script from "next/script";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,6 +52,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </PasswordProtect>
+        <Toaster />
       </body>
     </html>
   );

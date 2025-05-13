@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Forward the request to the external streaming API
+    // Forward the request 
     const response = await fetch("http://20.92.167.242:8001/chat_stream", {
       method: "POST",
       headers: {
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     }
 
 
-    // Return the stream directly to maintain streaming functionality
+    // Return the stream 
     return new Response(response.body, {
       headers: {
         "Content-Type": "text/event-stream",
