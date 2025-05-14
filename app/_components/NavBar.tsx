@@ -145,7 +145,7 @@ const NavBar = () => {
             isVisible ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"
           } ${
             scrolled
-              ? "bg-white/90 backdrop-blur-sm shadow-md"
+              ? "bg-white/60 backdrop-blur-sm shadow-md"
               : "bg-white/80 backdrop-blur-sm"
           }`}
         >
