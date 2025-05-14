@@ -117,9 +117,25 @@ export async function generateResumePDF(resumeData: any) {
   const nameLine = lines[0]?.replace(/^Name:\s*/, "").trim();
   drawCenteredText(nameLine || "YOUR NAME", 20, true);
 
+  if (resumeData.email) {
+    drawCenteredText(`Email: ${resumeData.email}`, 10, false);
+  }
+  if (resumeData.phone) {
+    drawCenteredText(`Phone: ${resumeData.phone}`, 10, false);
+  }
+
   for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim().toLowerCase();
+    if (
+      line.includes("email") ||
+      line.includes("e-mail") ||
+      line.includes("phone")
+    ) {
+      continue;
+    }
     drawCenteredText(lines[i], 10, false);
   }
+  
 
   page.drawLine({
     start: { x: 50, y },
