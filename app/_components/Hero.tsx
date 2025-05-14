@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { Sparkles } from 'lucide-react';
-import React from 'react'
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
+import React from "react";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -15,17 +15,6 @@ const Hero = () => {
           Practical step-by-step help with the workplace tools you use every
           day.
         </h3>
-        <div>
-          <Link href="/dashboard">
-            <Button
-              variant="default"
-              className="bg-red-800 hover:bg-red-900 text-white text-md w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
-            >
-              <Sparkles className="mr-2" />
-              Go to Dashboard
-            </Button>
-          </Link>
-        </div>
       </div>
       <div className="md:mt-0">
         <Image
@@ -38,6 +27,6 @@ const Hero = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Hero
+export default Hero;

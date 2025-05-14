@@ -90,3 +90,34 @@ model QuestionAttempt {
 
   @@map("question_attempts")
 }
+
+
+model Job {
+  id              Int      @id @default(autoincrement())
+  created         DateTime @default(now())
+  lastUpdated     DateTime @updatedAt
+  timePosted      String?  // "2 months ago" format
+  title           String
+  description     String   @db.Text
+  seniority       String?
+  employmentType  String?
+  location        String?
+  url             String?
+  externalUrl     String?
+  applicantsCount String?
+  salary          String?
+  country         String?
+  
+  // Company fields embedded directly
+  companyName     String?
+  companyUrl      String?
+  
+  // Relation to job functions
+  jobFunctions    JobFunction[]
+}
+
+model JobFunction {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  jobs      Job[]
+}
