@@ -30,7 +30,7 @@ const QuizCard = ({ quiz }: { quiz: Quiz }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl p-6 transition-all duration-300 hover:-translate-y-1 border border-gray-100 h-full flex flex-col">
+    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl p-6 transition-all duration-300 hover:-translate-y-1 border border-red-500 h-full flex flex-col">
       <div className="mb-4">
         <Badge
           variant={quiz.attempt ? "outline" : "outline"}

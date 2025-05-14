@@ -87,6 +87,18 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                       {/* Q&A Section */}
                       <div className="mt-8 pt-6 border-t border-gray-200">
                         <div className="flex flex-col gap-8">
+                          {/* Question subimage if available */}
+                          {section.questionSubimage && (
+                            <div className="flex justify-center mt-4">
+                              <Image
+                                src={section.questionSubimage}
+                                alt="Question illustration"
+                                width={300}
+                                height={300}
+                                className="rounded-md"
+                              />
+                            </div>
+                          )}
                           {/* Question section */}
                           <div>
                             <h3 className="font-semibold mb-2 text-red-900">
@@ -110,19 +122,6 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                             </h3>
                             <p>{section.questionExplanation}</p>
                           </div>
-
-                          {/* Question subimage if available */}
-                          {section.questionSubimage && (
-                            <div className="flex justify-center mt-4">
-                              <Image
-                                src={section.questionSubimage}
-                                alt="Question illustration"
-                                width={300}
-                                height={300}
-                                className="rounded-md"
-                              />
-                            </div>
-                          )}
                         </div>
                       </div>
                     </CardContent>
