@@ -65,7 +65,12 @@ const Form = () => {
       const response = await axios.post("/api/generate-cv", data);
       console.log("Submission successful:", response.data);
       setSuccess(true);
-      setResumeData(response.data);
+      setResumeData({
+        ...response.data,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      });
       reset();
     } catch (error) {
       console.error(error);

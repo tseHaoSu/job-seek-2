@@ -20,9 +20,12 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
   const sections = [
     {
       title: "Basic Information",
-      prompt:
-        "Please complete your basic information like name, phone and email.",
-      content: resumeData.cv_heading,
+      prompt: "Please complete your basic information like name, phone and email.",
+      content: [
+        `Name: ${resumeData.name || "N/A"}`,
+        `Email: ${resumeData.email || "N/A"}`,
+        `Phone: ${resumeData.phone || "N/A"}`,
+      ],
     },
     {
       title: "Profile",
@@ -58,7 +61,7 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
             className="border border-transparent rounded-md overflow-hidden shadow-md"
           >
             {/* title */}
-            <div className="bg-red-800 text-white px-4 py-2 font-semibold">
+            <div className="bg-red-100 text-red-700 px-4 py-2 font-semibold">
               {section.title}
             </div>
 
@@ -75,21 +78,32 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
                   <div className="space-y-2">
                     <ul className="list-disc pl-5 text-gray-800">
                       {section.list.map((item: string, idx: number) => (
-                        <li key={idx} className="mb-1">
-                          {item}
-                        </li>
+                        <li key={idx} className="mb-1">{item}</li>
                       ))}
                     </ul>
-                    {section.content && (
-                      <p className="mt-2 whitespace-pre-wrap">
-                        {section.content}
-                      </p>
+                    {section.content && typeof section.content === "string" && (
+                      <p className="mt-2 whitespace-pre-wrap">{section.content}</p>
+                    )}
+                    {Array.isArray(section.content) && (
+                      <ul className="list-disc pl-5 text-gray-800 mt-2">
+                        {section.content.map((line: string, idx: number) => (
+                          <li key={idx}>{line}</li>
+                        ))}
+                      </ul>
                     )}
                   </div>
                 ) : (
-                  <p className="whitespace-pre-wrap">
-                    {section.content || "No content generated."}
-                  </p>
+                  <>
+                    {Array.isArray(section.content) ? (
+                      <ul className="list-disc pl-5 text-gray-800">
+                        {section.content.map((line: string, idx: number) => (
+                          <li key={idx}>{line}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="whitespace-pre-wrap">{section.content || "No content generated."}</p>
+                    )}
+                  </>
                 )}
               </div>
             </div>
@@ -106,7 +120,7 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
           Close
         </Button>
         <Button
-          className="bg-red-800 hover:bg-red-900 focus:ring-red-400"
+          className="mr-2 bg-red-100 text-red-700 hover:bg-red-50 hover:text-red-800"
           onClick={() => generateResumePDF(resumeData)}
         >
           <DownloadIcon size={16} className="mr-1" />
