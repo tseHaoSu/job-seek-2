@@ -68,10 +68,12 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
           stats={stats}
           imagePath="/stock/old-man.jpeg"
         />
+
         <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center">
           <Trophy className="mr-2 h-7 w-7 text-red-600" />
           Simple Action Guides
         </h2>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {category.modules.map((module) => (
             <ModuleCard key={module.id} module={module} />

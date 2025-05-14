@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { AlertDialog } from "@/components/ui/alert-dialog";
 import ConfirmModal from "@/app/_components/ConfirmModal";
+import Hint from "@/app/_components/Hint";
 
 export interface Category {
   name: string;
@@ -74,7 +75,6 @@ const Hero = ({ category, stats, imagePath = "/old-man.jpeg" }: HeroProps) => {
           }
         }
       `}</style>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
         <div className="order-2 lg:order-1 space-y-6">
           <h1 className="text-4xl font-extrabold lg:text-5xl text-red-900 leading-tight">
@@ -91,7 +91,7 @@ const Hero = ({ category, stats, imagePath = "/old-man.jpeg" }: HeroProps) => {
             <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-200 text-green-800 w-fit">
               <BookOpen className="h-4 w-4 mr-1" />
               {completedModules} out of {totalModules} Modules Complete
-            </span>          
+            </span>
             <span
               onClick={resetProgress}
               className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-300 text-red-600 w-fit hover:bg-red-400 hover:text-red-700 transition-colors cursor-pointer"
@@ -124,7 +124,13 @@ const Hero = ({ category, stats, imagePath = "/old-man.jpeg" }: HeroProps) => {
                     animation: "progressStar 1.5s ease-out",
                   }}
                 >
-                  <Star className="h-10 w-10 text-yellow-500 fill-yellow-500" />
+                  <Hint
+                    label="Hit 100% to see confetti!"
+                    side="top"
+                    sideOffset={5}
+                  >
+                    <Star className="h-10 w-10 text-yellow-500 fill-yellow-500" />
+                  </Hint>
                 </span>
               </div>
             </span>

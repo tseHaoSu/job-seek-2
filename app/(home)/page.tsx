@@ -4,22 +4,19 @@ import DataSection from "../_components/DataSection";
 import Hero from "../_components/Hero";
 import SecondBanner from "../_components/SecondBanner";
 import Video from "../_components/Video";
-import AIAssistant from "../_components/AIAssistant";
-import { PrismaClient } from "@prisma/client";
-import Dashboard from "../dashboard/_components/Dashboard";
 
 export default function Home() {
   return (
     <>
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//teaching.mp4"
-        heading="Empowering Experience with Digital Confidence"
-        subtext="Because learning never stops — nor should you."
+        heading="Build Digital Confidence at Work — One Step at a Time."
+        subtext="Interactive support to help mature-age workers master everyday workplace tools with ease!"
       />
       <Hero />
       <Banner />
-      <Cards />
-      <SecondBanner />
+      {/* <Cards />
+      <SecondBanner /> */}
       <DataSection />
     </>
   );
