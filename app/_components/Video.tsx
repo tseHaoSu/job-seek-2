@@ -4,11 +4,12 @@ interface VideoProps {
   videoSrc: string;
   heading: string;
   subtext: string;
+  children?: React.ReactNode;
 }
 
-const Video: React.FC<VideoProps> = ({ videoSrc, heading, subtext }) => {
+const Video: React.FC<VideoProps> = ({ videoSrc, heading, subtext, children }) => {
   return (
-    <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-[600px] mb-12">
+    <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] h-[800px] -mt-[100px] mb-12">
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
         autoPlay
@@ -28,6 +29,7 @@ const Video: React.FC<VideoProps> = ({ videoSrc, heading, subtext }) => {
               {heading}
             </h1>
             <p className="text-xl md:text-2xl text-white mb-8">{subtext}</p>
+            {children}
           </div>
         </div>
       </div>

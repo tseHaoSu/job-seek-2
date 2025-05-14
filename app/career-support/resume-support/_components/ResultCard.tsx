@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { DownloadIcon, XIcon } from "lucide-react";
 import { generateResumePDF } from "./generatePDF";
 
-
 interface ResultCardProps {
   resumeData: any;
   onClose: () => void;
@@ -21,7 +20,8 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
   const sections = [
     {
       title: "Basic Information",
-      prompt: "Please complete your basic information like name, phone and email.",
+      prompt:
+        "Please complete your basic information like name, phone and email.",
       content: resumeData.cv_heading,
     },
     {
@@ -46,40 +46,56 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
   return (
     <Card className="w-full max-w-4xl mx-auto border-none">
       <CardHeader className="border-none">
-        <CardTitle className="text-red-800">Generated Resume Guidance</CardTitle>
+        <CardTitle className="text-red-800">
+          Generated Resume Guidance
+        </CardTitle>
       </CardHeader>
 
       <CardContent className="space-y-6">
         {sections.map((section, index) => (
-          <div key={index} className="border border-transparent rounded-md overflow-hidden shadow-md">
+          <div
+            key={index}
+            className="border border-transparent rounded-md overflow-hidden shadow-md"
+          >
             {/* title */}
             <div className="bg-red-800 text-white px-4 py-2 font-semibold">
               {section.title}
             </div>
 
             {/* two column */}
-            <div className="grid grid-cols-2">
+            <div className="grid grid-cols-1">
               {/* left description */}
-              <div className="bg-red-100 p-4 text-gray-700 text-sm whitespace-pre-wrap">
+              {/* <div className="bg-red-100 p-4 text-gray-700 text-sm whitespace-pre-wrap">
                 {section.prompt || "No prompt available."}
-              </div>
+              </div> */}
 
               {/* right generation context */}
-              <div className="bg-white p-4 text-gray-900 text-sm space-y-2 whitespace-pre-wrap">
-                {section.list && section.list.length > 0 && (
-                  <ul className="list-disc list-inside text-gray-800">
-                    {section.list.map((item: string, idx: number) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
+              <div className="bg-white p-4 text-gray-900 text-sm flex flex-col justify-start">
+                {section.list && section.list.length > 0 ? (
+                  <div className="space-y-2">
+                    <ul className="list-disc pl-5 text-gray-800">
+                      {section.list.map((item: string, idx: number) => (
+                        <li key={idx} className="mb-1">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    {section.content && (
+                      <p className="mt-2 whitespace-pre-wrap">
+                        {section.content}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <p className="whitespace-pre-wrap">
+                    {section.content || "No content generated."}
+                  </p>
                 )}
-                <p>{section.content || "No content generated."}</p>
               </div>
             </div>
           </div>
         ))}
       </CardContent>
-
       <CardFooter className="flex justify-end space-x-2">
         <Button
           onClick={onClose}

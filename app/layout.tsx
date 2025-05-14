@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import AIAssistant from "./_components/AIAssistant";
 import Script from "next/script";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,15 +43,16 @@ export default function RootLayout({
             <SpeedInsights />
             <Analytics />
             <AIAssistant />
-            {/* <Script
+            <Script
               src="https://cdn.userway.org/widget.js"
               data-account="3hzArQPGi5"
               strategy="afterInteractive"
-              data-position="bottom-right"
-            /> */}
+              data-position="bottom-left"
+            />
           </main>
           <Footer />
         </PasswordProtect>
+        <Toaster />
       </body>
     </html>
   );

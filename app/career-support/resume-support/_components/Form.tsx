@@ -79,7 +79,9 @@ const Form = () => {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 border-none">
       <Card className="w-full max-w-4xl mx-auto mb-6 border-none">
         <CardHeader>
-          <CardTitle className="text-red-800">Your Personal Information</CardTitle>
+          <CardTitle className="text-red-800">
+            Your Personal Information
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -128,17 +130,17 @@ const Form = () => {
           </form>
         </CardContent>
       </Card>
-      
-      <div className="relative w-full max-w-4xl mx-auto">
 
-      {/* animation */}
-      {isSubmitting && (
-        <div className="absolute inset-0 bg-white/80 flex flex-col items-center justify-center z-50 rounded-md">
-          <LoadingAnimation />
-          <p className="text-red-800 mt-4 text-center text-lg">AI is generating your resume, please wait...</p>
-        </div>
-      )}
-      
+      <div className="relative w-full max-w-4xl mx-auto">
+        {isSubmitting && (
+          <div className="absolute inset-0 bg-white/80 flex flex-col items-center justify-center z-50 rounded-md">
+            <LoadingAnimation />
+            <p className="text-red-800 mt-4 text-center text-lg">
+              AI is generating your resume, please wait...
+            </p>
+          </div>
+        )}
+
         {resumeData && (
           <ResultCard
             resumeData={resumeData}

@@ -10,8 +10,8 @@ const page = () => {
     <>
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//resume.mp4"
-        heading="Empowering Experience with Digital Confidence"
-        subtext="Because learning never stops — nor should you."
+        heading="Confidently Navigate Your Career Journey"
+        subtext="Take the stress out of job searching with guided support and smart tools."
       />
       <Hero />
       <Banner />
