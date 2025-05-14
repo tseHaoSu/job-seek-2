@@ -125,8 +125,8 @@ const NavBar = () => {
       icon: <Lightbulb className="w-4 h-4 mr-2" />,
     },
     {
-      label: "Experience Wall",
-      href: "/experience-wall",
+      label: "JobFit AI",
+      href: "/jobfit-ai",
       icon: <MessageCircle className="w-4 h-4 mr-2" />,
     },
   ];

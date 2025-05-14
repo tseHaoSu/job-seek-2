@@ -19,25 +19,26 @@ model Category {
 
 model Module {
   id          Int       @id @default(autoincrement())
-  name        String
+  title       String
   description String?
   attempt     Boolean   @default(false)
   categoryId  Int
   Category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  Section     Section[]
+  sections    Section[]
 
   @@map("modules")
 }
 
 model Section {
-  id                  Int    @id @default(autoincrement())
+  id                  Int     @id @default(autoincrement())
   title               String
   moduleId            Int
   steps               Step[]
-  questionText        String @default("")
-  questionAnswer      String @default("")
-  questionExplanation String @default("")
-  module              Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  questionText        String  @default("")
+  questionAnswer      String  @default("")
+  questionExplanation String  @default("")
+  questionSubimage    String? @default("")
+  module              Module  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
 
   @@map("sections")
 }
@@ -46,6 +47,7 @@ model Step {
   id        Int     @id @default(autoincrement())
   text      String
   subtext   String?
+  subimage  String?
   sectionId Int
   section   Section @relation(fields: [sectionId], references: [id])
 

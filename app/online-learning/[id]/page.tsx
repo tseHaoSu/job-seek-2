@@ -8,6 +8,8 @@ import Video from "@/app/_components/Video";
 import { ProgressConfetti } from "./_components/ProgressConfetti";
 import Hint from "@/app/_components/Hint";
 
+export const dynamic = "force-dynamic";
+
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const category = await prisma.category.findUnique({

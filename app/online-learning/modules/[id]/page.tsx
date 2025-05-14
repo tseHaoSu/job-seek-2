@@ -15,23 +15,24 @@ import {
 } from "@/components/ui/carousel";
 import { prisma } from "@/prisma/client";
 
+export const dynamic = "force-dynamic";
+
 const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
 
-  const module = await prisma.module.findUnique({
-    where: { id: parseInt(id) },
-    include: {
-      Category: true,
-    },
-  });
+ const module = await prisma.module.findUnique({
+   where: { id: parseInt(id) },
+   include: {
+     Category: true,
+     sections: {
+       include: {
+         steps: true,
+       },
+     },
+   },
+ });
 
-  const categoryId = module?.Category?.id;
-
-  const moduleData = Object.values(MODULES_DATA).find(
-    (module) => module.id === id
-  );
-
-  if (!moduleData) {
+  if (!module) {
     notFound();
   }
 
@@ -43,26 +44,23 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         subtext="Because learning never stops — nor should you."
       />
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-red-900">
-        {moduleData.title}
+        {module.title}
       </h1>
 
       <div className="space-y-12">
         <Carousel className="w-full max-w-4xl mx-auto relative">
           <CarouselContent>
-            {/* Create one slide for each section */}
-            {moduleData.sections.map((section, sectionIndex) => (
-              <CarouselItem key={`section-${sectionIndex}`}>
+            {module.sections.map((section, sectionIndex) => (
+              <CarouselItem key={`section-${section.id}`}>
                 <div className="p-2">
                   <Card className="border-red-900">
                     <CardContent className="flex flex-col p-6">
-                      {/* Section title */}
                       <h2 className="scroll-m-20 border-none pb-4 text-3xl font-semibold tracking-tight text-red-900 mb-6">
                         {section.title}
                       </h2>
-
                       {/* Steps */}
                       {section.steps.map((step, stepIndex) => (
-                        <div key={`step-content-${stepIndex}`} className="mb-8">
+                        <div key={`step-content-${step.id}`} className="mb-8">
                           <span className="text-lg font-semibold mb-2 text-red-900">
                             Step {stepIndex + 1}
                           </span>
@@ -75,7 +73,7 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                           {step.subimage && (
                             <div className="flex justify-center mt-4">
                               <Image
-                                src="/modules/2.png"
+                                src={step.subimage}
                                 alt={`Additional image for Step ${stepIndex + 1}`}
                                 width={300}
                                 height={300}
@@ -94,7 +92,7 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                             <h3 className="font-semibold mb-2 text-red-900">
                               Question:
                             </h3>
-                            <p>{section.question.text}</p>
+                            <p>{section.questionText}</p>
                           </div>
 
                           {/* Answer section */}
@@ -102,7 +100,7 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                             <h3 className="font-semibold mb-2 text-red-900">
                               Answer:
                             </h3>
-                            <p>{section.question.answer}</p>
+                            <p>{section.questionAnswer}</p>
                           </div>
 
                           {/* Explanation section */}
@@ -110,8 +108,21 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
                             <h3 className="font-semibold mb-2 text-red-900">
                               Explanation:
                             </h3>
-                            <p>{section.question.explanation}</p>
+                            <p>{section.questionExplanation}</p>
                           </div>
+
+                          {/* Question subimage if available */}
+                          {section.questionSubimage && (
+                            <div className="flex justify-center mt-4">
+                              <Image
+                                src={section.questionSubimage}
+                                alt="Question illustration"
+                                width={300}
+                                height={300}
+                                className="rounded-md"
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </CardContent>
@@ -124,7 +135,11 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
           <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 bg-red-800 text-white hover:bg-red-900 border-none shadow-md" />
         </Carousel>
         <div className="flex items-center justify-center space-x-2 mt-8">
-          <Checkbox id="terms" className="border-red-800 text-red-800" />
+          <Checkbox
+            id="terms"
+            className="border-red-800 text-red-800"
+            checked={module.attempt}
+          />
           <label
             htmlFor="terms"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -134,7 +149,7 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
         <div className="flex justify-center mt-10">
           <Link
-            href={`/online-learning/${categoryId}`}
+            href={`/online-learning/${module.categoryId}`}
             className="px-4 py-2 bg-red-800 text-white rounded-md hover:bg-red-900 transition-colors duration-300"
           >
             Back to Tools Guide

@@ -3,6 +3,8 @@ import TrueFalseQuiz from "../_components/TrueFalseQuiz";
 import { notFound } from "next/navigation";
 import Video from "@/app/_components/Video";
 
+export const dynamic = "force-dynamic";
+
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const quiz = await prisma.quiz.findUnique({

@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 interface Module {
   attempt: boolean;
-  name: string;
+  title: string;
   categoryId: number;
   id: number;
   description: string | null;
@@ -44,7 +44,7 @@ const ModuleCard = ({ module }: { module: Module }) => {
           {module.attempt ? "Completed" : "Not Started"}
         </Badge>
       </div>
-      <h3 className="text-xl font-bold text-gray-900 mb-2">{module.name}</h3>
+      <h3 className="text-xl font-bold text-gray-900 mb-2">{module.title}</h3>
       <p className="text-gray-600 mb-4 flex-grow">
         {module.description || "Learn the fundamentals in this module"}
       </p>
