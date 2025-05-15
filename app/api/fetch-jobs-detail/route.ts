@@ -51,10 +51,12 @@ interface FormattedJob {
 const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-const MAX_GET_REQUESTS = 100;
+const MAX_GET_REQUESTS = 150;
 
 export async function POST(request: Request) {
+  console.log("📣 Starting job fetch process...");
   try {
+    console.log("🔍 Preparing search query for jobs in Australia");
     const searchQuery = {
       query: {
         bool: {
@@ -79,6 +81,7 @@ export async function POST(request: Request) {
 
     const apiBaseUrl = "https://api.coresignal.com/cdapi/v2";
     const apiKey = process.env.CORESIGNAL_API_KEY || "";
+    console.log("🔑 API configuration ready");
 
     const authHeaders = {
       "Content-Type": "application/json",
@@ -89,6 +92,7 @@ export async function POST(request: Request) {
     };
 
     // Fetch job IDs
+    console.log("🌐 Sending search request to API...");
     const postUrl = `${apiBaseUrl}/job_base/search/es_dsl`;
     const jobIdsResponse = await axios.post(postUrl, searchQuery, {
       headers: authHeaders,
@@ -96,9 +100,13 @@ export async function POST(request: Request) {
 
     // API returns a direct array of job IDs
     let jobIds = jobIdsResponse.data;
+    console.log(`✅ Received ${jobIds.length} job IDs from API`);
 
     // Limit to MAX_GET_REQUESTS
     if (jobIds.length > MAX_GET_REQUESTS) {
+      console.log(
+        `⚠️ Limiting to ${MAX_GET_REQUESTS} jobs (out of ${jobIds.length} available)`
+      );
       jobIds = jobIds.slice(0, MAX_GET_REQUESTS);
     }
 
@@ -106,21 +114,28 @@ export async function POST(request: Request) {
     let jobsWrittenToDb = 0;
 
     // Process each job ID
+    console.log("🔄 Starting to process individual jobs...");
     for (let i = 0; i < jobIds.length; i++) {
       const jobId = jobIds[i];
+      console.log(`📋 Processing job ID ${jobId} (${i + 1}/${jobIds.length})`);
 
       if (i > 0) {
+        console.log(`⏱️ Waiting 2 seconds before next request...`);
         await delay(2000); // 2 seconds delay between requests
       }
 
       try {
         // Fetch job details
+        console.log(`🔍 Fetching details for job ID ${jobId}...`);
         const jobDetailUrl = `${apiBaseUrl}/job_base/collect/${jobId}`;
         const jobDetailsResponse = await axios.get(jobDetailUrl, {
           headers: authHeaders,
         });
 
         const jobData: JobData = jobDetailsResponse.data;
+        console.log(
+          `✅ Received data for job: "${jobData.title}" at ${jobData.company_name}`
+        );
 
         // Format job data
         const formattedJob: FormattedJob = {
@@ -143,6 +158,7 @@ export async function POST(request: Request) {
         };
 
         // Check if job already exists
+        console.log(`🔍 Checking if job already exists in database...`);
         const existingJob = await prisma.job.findFirst({
           where: { externalUrl: formattedJob.externalUrl },
         });
@@ -150,6 +166,9 @@ export async function POST(request: Request) {
         let jobRecord;
 
         if (existingJob) {
+          console.log(
+            `🔄 Updating existing job record with ID: ${existingJob.id}`
+          );
           // Update existing job
           jobRecord = await prisma.job.update({
             where: { id: existingJob.id },
@@ -172,6 +191,7 @@ export async function POST(request: Request) {
             },
           });
         } else {
+          console.log(`➕ Creating new job record for ${formattedJob.title}`);
           // Create new job
           jobRecord = await prisma.job.create({
             data: {
@@ -200,7 +220,11 @@ export async function POST(request: Request) {
           formattedJob.jobFunctions &&
           formattedJob.jobFunctions.length > 0
         ) {
+          console.log(
+            `🔗 Linking ${formattedJob.jobFunctions.length} job functions to job record`
+          );
           for (const functionName of formattedJob.jobFunctions) {
+            console.log(`  - Processing job function: ${functionName}`);
             const jobFunction = await prisma.jobFunction.upsert({
               where: { name: functionName },
               update: {},
@@ -220,12 +244,22 @@ export async function POST(request: Request) {
 
         // Increment counter for successful DB writes
         jobsWrittenToDb++;
+        console.log(
+          `✅ Job successfully processed and saved to database (total: ${jobsWrittenToDb})`
+        );
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : String(error);
+        console.error(`❌ Error processing job ID ${jobId}: ${errorMessage}`);
         failedJobs.push({ id: jobId, error: errorMessage });
       }
     }
+
+    console.log(`📊 Process summary:`);
+    console.log(`- Total jobs found: ${jobIds.length}`);
+    console.log(`- Jobs processed: ${jobIds.length - failedJobs.length}`);
+    console.log(`- Jobs written to DB: ${jobsWrittenToDb}`);
+    console.log(`- Failed jobs: ${failedJobs.length}`);
 
     return NextResponse.json({
       success: true,
@@ -237,6 +271,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`❌ FATAL ERROR: ${errorMessage}`);
     return NextResponse.json(
       {
         success: false,
