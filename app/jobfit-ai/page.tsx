@@ -1,23 +1,24 @@
-import React from 'react'
+"use client";
+
+import Video from "@/app/_components/Video";
+import SearchInput from "./_components/SearchInput";
+import SearchBar from "./_components/SearchBar";
+import Header from "./_components/Header";
+import JobTabs from "./_components/JobTabs";
 
 const page = () => {
   return (
-    <div className="fixed inset-0 w-screen h-screen z-0">
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source
-          src="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//under-construction.mp4"
-          type="video/mp4"
-        />
-        Your browser does not support the video tag.
-      </video>
-    </div>
+    <>
+      <Video
+        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
+        heading="Explore the opportunities that await you"
+        subtext="Fresh jobs, tailored to your skills and interests with the help of AI."
+      />
+      <Header />
+      <SearchBar />
+      <JobTabs defaultTab="jobs"/> 
+    </>
   );
-}
+};
 
-export default page
+export default page;
