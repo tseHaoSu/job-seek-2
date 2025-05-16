@@ -8,7 +8,7 @@ const Page = () => {
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
         heading="Start Building Your Digital Skills"
-        subtext="Choose a tool category to begin — from workplace communication to productivity essentials."
+        subtext="Choose a tool category to begin - from workplace communication to productivity essentials."
       />
       <Header2 />
       <Categories />

@@ -6,7 +6,7 @@ export const DashboardHeader = () => {
       </h1>
       <div className="p-6 bg-gradient-to-r from-red-50 to-red-100 rounded-xl shadow-md mb-6">
         <h3 className="text-lg md:text-xl text-red-800 text-center">
-          Build your own dashboard — your tools, your way.
+          Build your own dashboard — your tools, your way.<br />
           <em>
             Pick and arrange the cards that matter most to you and get started
             with your digital journey.

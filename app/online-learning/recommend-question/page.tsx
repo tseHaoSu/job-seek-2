@@ -8,10 +8,10 @@ const page = () => {
     <>
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//art.mp4"
-        heading="Master the Tools You Use at Work"
-        subtext="Step-by-step guides for Word, Zoom, Gmail, and more — designed just for you."
+        heading="Quiz For Personalized Recommendations"
+        subtext="Recommend a personalized set of tools from: Word, PowerPoint,
+        Excel, Acrobat, Zoom, Teams, Meet, SEEK, LinkedIn, Gmail."
       />
-      <Header />
       <Questions />
     </>
   );
