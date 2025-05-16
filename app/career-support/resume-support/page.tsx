@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "./_components/Form";
-import { Bot } from "lucide-react";
+import { Bot, ChevronDown } from "lucide-react";
 import Video from "@/app/_components/Video";
 
 const page = () => {
@@ -9,8 +9,13 @@ const page = () => {
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//resume.mp4"
         heading="Craft Your Resume with Confidence"
-        subtext="Let our AI guide you step-by-step to create a resume that stands out—simple, smart, and stress-free."
-      />
+        subtext="Let our AI guide you step-by-step to create a resume that stands out—simple, smart, and stress-free.">
+
+        <div className="absolute bottom-13 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
+          <ChevronDown size={28} className="animate-bounce" />
+          <span className="text-m mt-1">Scroll down to generate the resume</span>
+        </div>
+        </Video>
       <div className="space-y-8 text-center">
         <h1 className="text-4xl font-extrabold lg:text-4xl text-red-900 leading-tight flex items-center justify-center gap-2">
           <Bot size={50} className="inline-block" />

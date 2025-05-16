@@ -77,13 +77,6 @@ const NavBar = () => {
       label: "Home",
       href: "/",
       icon: <Compass className="w-4 h-4 mr-2" />,
-      children: [
-        {
-          label: "Dashboard",
-          href: "/dashboard",
-          icon: <BookOpen className="w-4 h-4 mr-2" />,
-        },
-      ],
     },
     {
       label: "Tools Walkthrough",
@@ -112,22 +105,18 @@ const NavBar = () => {
           href: "/career-support/resume-support",
           icon: <BookOpen className="w-4 h-4 mr-2" />,
         },
-        {
-          label: "Interview Prep",
-          href: "/career-support/interview",
-          icon: <MessageCircle className="w-4 h-4 mr-2" />,
-        },
       ],
     },
-    {
-      label: "AI Support",
-      href: "/ai-support",
-      icon: <Lightbulb className="w-4 h-4 mr-2" />,
-    },
+    
     {
       label: "JobFit AI",
       href: "/jobfit-ai",
       icon: <MessageCircle className="w-4 h-4 mr-2" />,
+    },
+    {
+      label: "Dashboard",
+      href: "/dashboard",
+      icon: <Lightbulb className="w-4 h-4 mr-2" />,
     },
   ];
 
