@@ -500,8 +500,6 @@ export const getEmploymentTypeColor = (type: string | null) => {
     case "Other":
       return "bg-orange-100 text-orange-800 hover:bg-orange-100/80";
     case "Full-time":
-      return "bg-indigo-100 text-indigo-800 hover:bg-indigo-100/80";
-    case "Full-time":
       return "bg-pink-100 text-pink-800 hover:bg-pink-100/80";
     default:
       return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";

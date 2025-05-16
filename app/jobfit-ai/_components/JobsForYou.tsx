@@ -23,6 +23,9 @@ import {
   getEmploymentTypeColor,
   getSeniorityColor,
 } from "@/lib/constant";
+import Loading, { LoadingProgress } from "@/app/loading";
+import Expandable from "./Exapndable";
+
 
 // Type definition based on your Prisma model
 interface Job {
@@ -43,7 +46,7 @@ interface Job {
   companyName: string | null;
   companyUrl: string | null;
   isFavorite: boolean;
-  jobFunction: { id: number; name: string }; 
+  jobFunction: { id: number; name: string };
 }
 
 const JobsForYou = () => {
@@ -91,7 +94,7 @@ const JobsForYou = () => {
     e.stopPropagation();
 
     try {
-      // In a real app, you would update the favorite status in the database
+      // fetch favorite
       // const response = await fetch(`/api/jobs/${job.id}/favorite`, {
       //   method: 'PUT',
       //   headers: { 'Content-Type': 'application/json' },
@@ -120,16 +123,19 @@ const JobsForYou = () => {
 
   // Handle loading and error states
   if (error) return <div>Failed to load jobs</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div>
+        <LoadingProgress />
+      </div>
+    );
   if (!selectedJob) return <div>No jobs available</div>;
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
-      {/* Left Side - Job Cards with Infinite Scroll */}
-      <div className="w-full lg:w-2/5">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">
-          Recommended for you
-        </h2>
+      {/* Job Cards with Infinite Scroll */}
+      <div className="w-full lg:w-2/5 pt-5">
+        <h2 className="text-xs font-bold mb-4 text-gray-800">Available jobs</h2>
         <div
           id="scrollableDiv"
           className="pr-0 lg:pr-4 max-h-[800px] overflow-y-auto"
@@ -151,6 +157,7 @@ const JobsForYou = () => {
             <div className="space-y-3">
               {jobs.map((job) => (
                 <div
+                  key={job.id}
                   className={`border relative ${
                     selectedJob.id === job.id
                       ? "border-red-900 bg-red-50"
@@ -194,7 +201,7 @@ const JobsForYou = () => {
         </div>
       </div>
       <div className="hidden lg:block border-r border-gray-200 mx-4"></div>
-      {/* Right Side - Job Detail */}
+      {/*  Job Detail */}
       <div className="w-full lg:w-3/5 mt-6 lg:mt-0">
         {selectedJob && (
           <div className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300">
@@ -215,8 +222,6 @@ const JobsForYou = () => {
                 />
               </button>
             </div>
-
-            {/* Company Logo/Thumbnail */}
             {selectedJob.externalUrl && (
               <div className="mb-6 flex items-center">
                 {selectedJob.companyName && (
@@ -226,7 +231,6 @@ const JobsForYou = () => {
                     </div>
                   </Avatar>
                 )}
-
                 <a
                   href={selectedJob.externalUrl}
                   target="_blank"
@@ -238,7 +242,6 @@ const JobsForYou = () => {
                 </a>
               </div>
             )}
-
             <div className="flex flex-wrap gap-2 mb-5">
               {selectedJob.seniority && (
                 <Badge
@@ -265,7 +268,6 @@ const JobsForYou = () => {
                 </Badge>
               )}
             </div>
-
             <div className="flex flex-col gap-3 mb-8 bg-gray-50 p-4 rounded-lg border border-gray-100">
               <div className="flex items-center">
                 <Building className="h-5 w-5 text-red-800 mr-2" />
@@ -324,11 +326,11 @@ const JobsForYou = () => {
 
             <div className="mb-8">
               <h3 className="text-lg font-bold text-red-900 mb-4 flex items-center">
-                <FileText className="h-5 w-5 mr-2 text-red-800" />
+                <FileText className="h-8 w-8 mr-2 text-red-800" />
                 Job Description
               </h3>
               <div className="text-gray-700 whitespace-pre-line border-l-4 border-red-100 pl-4">
-                {selectedJob.description}
+                <Expandable>{selectedJob.description}</Expandable>
               </div>
             </div>
 
@@ -338,7 +340,7 @@ const JobsForYou = () => {
                   <Briefcase className="h-5 w-5 mr-2 text-red-800" />
                   Job Function
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 ml-4">
                   <Badge
                     variant="secondary"
                     className="bg-red-50 text-red-900 hover:bg-red-100"
@@ -348,7 +350,6 @@ const JobsForYou = () => {
                 </div>
               </div>
             )}
-
             <div className="mt-8 flex gap-4">
               <Button className="w-full py-6 bg-red-900 hover:bg-red-800 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300">
                 Apply Now

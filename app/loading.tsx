@@ -52,9 +52,6 @@ export function LoadingProgress() {
 
       <div className="flex justify-between w-full">
         <p className="text-sm font-medium">Progress: {progress}%</p>
-        <p className="text-sm font-medium">
-          {progress < 100 ? "Please wait..." : "Complete!"}
-        </p>
       </div>
     </div>
   );
