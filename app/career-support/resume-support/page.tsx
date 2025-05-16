@@ -11,7 +11,7 @@ const page = () => {
         heading="Craft Your Resume with Confidence"
         subtext="Let our AI guide you step-by-step to create a resume that stands out—simple, smart, and stress-free.">
 
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
+        <div className="absolute bottom-13 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
           <ChevronDown size={28} className="animate-bounce" />
           <span className="text-m mt-1">Scroll down to generate the resume</span>
         </div>
