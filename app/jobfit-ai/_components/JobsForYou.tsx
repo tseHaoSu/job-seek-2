@@ -133,7 +133,7 @@ const JobsForYou = () => {
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
-      {/* Job Cards with Infinite Scroll */}
+      {/* Infinite Scroll */}
       <div className="w-full lg:w-2/5 pt-5">
         <h2 className="text-xs font-bold mb-4 text-gray-800">Available jobs</h2>
         <div
