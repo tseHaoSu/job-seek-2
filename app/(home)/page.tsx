@@ -8,7 +8,7 @@ import Video from "../_components/Video";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
+import { Sparkles,ChevronDown } from "lucide-react";
 import MainFeature from "../_components/MainFeature";
 
 export default function Home() {
@@ -29,6 +29,11 @@ export default function Home() {
             Go to Dashboard
         </Button>
       </Link>
+
+      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
+        <ChevronDown size={28} className="animate-bounce" />
+        <span className="text-m mt-1">Scroll down to know more</span>
+      </div>
       </Video>
       <DataSection />
       <Banner />

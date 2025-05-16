@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import { notFound } from "next/navigation";
 import { MODULES_DATA } from "@/lib/constant";
 import Video from "@/app/_components/Video";
@@ -41,8 +42,12 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
         heading="Explore in demand technologies"
-        subtext="Because learning never stops — nor should you."
-      />
+        subtext="Because learning never stops — nor should you.">
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
+          <ChevronDown size={28} className="animate-bounce" />
+          <span className="text-m mt-1">Scroll down to start the quiz</span>
+        </div>
+      </Video>
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-red-900">
         {module.title}
       </h1>

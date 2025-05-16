@@ -12,20 +12,8 @@ const Hero = () => {
           Career Support
         </h1>
         <h3 className="text-xl md:text-2xl text-gray-700 leading-relaxed">
-          Build your resume and learn how to use job platforms—no stress, just
-          support.
+          Our career support tools are designed to help you build your resume and learn how to use job platforms — no stress, just support. We provide personalized feedback and resources to help you succeed in your job search.
         </h3>
-        <div>
-          <Link href="/career-support/resume-support">
-            <Button
-              variant="outline"
-              className="bg-red-800 hover:bg-red-900 text-white text-lg w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
-            >
-              <Sparkles className="mr-2" />
-              Try it out
-            </Button>
-          </Link>
-        </div>
       </div>
       <div className="md:mt-0">
         <Image
