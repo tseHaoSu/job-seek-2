@@ -48,10 +48,7 @@ interface FormattedJob {
   jobFunctions?: string[];
 }
 
-const delay = (ms: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, ms));
-
-const MAX_GET_REQUESTS = 100;
+const MAX_GET_REQUESTS = 200;
 
 export async function POST(request: Request) {
   try {
@@ -108,10 +105,6 @@ export async function POST(request: Request) {
     // Process each job ID
     for (let i = 0; i < jobIds.length; i++) {
       const jobId = jobIds[i];
-
-      if (i > 0) {
-        await delay(2000); // 2 seconds delay between requests
-      }
 
       try {
         // Fetch job details
@@ -220,6 +213,9 @@ export async function POST(request: Request) {
 
         // Increment counter for successful DB writes
         jobsWrittenToDb++;
+        console.log(
+          `Job ${jobId} processed successfully. Job ID: ${jobRecord.id}`
+        );
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : String(error);

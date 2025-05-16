@@ -111,6 +111,11 @@ model Job {
   // Company fields embedded directly
   companyName     String?
   companyUrl      String?
+
+  //favorite
+
+  isFavorite     Boolean  @default(false)
+
   
   // Relation to job functions
   jobFunctions    JobFunction[]

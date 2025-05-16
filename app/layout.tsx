@@ -1,14 +1,16 @@
+import { Toaster } from "@/components/ui/toaster";
+import { QueryClient } from "@tanstack/react-query";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import AIAssistant from "./_components/AIAssistant";
 import Footer from "./_components/Footer";
 import NavBar from "./_components/NavBar";
 import PasswordProtect from "./_components/PasswordProtect";
 import "./globals.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/react";
-import AIAssistant from "./_components/AIAssistant";
-import Script from "next/script";
-import { Toaster } from "@/components/ui/toaster";
+import Providers from "./_components/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,23 +38,25 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
         suppressHydrationWarning
       >
-        <PasswordProtect>
-          <NavBar />
-          <main className="max-w-[1200px] mx-auto mb-20 space-y-20 sm:px-6 lg:px-8">
-            {children}
-            <SpeedInsights />
-            <Analytics />
-            <AIAssistant />
-            <Script
-              src="https://cdn.userway.org/widget.js"
-              data-account="3hzArQPGi5"
-              strategy="afterInteractive"
-              data-position="bottom-left"
-            />
-          </main>
-          <Footer />
-        </PasswordProtect>
-        <Toaster />
+        <Providers>
+          <PasswordProtect>
+            <NavBar />
+            <main className="max-w-[1200px] mx-auto mb-20 space-y-20 sm:px-6 lg:px-8">
+              {children}
+              <SpeedInsights />
+              <Analytics />
+              <AIAssistant />
+              <Script
+                src="https://cdn.userway.org/widget.js"
+                data-account="3hzArQPGi5"
+                strategy="afterInteractive"
+                data-position="bottom-left"
+              />
+            </main>
+            <Footer />
+          </PasswordProtect>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
