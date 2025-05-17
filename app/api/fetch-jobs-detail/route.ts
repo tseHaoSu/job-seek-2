@@ -51,7 +51,7 @@ interface FormattedJob {
 const delay = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
-const MAX_GET_REQUESTS = 150;
+const MAX_GET_REQUESTS = 200;
 
 export async function POST(request: Request) {
   console.log("📣 Starting job fetch process...");
@@ -62,19 +62,55 @@ export async function POST(request: Request) {
         bool: {
           must: [{ match: { country: "Australia" } }],
           should: [
-            { match: { title: "Next.js" } },
-            { match: { description: "Word" } },
-            { match: { description: "PowerPoint" } },
-            { match: { description: "Excel" } },
-            { match: { description: "Acrobat" } },
-            { match: { description: "Zoom" } },
-            { match: { description: "Teams" } },
-            { match: { description: "Meet" } },
-            { match: { description: "SEEK" } },
-            { match: { description: "LinkedIn" } },
-            { match: { description: "Gmail" } },
+            // Software Engineer positions
+            { match: { title: "Software Engineer" } },
+            { match: { title: "Software Developer" } },
+            { match: { title: "Full Stack Developer" } },
+            { match: { title: "Backend Developer" } },
+            { match: { title: "Backend Engineer" } },
+            { match: { title: "Frontend Developer" } },
+            { match: { title: "Frontend Engineer" } },
+            { match: { title: "DevOps Engineer" } },
+
+            // Data-related positions
+            { match: { title: "Data Engineer" } },
+            { match: { title: "Data Scientist" } },
+            { match: { title: "Data Analyst" } },
+            { match: { title: "Business Intelligence" } },
+            { match: { title: "Database Administrator" } },
+            { match: { title: "Big Data" } },
+
+            // Data and software technologies
+            { match: { description: "SQL" } },
+            { match: { description: "Python" } },
+            { match: { description: "Java" } },
+            { match: { description: "JavaScript" } },
+            { match: { description: "TypeScript" } },
+            { match: { description: "React" } },
+            { match: { description: "Node.js" } },
+            { match: { description: "Go" } },
+            { match: { description: "Rust" } },
+            { match: { description: "C#" } },
+            { match: { description: "R" } },
+            { match: { description: "Tableau" } },
+            { match: { description: "Power BI" } },
+            { match: { description: "Hadoop" } },
+            { match: { description: "Spark" } },
+            { match: { description: "AWS" } },
+            { match: { description: "Azure" } },
+            { match: { description: "GCP" } },
+            { match: { description: "ETL" } },
+            { match: { description: "Machine Learning" } },
+            { match: { description: "Data Warehouse" } },
+            { match: { description: "Data Lake" } },
+            { match: { description: "MongoDB" } },
+            { match: { description: "PostgreSQL" } },
+            { match: { description: "Snowflake" } },
+            { match: { description: "Databricks" } },
+            { match: { description: "dbt" } },
+            { match: { description: "Airflow" } },
           ],
-          minimum_should_match: 1,
+          minimum_should_match: 2, 
         },
       },
     };
@@ -121,7 +157,7 @@ export async function POST(request: Request) {
 
       if (i > 0) {
         console.log(`⏱️ Waiting 2 seconds before next request...`);
-        await delay(2000); // 2 seconds delay between requests
+        await delay(1000); 
       }
 
       try {

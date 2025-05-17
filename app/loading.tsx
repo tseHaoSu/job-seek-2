@@ -29,7 +29,7 @@ export function LoadingProgress() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto space-y-6 p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg">
+    <>
       <div className="relative">
         <Loader2 className="h-12 w-12 text-primary animate-spin mb-2" />
         <div
@@ -53,14 +53,13 @@ export function LoadingProgress() {
       <div className="flex justify-between w-full">
         <p className="text-sm font-medium">Progress: {progress}%</p>
       </div>
-    </div>
+    </>
   );
 }
 
-// For use in a Next.js loading.js file
 export default function Loading() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+    <div className="flex flex-col items-center justify-center h-screen">
       <LoadingProgress />
     </div>
   );

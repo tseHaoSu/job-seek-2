@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Forward the request 
-    const response = await fetch("http://20.92.167.242:8001/chat_stream", {
+    const response = await fetch("http://20.11.48.94:8001/chat_stream", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

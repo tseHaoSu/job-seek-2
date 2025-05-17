@@ -1,15 +1,18 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { useSearchParams } from "next/navigation";
 
 interface SearchInputProps {
   onSearch?: (searchValue: string) => void;
 }
 
-const SearchInput = ({ onSearch }: SearchInputProps) => {
-  const [value, setValue] = useState("");
+const SearchInput = ({ onSearch}: SearchInputProps) => {
+  const searchParams = useSearchParams();
+  const searchParamValue = searchParams.get("search") || "";
+  const [value, setValue] = useState(searchParamValue);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
