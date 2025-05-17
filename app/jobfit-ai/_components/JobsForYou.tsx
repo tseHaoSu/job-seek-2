@@ -6,6 +6,7 @@ import { Job } from "./types";
 import JobList from "./JobList";
 import JobDetail from "./JobDetail";
 import Loading from "../loading";
+import axios from "axios";
 
 const JobsForYou = () => {
   const {
@@ -24,21 +25,20 @@ const JobsForYou = () => {
   useEffect(() => {
     if (data) {
       const allJobs = data.pages.flatMap((page) =>
-        page.jobs.map((job) => ({
+        page.jobs.map((job: any) => ({
           ...job,
-          jobFunction: job.jobFunction || { id: 1, name: "Unknown" },
+          jobFunctions: Array.isArray(job.jobFunctions)
+            ? job.jobFunctions
+            : [job.jobFunction || { id: 1, name: "Unknown" }],
         }))
       );
       setJobs(allJobs);
-
-      // Set the first job as selected if there's no selected job yet
       if (allJobs.length > 0 && !selectedJob) {
         setSelectedJob(allJobs[0]);
       }
     }
   }, [data, selectedJob]);
 
-  // Function to fetch more data
   const fetchMoreData = () => {
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -49,22 +49,15 @@ const JobsForYou = () => {
     e.stopPropagation();
 
     try {
-      // fetch favorite
-      // const response = await fetch(`/api/jobs/${job.id}/favorite`, {
-      //   method: 'PUT',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ isFavorite: !job.isFavorite }),
-      // });
+      await axios.patch(`/api/jobs/${job.id}/favorite`, {
+        isFavorite: !job.isFavorite,
+      });
 
-      // if (!response.ok) throw new Error('Failed to update favorite status');
-
-      // Update jobs array locally
       const updatedJobs = jobs.map((j) =>
         j.id === job.id ? { ...j, isFavorite: !j.isFavorite } : j
       );
       setJobs(updatedJobs);
 
-      // Update selected job if that's the one being toggled
       if (selectedJob && selectedJob.id === job.id) {
         setSelectedJob({
           ...selectedJob,
@@ -81,7 +74,7 @@ const JobsForYou = () => {
   if (!selectedJob) return <div>No jobs available</div>;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6" suppressHydrationWarning>
+    <div className="flex flex-col lg:flex-row gap-6">
       <JobList
         jobs={jobs}
         selectedJob={selectedJob}

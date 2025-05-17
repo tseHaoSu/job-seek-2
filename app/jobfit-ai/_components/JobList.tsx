@@ -22,7 +22,9 @@ const JobList = ({
 }: JobListProps) => {
   return (
     <div className="w-full lg:w-2/5 pt-5">
-      <h2 className="text-xs font-bold mb-4 text-gray-800">Available jobs</h2>
+      <h2 className="text-xs font-bold mb-4 text-gray-800">
+        Available jobs 
+      </h2>
       <div
         id="scrollableDiv"
         className="pr-0 lg:pr-4 max-h-[800px] overflow-y-auto"

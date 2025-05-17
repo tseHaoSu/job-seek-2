@@ -1,88 +1,119 @@
 "use client";
 
-import React from "react";
-import { Heart, Trash2, Building, MapPin, Calendar } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { useFavoriteJobs } from "@/hooks/useFavoriteJobs";
+import { Heart } from "lucide-react";
+import axios from "axios";
+import { Job } from "./types";
+import JobList from "./JobList";
+import JobDetail from "./JobDetail";
+import Loading from "../loading";
 
 const FavoriteJobs = () => {
-  // Sample favorites data - you'll replace this with your actual data
-  const favorites = [
-    {
-      id: 1,
-      title: "Frontend Developer",
-      company: "TechCorp",
-      location: "Melbourne",
-      salary: "$95,000 - $120,000",
-      date: "Yesterday",
-    },
-    {
-      id: 2,
-      title: "React Engineer",
-      company: "Digital Solutions",
-      location: "Sydney",
-      salary: "$100,000 - $130,000",
-      date: "3 days ago",
-    },
-    {
-      id: 3,
-      title: "UX Designer",
-      company: "CreativeMinds",
-      location: "Brisbane",
-      salary: "$85,000 - $110,000",
-      date: "1 week ago",
-    },
-  ];
+  const { favoriteJobs, favoriteCount, isLoading, error, refreshFavorites } =
+    useFavoriteJobs();
+  const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
 
-  return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">
-        <Heart
-          className="inline-block h-6 w-6 mr-2 text-red-900"
-          fill="#7f1d1d"
-        />
-        Your Favorites
-      </h2>
-      <div className="space-y-3">
-        {favorites.map((job) => (
-          <div
-            key={job.id}
-            className="flex justify-between items-center py-4 px-3 border-b border-gray-200 hover:bg-gray-50 rounded-md"
-          >
-            <div>
-              <h3 className="font-bold text-red-900">{job.title}</h3>
-              <div className="flex items-center text-sm text-gray-700 mt-1">
-                <Building className="h-4 w-4 mr-1" />
-                {job.company}
-              </div>
-              <div className="flex items-center text-sm text-gray-700 mt-1">
-                <MapPin className="h-4 w-4 mr-1" />
-                {job.location}
-              </div>
-              <p className="text-sm font-medium mt-1">{job.salary}</p>
-            </div>
-            <div className="flex flex-col items-end gap-3">
-              <div className="flex items-center text-sm text-gray-500">
-                <Calendar className="h-4 w-4 mr-1" />
-                {job.date}
-              </div>
-              <button className="text-gray-500 hover:text-red-900 transition-colors">
-                <Trash2 className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-        ))}
+  // Format jobs and handle jobFunctions using useMemo
+  const formattedJobs = useMemo(() => {
+    if (!favoriteJobs) return [];
+
+    return favoriteJobs.map((job) => ({
+      ...job,
+      jobFunctions: Array.isArray(job.jobFunctions)
+        ? job.jobFunctions
+        : [job.jobFunctions || { id: 1, name: "Unknown" }],
+    }));
+  }, [favoriteJobs]);
+
+  const selectedJob = useMemo(() => {
+    if (selectedJobId) {
+      const found = formattedJobs.find((job) => job.id === selectedJobId);
+      if (found) return found;
+    }
+
+    return formattedJobs.length > 0 ? formattedJobs[0] : null;
+  }, [formattedJobs, selectedJobId]);
+
+  const handleSelectJob = (job: Job) => {
+    setSelectedJobId(job.id);
+  };
+  const fetchMoreData = () => {};
+  const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    try {
+      await axios.patch(`/api/jobs/${job.id}/favorite`, {
+        isFavorite: !job.isFavorite,
+      });
+      refreshFavorites();
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
+  };
+
+  const PageHeader = () => (
+    <h2 className="text-2xl font-bold mb-4 text-gray-800 flex items-center">
+      <Heart className="h-6 w-6 mr-2 text-red-900 fill-red-900" />
+      Your Favorites {!isLoading && `(${favoriteCount})`}
+    </h2>
+  );
+
+  if (isLoading) {
+    return (
+      <div className="p-4">
+        <PageHeader />
+        <Loading />
       </div>
+    );
+  }
 
-      {/* Empty state - show this when there are no favorites */}
-      {favorites.length === 0 && (
+  if (error) {
+    return (
+      <div className="p-4">
+        <PageHeader />
+        <div className="text-center py-4 text-red-500">
+          Failed to load favorites
+        </div>
+      </div>
+    );
+  }
+
+  if (!formattedJobs.length) {
+    return (
+      <div className="p-4">
+        <PageHeader />
         <div className="text-center py-8">
           <Heart
             className="h-12 w-12 mx-auto text-gray-300"
             strokeWidth={1.5}
           />
           <p className="mt-2 text-gray-500">You haven't saved any jobs yet</p>
-          <p className="text-gray-500">Jobs you favorite will appear here</p>
+          <p className="text-gray-500">
+            Click the heart icon on jobs to save them here
+          </p>
         </div>
-      )}
+      </div>
+    );
+  }
+
+  // Normal state with jobs
+  return (
+    <div className="p-4">
+      <PageHeader />
+      <div className="flex flex-col lg:flex-row gap-6">
+        <JobList
+          jobs={formattedJobs}
+          selectedJob={selectedJob}
+          setSelectedJob={handleSelectJob}
+          hasNextPage={false}
+          fetchMoreData={fetchMoreData}
+        />
+        <div className="hidden lg:block border-r border-gray-200 mx-4"></div>
+        {selectedJob && (
+          <JobDetail job={selectedJob} toggleFavorite={toggleFavorite} />
+        )}
+      </div>
     </div>
   );
 };

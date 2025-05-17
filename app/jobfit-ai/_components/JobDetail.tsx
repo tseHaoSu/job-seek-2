@@ -77,19 +77,22 @@ const JobDetail = ({ job, toggleFavorite }: JobDetailProps) => {
           </div>
         </div>
 
-        {job.jobFunction && (
+        {job.jobFunctions && job.jobFunctions.length > 0 && (
           <div className="mb-8">
             <h3 className="text-lg font-bold text-red-900 mb-3 flex items-center">
               <Briefcase className="h-5 w-5 mr-2 text-red-800" />
-              Job Function
+              Job Functions
             </h3>
             <div className="flex flex-wrap gap-2 ml-4">
-              <Badge
-                variant="secondary"
-                className="bg-red-50 text-red-900 hover:bg-red-100"
-              >
-                {job.jobFunction.name}
-              </Badge>
+              {job.jobFunctions.map((jobFunction) => (
+                <Badge
+                  key={jobFunction.id}
+                  variant="secondary"
+                  className="bg-red-50 text-red-900 hover:bg-red-100"
+                >
+                  {jobFunction.name}
+                </Badge>
+              ))}
             </div>
           </div>
         )}

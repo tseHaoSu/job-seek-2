@@ -477,47 +477,67 @@ export const MODULES_DATA: Record<string, ModuleData> = {
 };
 
 export const getSeniorityColor = (seniority: string | null) => {
-  switch (seniority) {
-    case "Entry level":
-      return "bg-blue-100 text-blue-800 hover:bg-blue-100/80";
-    case "Mid-Senior level":
-      return "bg-green-100 text-green-800 hover:bg-green-100/80";
-    case "Associate":
-      return "bg-purple-100 text-purple-800 hover:bg-purple-100/80";
-    case "Director":
-      return "bg-amber-100 text-amber-800 hover:bg-amber-100/80";
-    default:
-      return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
+  if (!seniority) return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
+
+  const seniorityLower = seniority.toLowerCase();
+
+  if (seniorityLower.includes("entry")) {
+    return "bg-blue-100 text-blue-800 hover:bg-blue-100/80";
+  } else if (
+    seniorityLower.includes("mid") ||
+    seniorityLower.includes("senior")
+  ) {
+    return "bg-green-100 text-green-800 hover:bg-green-100/80";
+  } else if (seniorityLower.includes("associate")) {
+    return "bg-purple-100 text-purple-800 hover:bg-purple-100/80";
+  } else if (seniorityLower.includes("director")) {
+    return "bg-amber-100 text-amber-800 hover:bg-amber-100/80";
+  } else if (seniorityLower.includes("not applicable")) {
+    return "bg-gray-100 text-gray-800 hover:bg-gray-100/80";
+  } else {
+    return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
   }
 };
 
 export const getEmploymentTypeColor = (type: string | null) => {
-  switch (type) {
-    case "Temporary":
-      return "bg-emerald-100 text-emerald-800 hover:bg-emerald-100/80";
-    case "Part-time":
-      return "bg-sky-100 text-sky-800 hover:bg-sky-100/80";
-    case "Other":
-      return "bg-orange-100 text-orange-800 hover:bg-orange-100/80";
-    case "Full-time":
-      return "bg-pink-100 text-pink-800 hover:bg-pink-100/80";
-    default:
-      return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
+  if (!type) return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
+
+  const typeLower = type.toLowerCase();
+
+  if (typeLower.includes("temp")) {
+    return "bg-emerald-100 text-emerald-800 hover:bg-emerald-100/80";
+  } else if (typeLower.includes("part")) {
+    return "bg-sky-100 text-sky-800 hover:bg-sky-100/80";
+  } else if (typeLower.includes("full")) {
+    return "bg-pink-100 text-pink-800 hover:bg-pink-100/80";
+  } else if (typeLower.includes("other") || typeLower.includes("contract")) {
+    return "bg-orange-100 text-orange-800 hover:bg-orange-100/80";
+  } else {
+    return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
   }
 };
 
-
 export const getCountryColor = (country: string | null) => {
-  switch (country) {
-    case "Australia":
-      return "bg-red-100 text-red-800 hover:bg-red-100/80";
-    case "United States":
-      return "bg-blue-100 text-blue-800 hover:bg-blue-100/80";
-    case "China":
-      return "bg-indigo-100 text-indigo-800 hover:bg-indigo-100/80";
-    case "United Kingdom":
-      return "bg-purple-100 text-purple-800 hover:bg-purple-100/80";
-    default:
-      return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
+  if (!country) return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
+
+  const countryLower = country.toLowerCase();
+
+  if (countryLower.includes("australia") || countryLower.includes("aus")) {
+    return "bg-red-100 text-red-800 hover:bg-red-100/80";
+  } else if (
+    countryLower.includes("united states") ||
+    countryLower.includes("us") ||
+    countryLower.includes("usa")
+  ) {
+    return "bg-blue-100 text-blue-800 hover:bg-blue-100/80";
+  } else if (countryLower.includes("china")) {
+    return "bg-indigo-100 text-indigo-800 hover:bg-indigo-100/80";
+  } else if (
+    countryLower.includes("united kingdom") ||
+    countryLower.includes("uk")
+  ) {
+    return "bg-purple-100 text-purple-800 hover:bg-purple-100/80";
+  } else {
+    return "bg-slate-100 text-slate-800 hover:bg-slate-100/80";
   }
 };

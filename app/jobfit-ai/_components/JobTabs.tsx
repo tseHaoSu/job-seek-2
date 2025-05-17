@@ -6,15 +6,33 @@ import JobsForYou from "./JobsForYou";
 import FavoriteJobs from "./FavoriteJobs";
 import { Briefcase, Heart } from "lucide-react";
 
-const JobTabs = ({ defaultTab = "jobs" }) => {
-  const [activeTab, setActiveTab] = useState(defaultTab);
+interface Props {
+  defaultTab?: string;
+}
+
+const getSavedTab = () => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("jobfit-active-tab") || "jobs";
+  }
+  return "jobs";
+};
+
+const JobTabs = ({ defaultTab = "jobs" }: Props) => {
+  const [activeTab, setActiveTab] = useState(() => getSavedTab());
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("jobfit-active-tab", tab);
+    }
+  };
 
   return (
     <div className="w-full border-b border-gray-200 mb-6">
       <div className="container mx-auto px-4">
         <div className="flex space-x-8">
           <button
-            onClick={() => setActiveTab("jobs")}
+            onClick={() => handleTabChange("jobs")}
             className={cn(
               "py-4 font-bold text-gray-600 relative flex items-center",
               activeTab === "jobs" && "text-red-900"
@@ -27,7 +45,7 @@ const JobTabs = ({ defaultTab = "jobs" }) => {
             )}
           </button>
           <button
-            onClick={() => setActiveTab("favorites")}
+            onClick={() => handleTabChange("favorites")}
             className={cn(
               "py-4 font-bold text-gray-600 relative flex items-center",
               activeTab === "favorites" && "text-red-900"
@@ -47,6 +65,6 @@ const JobTabs = ({ defaultTab = "jobs" }) => {
       </div>
     </div>
   );
-}
+};
 
 export default JobTabs;

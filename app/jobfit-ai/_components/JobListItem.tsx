@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import { Badge } from "@/components/ui/badge";
-import { getEmploymentTypeColor, getSeniorityColor } from "@/lib/constant";
 import { Job } from "./types";
+import JobBadges from "./JobBadges";
 
 interface JobListItemProps {
   job: Job;
@@ -22,23 +21,17 @@ const JobListItem = ({ job, isSelected, onSelect }: JobListItemProps) => {
       <h3 className="font-bold text-lg text-red-900">{job.title}</h3>
       <p className="text-gray-700">{job.companyName}</p>
       <p className="text-gray-700">{job.location}</p>
-      <p className="mt-2 font-semibold">{job.salary}</p>
-      <div className="flex flex-wrap gap-2 mt-3">
-        {job.seniority && (
-          <Badge className={getSeniorityColor(job.seniority)} variant="outline">
-            {job.seniority}
-          </Badge>
-        )}
-        {job.employmentType && (
-          <Badge
-            className={getEmploymentTypeColor(job.employmentType)}
-            variant="outline"
-          >
-            {job.employmentType}
-          </Badge>
-        )}
+      <p className="mt-2 mb-3 font-semibold">{job.salary}</p>
+
+      <div className="my-3">
+        <JobBadges
+          seniority={job.seniority}
+          employmentType={job.employmentType}
+          country={job.country}
+        />
       </div>
-      <div className="mt-3">
+
+      <div className="mt-2">
         <span className="text-sm text-gray-500">{job.timePosted}</span>
       </div>
     </div>

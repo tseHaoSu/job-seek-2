@@ -16,5 +16,5 @@ export interface Job {
   companyName: string | null;
   companyUrl: string | null;
   isFavorite: boolean;
-  jobFunction: { id: number; name: string };
+  jobFunctions: { id: number; name: string }[];
 }
