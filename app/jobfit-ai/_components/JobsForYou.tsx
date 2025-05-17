@@ -1,31 +1,32 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import {
-  Building,
-  MapPin,
-  Calendar,
-  DollarSign,
-  Heart,
-  FileEdit,
-  Users,
-  ExternalLink,
-  FileText,
-  Briefcase,
-} from "lucide-react";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { Avatar } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar } from "@/components/ui/avatar";
 import { useJobs } from "@/hooks/useJobs";
 import {
   getCountryColor,
   getEmploymentTypeColor,
   getSeniorityColor,
 } from "@/lib/constant";
-import Loading, { LoadingProgress } from "@/app/loading";
+import {
+  Briefcase,
+  Building,
+  Calendar,
+  CalendarClock,
+  DollarSign,
+  ExternalLink,
+  FileEdit,
+  FileText,
+  Heart,
+  MapPin,
+  Users,
+} from "lucide-react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Loading from "../loading";
 import Expandable from "./Exapndable";
-
 
 // Type definition based on your Prisma model
 interface Job {
@@ -50,7 +51,6 @@ interface Job {
 }
 
 const JobsForYou = () => {
-  // Use the custom hook to fetch jobs with infinite scrolling
   const {
     data,
     error,
@@ -60,9 +60,7 @@ const JobsForYou = () => {
     isFetchingNextPage,
   } = useJobs();
 
-  // State to store all jobs from all pages
   const [jobs, setJobs] = useState<Job[]>([]);
-  // State to store the selected job
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   // Update jobs state whenever data changes
@@ -121,19 +119,17 @@ const JobsForYou = () => {
     }
   };
 
-  // Handle loading and error states
   if (error) return <div>Failed to load jobs</div>;
   if (isLoading)
     return (
       <div>
-        <LoadingProgress />
+        <Loading />
       </div>
     );
   if (!selectedJob) return <div>No jobs available</div>;
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
-      {/* Infinite Scroll */}
       <div className="w-full lg:w-2/5 pt-5">
         <h2 className="text-xs font-bold mb-4 text-gray-800">Available jobs</h2>
         <div
@@ -201,7 +197,6 @@ const JobsForYou = () => {
         </div>
       </div>
       <div className="hidden lg:block border-r border-gray-200 mx-4"></div>
-      {/*  Job Detail */}
       <div className="w-full lg:w-3/5 mt-6 lg:mt-0">
         {selectedJob && (
           <div className="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-300">
@@ -309,15 +304,15 @@ const JobsForYou = () => {
                 <div className="flex items-center">
                   <Calendar className="h-5 w-5 text-red-800 mr-2" />
                   <span className="text-gray-800">
-                    Posted {selectedJob.timePosted}
+                    Posted: {selectedJob.timePosted}
                   </span>
                 </div>
               )}
               {selectedJob.lastUpdated && (
                 <div className="flex items-center">
-                  <Calendar className="h-5 w-5 text-red-800 mr-2" />
+                  <CalendarClock className="h-5 w-5 text-red-800 mr-2" />
                   <span className="text-gray-800">
-                    Last update{" "}
+                    Last update:{" "}
                     {new Date(selectedJob.lastUpdated).toLocaleDateString()}
                   </span>
                 </div>
@@ -351,9 +346,16 @@ const JobsForYou = () => {
               </div>
             )}
             <div className="mt-8 flex gap-4">
-              <Button className="w-full py-6 bg-red-900 hover:bg-red-800 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300">
-                Apply Now
-              </Button>
+              <Link
+                href={selectedJob.externalUrl!}
+                target="_blank"
+                className="flex-1"
+              >
+                <Button className="w-full py-6 bg-red-900 hover:bg-red-800 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300">
+                  <ExternalLink className="h-5 w-5" />
+                  Apply Now
+                </Button>
+              </Link>
               <Button
                 className="py-6 flex items-center gap-2 bg-white border-red-900 hover:bg-red-50 text-red-900 border font-medium shadow-sm hover:shadow-md transition-all duration-300"
                 variant="outline"
