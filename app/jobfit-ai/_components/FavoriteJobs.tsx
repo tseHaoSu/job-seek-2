@@ -8,13 +8,17 @@ import { Job } from "./types";
 import JobList from "./JobList";
 import JobDetail from "./JobDetail";
 import Loading from "../loading";
+import { useToast } from "@/hooks/use-toast";
 
 const FavoriteJobs = () => {
   const { favoriteJobs, favoriteCount, isLoading, error, refreshFavorites } =
     useFavoriteJobs();
   const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
+  const { toast } = useToast();
+  const [optimisticUpdates, setOptimisticUpdates] = useState<
+    Record<number, boolean>
+  >({});
 
-  // Format jobs and handle jobFunctions using useMemo
   const formattedJobs = useMemo(() => {
     if (!favoriteJobs) return [];
 
@@ -23,8 +27,12 @@ const FavoriteJobs = () => {
       jobFunctions: Array.isArray(job.jobFunctions)
         ? job.jobFunctions
         : [job.jobFunctions || { id: 1, name: "Unknown" }],
+      isFavorite:
+        optimisticUpdates[job.id] !== undefined
+          ? optimisticUpdates[job.id]
+          : job.isFavorite,
     }));
-  }, [favoriteJobs]);
+  }, [favoriteJobs, optimisticUpdates]);
 
   const selectedJob = useMemo(() => {
     if (selectedJobId) {
@@ -38,17 +46,61 @@ const FavoriteJobs = () => {
   const handleSelectJob = (job: Job) => {
     setSelectedJobId(job.id);
   };
+
   const fetchMoreData = () => {};
+
   const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
     e.stopPropagation();
 
+    const newFavoriteState = !job.isFavorite;
+
+    setOptimisticUpdates((prev) => ({
+      ...prev,
+      [job.id]: newFavoriteState,
+    }));
+
+    if (job.isFavorite) {
+      toast({
+        variant: "success",
+        title: "Job removed from favorites",
+        description: "This job has been removed from your favorites list",
+      });
+    } else {
+      toast({
+        variant: "success",
+        title: "Job added to favorites",
+        description: "This job has been added to your favorites list",
+      });
+    }
+
     try {
       await axios.patch(`/api/jobs/${job.id}/favorite`, {
-        isFavorite: !job.isFavorite,
+        isFavorite: newFavoriteState,
       });
+
       refreshFavorites();
+
+      setTimeout(() => {
+        setOptimisticUpdates((prev) => {
+          const { [job.id]: _, ...rest } = prev;
+          return rest;
+        });
+      }, 1000);
     } catch (error) {
       console.error("Error toggling favorite:", error);
+
+      setOptimisticUpdates((prev) => {
+        const { [job.id]: _, ...rest } = prev;
+        return rest;
+      });
+
+      toast({
+        variant: "destructive",
+        title: "Failed to update favorites",
+        description: "Please try again later",
+      });
+
+      refreshFavorites();
     }
   };
 
@@ -97,7 +149,6 @@ const FavoriteJobs = () => {
     );
   }
 
-  // Normal state with jobs
   return (
     <div className="p-4">
       <PageHeader />

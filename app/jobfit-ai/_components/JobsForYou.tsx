@@ -7,6 +7,7 @@ import JobList from "./JobList";
 import JobDetail from "./JobDetail";
 import Loading from "../loading";
 import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 const JobsForYou = () => {
   const {
@@ -20,6 +21,7 @@ const JobsForYou = () => {
 
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const { toast } = useToast();
 
   // Update jobs state whenever data changes
   useEffect(() => {
@@ -48,24 +50,58 @@ const JobsForYou = () => {
   const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
     e.stopPropagation();
 
+    // Optimistically update UI
+    const updatedJobs = jobs.map((j) =>
+      j.id === job.id ? { ...j, isFavorite: !j.isFavorite } : j
+    );
+    setJobs(updatedJobs);
+
+    if (selectedJob && selectedJob.id === job.id) {
+      setSelectedJob({
+        ...selectedJob,
+        isFavorite: !selectedJob.isFavorite,
+      });
+    }
+
+    // Show toast notification
+    toast({
+      variant: "success",
+      title: job.isFavorite
+        ? "Job removed from favorites"
+        : "Job added to favorites",
+      description: job.isFavorite
+        ? "This job has been removed from your favorites list"
+        : "This job has been added to your favorites list",
+    });
+
     try {
       await axios.patch(`/api/jobs/${job.id}/favorite`, {
         isFavorite: !job.isFavorite,
       });
 
-      const updatedJobs = jobs.map((j) =>
-        j.id === job.id ? { ...j, isFavorite: !j.isFavorite } : j
+      // Success case already handled optimistically
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+
+      // Revert changes on error
+      toast({
+        variant: "destructive",
+        title: "Failed to update favorites",
+        description: "Please try again later",
+      });
+
+      // Revert the UI changes
+      const revertedJobs = jobs.map((j) =>
+        j.id === job.id ? { ...j, isFavorite: job.isFavorite } : j
       );
-      setJobs(updatedJobs);
+      setJobs(revertedJobs);
 
       if (selectedJob && selectedJob.id === job.id) {
         setSelectedJob({
           ...selectedJob,
-          isFavorite: !selectedJob.isFavorite,
+          isFavorite: job.isFavorite,
         });
       }
-    } catch (error) {
-      console.error("Error toggling favorite:", error);
     }
   };
 
