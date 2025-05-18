@@ -20,7 +20,11 @@ import { ResumeData } from "./types";
 import WorkExperienceSection from "./WorkExperienceSection";
 import LoadingAnimation from "./LoadingAnimation";
 
-const Form = () => {
+interface Props {
+  jobId?: number;
+}
+
+const Form = ({ jobId }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
   const [success, setSuccess] = useState(false);

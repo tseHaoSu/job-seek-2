@@ -14,7 +14,7 @@ interface JobActionsProps {
 const JobActions = ({ externalUrl, jobId }: JobActionsProps) => {
   const router = useRouter();
   const handleGenerateCV = () => {
-    router.push(`/jobs/${jobId}/generate-cv`);
+    router.push(`/career-support/resume-support/${jobId}`);
   };
   return (
     <div className="mt-8 flex gap-4">
