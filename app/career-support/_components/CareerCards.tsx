@@ -5,7 +5,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator"; // Fixed import path
-import { Users, BookOpen, Bot } from "lucide-react";
+import { Users, BookOpen, Bot, UserRoundSearch } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -14,14 +14,14 @@ const Cards = () => {
     <div className="flex flex-col md:flex-row gap-8 items-stretch">
       <Card className="w-full rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-300 hover:scale-105 duration-300 cursor-pointer border border-gray-200">
         <div className="flex justify-center pt-8 text-red-400">
-          <Users size={64} />
+          <UserRoundSearch size={64} />
         </div>
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-gray-800">
-            Job Platforms Guidance
+            Jobfit AI
           </CardTitle>
           <CardDescription className="text-base text-gray-600">
-            A Platform for users to get guidance on common job platforms
+            Fresh jobs, tailored to your skills and interests with the help of AI
           </CardDescription>
         </CardHeader>
       </Card>

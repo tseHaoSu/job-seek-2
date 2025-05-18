@@ -105,14 +105,20 @@ const NavBar = () => {
           href: "/career-support/resume-support",
           icon: <BookOpen className="w-4 h-4 mr-2" />,
         },
+        {
+        label: "JobFit AI",
+        href: "/jobfit-ai",
+        icon: <MessageCircle className="w-4 h-4 mr-2" />,
+      },
       ],
+      
     },
-    
+    /*
     {
       label: "JobFit AI",
       href: "/jobfit-ai",
       icon: <MessageCircle className="w-4 h-4 mr-2" />,
-    },
+    },*/
     {
       label: "Dashboard",
       href: "/dashboard",
