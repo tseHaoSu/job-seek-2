@@ -12,6 +12,13 @@ import Hint from "./Hint";
 import { z } from "zod";
 import Script from "next/script";
 
+const presetQuestions = [
+  "What is Still-Skilled?",
+  "What is JobFit AI?",
+  "Where can I find resume suggestions?",
+  "How to use excel to make a shopping list?",
+];
+
 const messageSchema = z
   .string()
   .min(2, {
@@ -198,6 +205,90 @@ const AIAssistant = () => {
     }
   };
 
+  const sendMessageDirect = async (text: string) => {
+  const validation = validateMessage(text);
+  if (!validation.valid) {
+    setValidationError(validation.error);
+    return;
+  }
+
+  setValidationError("");
+  const trimmedMessage = text.trim();
+
+  // add user question
+  setMessages((prev) => [...prev, { sender: "user", text: trimmedMessage }]);
+  setIsLoading(true);
+  setIsTyping(true);
+  setMessage(""); // clean input
+
+  try {
+    // Insert a blank assistant response placeholder
+    setMessages((prev) => [...prev, { sender: "assistant", text: "" }]);
+
+    const response = await fetch("/api/chatbot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "text/event-stream",
+      },
+      body: JSON.stringify({
+        prompt: trimmedMessage,
+        session_id: sessionId || `session_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`
+      }),
+    });
+
+    const reader = response.body?.getReader();
+      if (!reader) {
+        console.error("No readable stream in response.body");
+        setMessages((prev) => [
+          ...prev,
+          { sender: "assistant", text: "Sorry, the response was invalid." },
+        ]);
+        setIsLoading(false);
+        setIsTyping(false);
+        return;
+      }
+    const decoder = new TextDecoder();
+    let accumulatedSSE = "";
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        const finalMessage = parseSSEResponse(accumulatedSSE);
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          newMessages[newMessages.length - 1] = {
+            ...newMessages[newMessages.length - 1],
+            text: finalMessage,
+          };
+          return newMessages;
+        });
+        break;
+      }
+      accumulatedSSE += decoder.decode(value, { stream: true });
+      const currentMessage = parseSSEResponse(accumulatedSSE);
+
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        newMessages[newMessages.length - 1] = {
+          ...newMessages[newMessages.length - 1],
+          text: currentMessage,
+        };
+        return newMessages;
+      });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    setMessages((prev) => [
+      ...prev,
+      { sender: "assistant", text: "Sorry, something went wrong." },
+    ]);
+  } finally {
+    setIsLoading(false);
+    setIsTyping(false);
+  }
+};
+
   return (
     <>
       <Script
@@ -306,6 +397,7 @@ const AIAssistant = () => {
                 <div
                   style={{
                     display: "inline-block",
+                    textAlign: "left",
                     backgroundColor:
                       msg.sender === "user"
                         ? `rgba(139,0,0,0.1)` // Light theme color background for user
@@ -318,13 +410,35 @@ const AIAssistant = () => {
                     boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
                   }}
                 >
+                  {/* normal user question */}
                   {msg.text}
-                  {msg.sender === "assistant" &&
-                    index === messages.length - 1 &&
-                    isTyping &&
-                    msg.text.length > 0 && (
-                      <span className="typing-cursor">|</span>
-                    )}
+
+                  {/* If it is the first system message, add a preset button after it */}
+                  {msg.sender === "system" && index === 0 && (
+                    <div style={{ marginTop: "10px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      {presetQuestions.map((q, i) => (
+                        <button
+                          key={i}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            sendMessageDirect(q);
+                          }}
+                          style={{
+                            fontSize: "12px",
+                            padding: "6px 10px",
+                            borderRadius: "15px",
+                            backgroundColor: themeColor,
+                            color: "#fff",
+                            border: "none",
+                            cursor: "pointer",
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          {q}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -348,7 +462,6 @@ const AIAssistant = () => {
             )}
             <div ref={messagesEndRef} />
           </div>
-
           <form
             onSubmit={handleSendMessage}
             style={{
