@@ -129,3 +129,46 @@ export {
   ToastClose,
   ToastAction,
 };
+
+// Add useToast hook
+type ToastVariant = "default" | "destructive" | "success";
+
+interface ToastOptions {
+  title?: string;
+  description?: string;
+  variant?: ToastVariant;
+  duration?: number;
+}
+
+export const useToast = () => {
+  const toast = (options: ToastOptions) => {
+    const toastRoot = document.createElement("div");
+    toastRoot.className = "toast-notification";
+    toastRoot.setAttribute("role", "alert");
+
+    const variantClass =
+      options.variant === "destructive"
+        ? "bg-red-100 text-red-800 border-red-300"
+        : options.variant === "success"
+          ? "bg-green-100 text-green-800 border-green-300"
+          : "bg-white text-gray-800 border-gray-300";
+
+    toastRoot.innerHTML = `
+      <div class="fixed top-4 right-4 p-4 rounded-md shadow-md border ${variantClass} z-50 animate-in fade-in-0 zoom-in-95">
+        ${options.title ? `<h3 class="font-semibold">${options.title}</h3>` : ""}
+        ${options.description ? `<p class="text-sm mt-1">${options.description}</p>` : ""}
+      </div>
+    `;
+
+    document.body.appendChild(toastRoot);
+
+    setTimeout(() => {
+      toastRoot.classList.add("animate-out", "fade-out-0", "zoom-out-95");
+      setTimeout(() => {
+        document.body.removeChild(toastRoot);
+      }, 300);
+    }, options.duration || 3000);
+  };
+
+  return { toast };
+};

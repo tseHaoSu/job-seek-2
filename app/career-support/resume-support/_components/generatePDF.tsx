@@ -1,7 +1,21 @@
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import { saveAs } from "file-saver";
 
-export async function generateResumePDF(resumeData: any) {
+interface ResumeData {
+  name: string;
+  cv_heading?: string;
+  profile_heading?: string;
+  profile_content?: string;
+  education_heading?: string;
+  education_list?: string[];
+  education_content?: string;
+  experience_heading?: string;
+  experience_list?: string[];
+  experience_content?: string;
+  logs?: string[];
+}
+
+export async function generateResumePDF(resumeData: ResumeData) {
   const pdfDoc = await PDFDocument.create();
   let page = pdfDoc.addPage([595, 842]);
   const { width, height } = page.getSize();
@@ -112,30 +126,25 @@ export async function generateResumePDF(resumeData: any) {
     y -= lineHeight;
   };
 
-  const lines = (resumeData.cv_heading || "").split("\n");
+  // Handle the CV heading section
+  const lines = (resumeData.cv_heading || `Name: ${resumeData.name}`).split(
+    "\n"
+  );
 
   const nameLine = lines[0]?.replace(/^Name:\s*/, "").trim();
-  drawCenteredText(nameLine || "YOUR NAME", 20, true);
+  drawCenteredText(nameLine || resumeData.name, 20, true);
 
-  if (resumeData.email) {
-    drawCenteredText(`Email: ${resumeData.email}`, 10, false);
-  }
-  if (resumeData.phone) {
-    drawCenteredText(`Phone: ${resumeData.phone}`, 10, false);
-  }
-
+  // Skip drawing email/phone if they're placeholder text
   for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim().toLowerCase();
+    const line = lines[i].trim();
     if (
-      line.includes("email") ||
-      line.includes("e-mail") ||
-      line.includes("phone")
+      line.includes("[Please enter your") ||
+      line.includes("[Please provide your")
     ) {
       continue;
     }
-    drawCenteredText(lines[i], 10, false);
+    drawCenteredText(line, 10, false);
   }
-  
 
   page.drawLine({
     start: { x: 50, y },
@@ -145,22 +154,57 @@ export async function generateResumePDF(resumeData: any) {
   });
   y -= 10;
 
-  drawTitle("Profile");
-  drawWrappedText(resumeData.profile_content);
+  // Profile section
+  if (resumeData.profile_content) {
+    drawTitle("Profile");
+    drawWrappedText(resumeData.profile_content);
+  }
 
-  drawTitle("Education");
-  resumeData.education_list?.forEach((item: string) => {
-    const [title, years] = item.split(/\((.*?)\)/).map((s) => s.trim());
-    drawLabelRight(title, years?.replace(")", "") || "");
-  });
-  drawWrappedText(resumeData.education_content);
+  // Education section
+  if (
+    resumeData.education_content ||
+    (resumeData.education_list && resumeData.education_list.length > 0)
+  ) {
+    drawTitle("Education");
+    if (resumeData.education_list && resumeData.education_list.length > 0) {
+      resumeData.education_list.forEach((item: string) => {
+        const parts = item.split(/\s+at\s+|\s+\(|\)\s*$/).filter(Boolean);
+        if (parts.length >= 2) {
+          const title = `${parts[0]} at ${parts[1]}`;
+          const years = parts.length > 2 ? parts[2] : "";
+          drawLabelRight(title, years);
+        } else {
+          drawWrappedText(item);
+        }
+      });
+    }
+    if (resumeData.education_content) {
+      drawWrappedText(resumeData.education_content);
+    }
+  }
 
-  drawTitle("Experience");
-  resumeData.experience_list?.forEach((item: string) => {
-    const [title, years] = item.split(/\((.*?)\)/).map((s) => s.trim());
-    drawLabelRight(title, years?.replace(")", "") || "");
-  });
-  drawWrappedText(resumeData.experience_content);
+  // Experience section
+  if (
+    resumeData.experience_content ||
+    (resumeData.experience_list && resumeData.experience_list.length > 0)
+  ) {
+    drawTitle("Experience");
+    if (resumeData.experience_list && resumeData.experience_list.length > 0) {
+      resumeData.experience_list.forEach((item: string) => {
+        const parts = item.split(/\s+at\s+|\s+\(|\)\s*$/).filter(Boolean);
+        if (parts.length >= 2) {
+          const title = `${parts[0]} at ${parts[1]}`;
+          const years = parts.length > 2 ? parts[2] : "";
+          drawLabelRight(title, years);
+        } else {
+          drawWrappedText(item);
+        }
+      });
+    }
+    if (resumeData.experience_content) {
+      drawWrappedText(resumeData.experience_content);
+    }
+  }
 
   const pdfBytes = await pdfDoc.save();
   saveAs(new Blob([pdfBytes], { type: "application/pdf" }), "resume.pdf");

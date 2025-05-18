@@ -1,13 +1,10 @@
-"use client";
-
 import React from "react";
 
 import { Bot, ChevronDown } from "lucide-react";
 import Video from "@/app/_components/Video";
 import Form from "../_components/Form";
-import JobSection from "../_components/JobSection";
 
-const Page = () => {
+const page = () => {
   return (
     <>
       <Video
@@ -38,4 +35,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;

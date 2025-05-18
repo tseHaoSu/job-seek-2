@@ -1,15 +1,14 @@
 "use client";
 
-import React from "react";
 import { Avatar } from "@/components/ui/avatar";
-import { Heart, ExternalLink, FileText, Briefcase } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { Job } from "./types";
+import { Briefcase, ExternalLink, FileText, Heart } from "lucide-react";
+import React from "react";
+import Expandable from "./Exapndable";
+import JobActions from "./JobActions";
 import JobBadges from "./JobBadges";
 import JobInfoSection from "./JobInfoSection";
-import JobActions from "./JobActions";
-import Expandable from "./Exapndable";
+import { Job } from "./types";
 
 interface JobDetailProps {
   job: Job;

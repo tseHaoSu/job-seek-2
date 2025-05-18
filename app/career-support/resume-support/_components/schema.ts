@@ -1,10 +1,7 @@
 import { z } from "zod";
 
-// Define the schema for form validation
 export const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.string().min(1, "Email is required"),
-  phone: z.string().min(1, "Phone number is required"),
   education: z
     .array(
       z.object({
@@ -40,4 +37,22 @@ export const formSchema = z.object({
     )
     .min(1, "At least one work experience entry is required")
     .max(5, "Maximum of 5 work experience entries allowed"),
+  // Optional job data with all fields optional
+  job: z
+    .object({
+      id: z.number().optional(),
+      title: z.string().optional(),
+      companyName: z.string().nullable().optional(),
+      seniority: z.string().nullable().optional(),
+      employmentType: z.string().nullable().optional(),
+      location: z.string().nullable().optional(),
+      jobFunctions: z
+        .array(
+          z.object({
+            name: z.string(),
+          })
+        )
+        .optional(),
+    })
+    .optional(),
 });

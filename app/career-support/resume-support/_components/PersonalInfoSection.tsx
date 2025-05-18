@@ -38,7 +38,7 @@ const PersonalInfoSection = ({
               <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
             )}
           </div>
-          <div className="flex flex-col space-y-1.5">
+          {/* <div className="flex flex-col space-y-1.5">
             <Label htmlFor="email" className="text-red-800">
               Email Address
             </Label>
@@ -72,8 +72,7 @@ const PersonalInfoSection = ({
               <p className="text-red-500 text-sm mt-1">
                 {errors.phone.message}
               </p>
-            )}
-          </div>
+            )} */}
         </div>
       </div>
     </div>

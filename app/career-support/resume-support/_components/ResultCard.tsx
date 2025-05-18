@@ -12,7 +12,19 @@ import { DownloadIcon, XIcon } from "lucide-react";
 import { generateResumePDF } from "./generatePDF";
 
 interface ResultCardProps {
-  resumeData: any;
+  resumeData: {
+    name: string;
+    cv_heading?: string;
+    profile_heading?: string;
+    profile_content?: string;
+    education_heading?: string;
+    education_list?: string[];
+    education_content?: string;
+    experience_heading?: string;
+    experience_list?: string[];
+    experience_content?: string;
+    logs?: string[];
+  };
   onClose: () => void;
 }
 
@@ -22,9 +34,7 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
       title: "Basic Information",
       prompt: "Please complete your basic information like name, phone and email.",
       content: [
-        `Name: ${resumeData.name || "N/A"}`,
-        `Email: ${resumeData.email || "N/A"}`,
-        `Phone: ${resumeData.phone || "N/A"}`,
+        `Name: ${resumeData.name}`
       ],
     },
     {
@@ -67,22 +77,21 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
 
             {/* two column */}
             <div className="grid grid-cols-1">
-              {/* left description */}
-              {/* <div className="bg-red-100 p-4 text-gray-700 text-sm whitespace-pre-wrap">
-                {section.prompt || "No prompt available."}
-              </div> */}
-
               {/* right generation context */}
               <div className="bg-white p-4 text-gray-900 text-sm flex flex-col justify-start">
                 {section.list && section.list.length > 0 ? (
                   <div className="space-y-2">
                     <ul className="list-disc pl-5 text-gray-800">
                       {section.list.map((item: string, idx: number) => (
-                        <li key={idx} className="mb-1">{item}</li>
+                        <li key={idx} className="mb-1">
+                          {item}
+                        </li>
                       ))}
                     </ul>
                     {section.content && typeof section.content === "string" && (
-                      <p className="mt-2 whitespace-pre-wrap">{section.content}</p>
+                      <p className="mt-2 whitespace-pre-wrap">
+                        {section.content}
+                      </p>
                     )}
                     {Array.isArray(section.content) && (
                       <ul className="list-disc pl-5 text-gray-800 mt-2">
@@ -101,7 +110,9 @@ const ResultCard = ({ resumeData, onClose }: ResultCardProps) => {
                         ))}
                       </ul>
                     ) : (
-                      <p className="whitespace-pre-wrap">{section.content || "No content generated."}</p>
+                      <p className="whitespace-pre-wrap">
+                        {section.content || "No content generated."}
+                      </p>
                     )}
                   </>
                 )}

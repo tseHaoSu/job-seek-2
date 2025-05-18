@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,16 +19,15 @@ import { formSchema } from "./schema";
 import { ResumeData } from "./types";
 import WorkExperienceSection from "./WorkExperienceSection";
 import LoadingAnimation from "./LoadingAnimation";
+import JobSection from "./JobSection";
+import { useJobStore } from "@/lib/stores/jobStore";
 
-interface Props {
-  jobId?: number;
-}
-
-const Form = ({ jobId }: Props) => {
+const Form = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState("");
   const [success, setSuccess] = useState(false);
   const [resumeData, setResumeData] = useState<any>(null);
+  const { jobData } = useJobStore();
 
   const {
     register,
@@ -36,6 +35,7 @@ const Form = ({ jobId }: Props) => {
     control,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<ResumeData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -57,8 +57,24 @@ const Form = ({ jobId }: Props) => {
           year_end: 2025,
         },
       ],
+      job: undefined,
     },
   });
+
+  // Update form 
+  useEffect(() => {
+    if (jobData) {
+      setValue("job", {
+        id: jobData.id,
+        title: jobData.title,
+        companyName: jobData.companyName,
+        seniority: jobData.seniority,
+        employmentType: jobData.employmentType,
+        location: jobData.location,
+        jobFunctions: jobData.jobFunctions,
+      });
+    }
+  }, [jobData, setValue]);
 
   const onSubmit = async (data: ResumeData) => {
     setIsSubmitting(true);
@@ -67,13 +83,10 @@ const Form = ({ jobId }: Props) => {
     setResumeData(null);
     try {
       const response = await axios.post("/api/generate-cv", data);
-      console.log("Submission successful:", response.data);
       setSuccess(true);
       setResumeData({
         ...response.data,
         name: data.name,
-        email: data.email,
-        phone: data.phone,
       });
       reset();
     } catch (error) {
@@ -112,6 +125,7 @@ const Form = ({ jobId }: Props) => {
                 errors={errors}
                 isSubmitting={isSubmitting}
               />
+              <JobSection />
               {serverError && (
                 <div className="text-red-500 text-sm mt-2">{serverError}</div>
               )}
