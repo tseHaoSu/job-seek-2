@@ -21,7 +21,7 @@ const MainFeature = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1 */}
         <Link href="/online-learning/tool-selection" className="block">
-          <Card className="w-full h-full rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-300 hover:scale-105 duration-300 cursor-pointer border border-gray-200">
+          <Card className="h-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-red-800 hover:scale-105 duration-300 cursor-pointer border-red-300">
             <div className="flex justify-center pt-8 text-red-400">
               <BookOpen size={64} />
             </div>
@@ -37,7 +37,7 @@ const MainFeature = () => {
         </Link>   
         {/* Card 2 */}
         <Link href="/career-support/resume-support" className="w-full">
-          <Card className="w-full h-full rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-300 hover:scale-105 duration-300 cursor-pointer border border-gray-200">
+          <Card className="h-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-red-800 hover:scale-105 duration-300 cursor-pointer border-red-300">
             <div className="flex justify-center pt-8 text-red-400">
               <Bot size={64} />
             </div>
@@ -53,7 +53,7 @@ const MainFeature = () => {
         </Link>
         {/* Card 3 */}
         <Link href="/jobfit-ai" className="w-full">
-          <Card className="w-full h-full rounded-xl overflow-hidden hover:shadow-xl hover:border-blue-300 hover:scale-105 duration-300 cursor-pointer border border-gray-200">
+          <Card className="h-full rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:border-red-800 hover:scale-105 duration-300 cursor-pointer border-red-300">
             <div className="flex justify-center pt-8 text-red-400">
               <BriefcaseBusiness size={64} />
             </div>
