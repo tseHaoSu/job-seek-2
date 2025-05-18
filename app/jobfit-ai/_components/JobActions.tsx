@@ -4,12 +4,18 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, FileEdit } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface JobActionsProps {
   externalUrl: string | null;
+  jobId: number;
 }
 
-const JobActions = ({ externalUrl }: JobActionsProps) => {
+const JobActions = ({ externalUrl, jobId }: JobActionsProps) => {
+  const router = useRouter();
+  const handleGenerateCV = () => {
+    router.push(`/jobs/${jobId}/generate-cv`);
+  };
   return (
     <div className="mt-8 flex gap-4">
       {externalUrl && (
@@ -23,6 +29,7 @@ const JobActions = ({ externalUrl }: JobActionsProps) => {
       <Button
         className="py-6 flex items-center gap-2 bg-white border-red-900 hover:bg-red-50 text-red-900 border font-medium shadow-sm hover:shadow-md transition-all duration-300"
         variant="outline"
+        onClick={handleGenerateCV}
       >
         <FileEdit className="h-5 w-5" />
         Generate CV

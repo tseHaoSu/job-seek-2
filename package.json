@@ -62,7 +62,8 @@
     "rive-react": "^4.18.9",
     "spinner": "^0.2.4",
     "usehooks-ts": "^3.1.1",
-    "zod": "^3.24.2"
+    "zod": "^3.24.2",
+    "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.7",

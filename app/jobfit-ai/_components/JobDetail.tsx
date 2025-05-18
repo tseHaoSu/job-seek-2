@@ -97,7 +97,7 @@ const JobDetail = ({ job, toggleFavorite }: JobDetailProps) => {
           </div>
         )}
 
-        <JobActions externalUrl={job.externalUrl} />
+        <JobActions externalUrl={job.externalUrl} jobId={job.id} />
       </div>
     </div>
   );

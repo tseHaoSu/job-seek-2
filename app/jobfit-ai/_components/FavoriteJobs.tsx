@@ -19,14 +19,10 @@ const FavoriteJobs = () => {
     Record<number, boolean>
   >({});
 
+//formattedJobs
   const formattedJobs = useMemo(() => {
-    if (!favoriteJobs) return [];
-
-    return favoriteJobs.map((job) => ({
+    return favoriteJobs.map((job: Job) => ({
       ...job,
-      jobFunctions: Array.isArray(job.jobFunctions)
-        ? job.jobFunctions
-        : [job.jobFunctions || { id: 1, name: "Unknown" }],
       isFavorite:
         optimisticUpdates[job.id] !== undefined
           ? optimisticUpdates[job.id]
@@ -36,10 +32,9 @@ const FavoriteJobs = () => {
 
   const selectedJob = useMemo(() => {
     if (selectedJobId) {
-      const found = formattedJobs.find((job) => job.id === selectedJobId);
+      const found = formattedJobs.find((job: Job) => job.id === selectedJobId);
       if (found) return found;
     }
-
     return formattedJobs.length > 0 ? formattedJobs[0] : null;
   }, [formattedJobs, selectedJobId]);
 
@@ -47,39 +42,29 @@ const FavoriteJobs = () => {
     setSelectedJobId(job.id);
   };
 
-  const fetchMoreData = () => {};
-
   const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
     e.stopPropagation();
-
     const newFavoriteState = !job.isFavorite;
 
+    // Set optimistic update
     setOptimisticUpdates((prev) => ({
       ...prev,
       [job.id]: newFavoriteState,
     }));
-
-    if (job.isFavorite) {
-      toast({
-        variant: "success",
-        title: "Job removed from favorites",
-        description: "This job has been removed from your favorites list",
-      });
-    } else {
-      toast({
-        variant: "success",
-        title: "Job added to favorites",
-        description: "This job has been added to your favorites list",
-      });
-    }
-
+    toast({
+      variant: "success",
+      title: newFavoriteState
+        ? "Job added to favorites"
+        : "Job removed from favorites",
+      description: newFavoriteState
+        ? "This job has been added to your favorites list"
+        : "This job has been removed from your favorites list",
+    });
     try {
       await axios.patch(`/api/jobs/${job.id}/favorite`, {
         isFavorite: newFavoriteState,
       });
-
       refreshFavorites();
-
       setTimeout(() => {
         setOptimisticUpdates((prev) => {
           const { [job.id]: _, ...rest } = prev;
@@ -87,19 +72,15 @@ const FavoriteJobs = () => {
         });
       }, 1000);
     } catch (error) {
-      console.error("Error toggling favorite:", error);
-
       setOptimisticUpdates((prev) => {
         const { [job.id]: _, ...rest } = prev;
         return rest;
       });
-
       toast({
         variant: "destructive",
         title: "Failed to update favorites",
         description: "Please try again later",
       });
-
       refreshFavorites();
     }
   };
@@ -111,16 +92,15 @@ const FavoriteJobs = () => {
     </h2>
   );
 
-  if (isLoading) {
+  if (isLoading)
     return (
       <div className="p-4">
         <PageHeader />
         <Loading />
       </div>
     );
-  }
 
-  if (error) {
+  if (error)
     return (
       <div className="p-4">
         <PageHeader />
@@ -129,9 +109,8 @@ const FavoriteJobs = () => {
         </div>
       </div>
     );
-  }
 
-  if (!formattedJobs.length) {
+  if (!formattedJobs.length)
     return (
       <div className="p-4">
         <PageHeader />
@@ -147,7 +126,6 @@ const FavoriteJobs = () => {
         </div>
       </div>
     );
-  }
 
   return (
     <div className="p-4">
@@ -158,7 +136,7 @@ const FavoriteJobs = () => {
           selectedJob={selectedJob}
           setSelectedJob={handleSelectJob}
           hasNextPage={false}
-          fetchMoreData={fetchMoreData}
+          fetchMoreData={() => {}}
         />
         <div className="hidden lg:block border-r border-gray-200 mx-4"></div>
         {selectedJob && (

@@ -27,18 +27,9 @@ interface FavoriteJobsResponse {
   count: number;
 }
 
-const fetchFavoriteJobs = async (): Promise<FavoriteJobsResponse> => {
+const fetchFavoriteJobs = async () => {
   const response = await axios.get("/api/jobs/favorites");
-  const formattedJobs = response.data.jobs.map((job: any) => ({
-    ...job,
-    jobFunctions: Array.isArray(job.jobFunctions)
-      ? job.jobFunctions
-      : [job.jobFunctions || { id: 1, name: "Unknown" }],
-  }));
-  return {
-    jobs: formattedJobs,
-    count: response.data.count,
-  };
+  return response.data;
 };
 
 export function useFavoriteJobs() {
