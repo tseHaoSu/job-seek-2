@@ -11,6 +11,7 @@ import {
 import Hint from "./Hint";
 import { z } from "zod";
 import Script from "next/script";
+import { Resizable } from "re-resizable";
 
 const presetQuestions = [
   "What is Still-Skilled?",
@@ -320,23 +321,27 @@ const AIAssistant = () => {
       </Hint>
 
       {open && (
-        <div
+        <Resizable
+          defaultSize={{
+            width: 400,
+            height: 420,
+          }}
+          minWidth={280}
+          minHeight={300}
+          maxWidth={600}
+          maxHeight={600}
           style={{
             position: "fixed",
             bottom: "190px",
             right: "30px",
-            width: "30vw",
-            height: "45vh",
             backgroundColor: "#fff",
             border: `1px solid ${themeColor}`,
-            borderRadius: "20px", // More rounded corners
+            borderRadius: "20px",
             padding: "15px",
-            boxShadow: `0 4px 20px rgba(255,182,193,0.30)`, 
+            boxShadow: `0 4px 20px rgba(255,182,193,0.30)`,
             zIndex: 999,
             display: "flex",
             flexDirection: "column",
-            maxWidth: "400px",
-            maxHeight: "500px",
             overflow: "hidden",
           }}
         >
@@ -633,7 +638,7 @@ const AIAssistant = () => {
               }
             }
           `}</style>
-        </div>
+        </Resizable>
       )}
     </>
   );
