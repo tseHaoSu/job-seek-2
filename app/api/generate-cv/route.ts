@@ -1,40 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
+import axios from "axios";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Validate 
+    // Validate
     if (!body) {
       return NextResponse.json(
         { error: "Missing request body" },
         { status: 400 }
       );
     }
-    const response = await fetch("http://20.92.167.242:8000/generate_cv", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("External API error:", errorText);
-      return NextResponse.json(
-        {
-          error: `Failed to generate CV: ${response.statusText}`,
-          details: errorText,
+    console.log("Request body:", JSON.stringify(body, null, 2));
+    const response = await axios.post(
+      "http://20.11.48.94:8000/generate_cv",
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
-        { status: response.status }
-      );
-    }
-
-    const data = await response.json();
-    return NextResponse.json(data, { status: 200 });
+      }
+    );
+    return NextResponse.json(response.data, { status: 200 });
   } catch (error) {
     console.error("CV generation error:", error);
+
+    if (axios.isAxiosError(error)) {
+      const statusCode = error.response?.status || 500;
+      const errorMessage = error.response?.data || error.message;
+
+      return NextResponse.json(
+        {
+          error: "Failed to generate ",
+          details: errorMessage,
+        },
+        { status: statusCode }
+      );
+    }
     return NextResponse.json(
       {
         error: "Failed to generate CV",
@@ -44,7 +47,6 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-
 
 export async function GET() {
   return NextResponse.json({ message: "It works!" });

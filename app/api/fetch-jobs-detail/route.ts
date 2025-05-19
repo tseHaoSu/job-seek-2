@@ -60,7 +60,10 @@ export async function POST(request: Request) {
     const searchQuery = {
       query: {
         bool: {
-          must: [{ match: { country: "Australia" } }],
+          must: [
+            { match: { country: "Australia" } },
+            { match_phrase: { location: "Victoria" } },
+          ],
           should: [
             // Software Engineer positions
             { match: { title: "Software Engineer" } },
@@ -110,7 +113,7 @@ export async function POST(request: Request) {
             { match: { description: "dbt" } },
             { match: { description: "Airflow" } },
           ],
-          minimum_should_match: 2, 
+          minimum_should_match: 2,
         },
       },
     };
@@ -157,7 +160,7 @@ export async function POST(request: Request) {
 
       if (i > 0) {
         console.log(`⏱️ Waiting 2 seconds before next request...`);
-        await delay(1000); 
+        await delay(500);
       }
 
       try {
