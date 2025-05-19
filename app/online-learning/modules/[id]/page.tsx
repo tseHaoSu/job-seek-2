@@ -40,7 +40,7 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <>
       <Video
-        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
+        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//writing.mp4"
         heading="Explore in demand technologies"
         subtext="Because learning never stops — nor should you.">
         <div className="absolute bottom-13 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">

@@ -7,7 +7,7 @@ const Page = () => {
   return (
     <>
       <Video
-        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//question.mp4"
+        videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//writing.mp4"
         heading="Start Building Your Digital Skills"
         subtext="Choose a tool category to begin - from workplace communication to productivity essentials.">
 
