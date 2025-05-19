@@ -16,7 +16,7 @@ const Page = () => {
         heading="Master the Tools You Use at Work"
         subtext="Step-by-step guides for Word, Zoom, Gmail, and more - designed just for you.">
 
-        <Link href="/online-learning/1">
+        <Link href="/online-learning/tool-selection">
           <Button
           variant="default"
           className="bg-red-100 text-red-700 hover:bg-red-50 hover:text-red-800 text-md w-60 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
