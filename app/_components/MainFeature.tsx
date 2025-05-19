@@ -27,7 +27,7 @@ const MainFeature = () => {
             </div>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl font-bold text-gray-800">
-                Learning Modules
+                Tool Guide
               </CardTitle>
               <CardDescription className="text-base text-gray-600">
                 Step-by-step lessons and quizzes to master tools like Excel and Zoom.
