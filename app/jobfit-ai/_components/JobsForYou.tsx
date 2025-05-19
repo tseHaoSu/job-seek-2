@@ -51,17 +51,17 @@ const JobsForYou = () => {
     e.stopPropagation();
 
     // Optimistically update UI
-    const updatedJobs = jobs.map((j) =>
-      j.id === job.id ? { ...j, isFavorite: !j.isFavorite } : j
-    );
-    setJobs(updatedJobs);
+      const updatedJobs = jobs.map((j) =>
+        j.id === job.id ? { ...j, isFavorite: !j.isFavorite } : j
+      );
+      setJobs(updatedJobs);
 
-    if (selectedJob && selectedJob.id === job.id) {
-      setSelectedJob({
-        ...selectedJob,
-        isFavorite: !selectedJob.isFavorite,
-      });
-    }
+      if (selectedJob && selectedJob.id === job.id) {
+        setSelectedJob({
+          ...selectedJob,
+          isFavorite: !selectedJob.isFavorite,
+        });
+      }
 
     // Show toast notification
     toast({

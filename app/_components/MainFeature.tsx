@@ -1,13 +1,11 @@
 import {
   Card,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator"; // Fixed import path
 import { BookOpen, Bot, BriefcaseBusiness } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 const MainFeature = () => {
   return (

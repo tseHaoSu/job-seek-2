@@ -18,3 +18,4 @@ export interface Job {
   isFavorite: boolean;
   jobFunctions: { id: number; name: string }[];
 }
+ 

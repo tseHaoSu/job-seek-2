@@ -5,7 +5,7 @@ import { JobData } from "@/lib/stores/jobStore";
 // type from zod schema
 export type ResumeData = z.infer<typeof formSchema>;
 
-// Education entry
+// Education entry 
 export type EducationEntry = {
   institution: string;
   degree_type: string;
@@ -14,7 +14,7 @@ export type EducationEntry = {
   year_end: number;
 };
 
-// Work experience entry
+// Work experience entry 
 export type WorkExperienceEntry = {
   organization: string;
   job_title: string;
