@@ -60,8 +60,6 @@ const Form = () => {
       job: undefined,
     },
   });
-
-  // Update form 
   useEffect(() => {
     if (jobData) {
       setValue("job", {

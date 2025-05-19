@@ -56,7 +56,7 @@ export default function RootLayout({
             <Footer />
           </PasswordProtect>
           <div suppressHydrationWarning>
-            <Toaster />
+          <Toaster />
           </div>
         </Providers>
       </body>

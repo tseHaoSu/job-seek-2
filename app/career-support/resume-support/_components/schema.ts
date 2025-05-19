@@ -37,7 +37,6 @@ export const formSchema = z.object({
     )
     .min(1, "At least one work experience entry is required")
     .max(5, "Maximum of 5 work experience entries allowed"),
-  // Optional job data with all fields optional
   job: z
     .object({
       id: z.number().optional(),
