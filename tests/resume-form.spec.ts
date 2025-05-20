@@ -80,6 +80,5 @@ test.describe('Resume Form', () => {
     await page.getByRole('button', { name: 'Submit Resume' }).click()
 
     await expect(page.locator('text=Invalid year')).toHaveCount(4)
-  })
-
+  });
 })
