@@ -31,25 +31,24 @@ export function Footer() {
           <div className="flex flex-col space-y-4">
             <h3 className="text-base font-bold text-red-900">StillSkilled</h3>
             <nav className="flex flex-col space-y-3">
-              <Link
+              {/* <Link
                 href="#"
                 className="text-sm text-gray-600 hover:text-red-800 transition-colors"
               >
-                About Us
               </Link>
               <Link
                 href="#"
                 className="text-sm text-gray-600 hover:text-red-800 transition-colors"
               >
                 Contact
-              </Link>
+              </Link> */}
             </nav>
           </div>
 
           <div className="flex flex-col space-y-4">
             <h3 className="text-base font-bold text-red-900">Legal</h3>
             <nav className="flex flex-col space-y-3">
-              <Link
+              {/* <Link
                 href="#"
                 className="text-sm text-gray-600 hover:text-red-800 transition-colors"
               >
@@ -60,7 +59,7 @@ export function Footer() {
                 className="text-sm text-gray-600 hover:text-red-800 transition-colors"
               >
                 Privacy
-              </Link>
+              </Link> */}
             </nav>
           </div>
         </div>
