@@ -55,8 +55,8 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
     <>
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//writing.mp4"
-        heading="Master Everyday Productivity Tools"
-        subtext="Explore easy, guided modules and quizzes for office productivity tools such as Word and Excel."
+        heading="Master Everyday Tools"
+        subtext="Explore easy, guided modules and quizzes"
       />
       <Hint label="Learn in-demand tools!" side="top" sideOffset={20}>
         <ProgressConfetti progressPercentage={progressPercentage} />

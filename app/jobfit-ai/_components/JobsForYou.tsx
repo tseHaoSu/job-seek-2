@@ -23,7 +23,7 @@ const JobsForYou = () => {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const { toast } = useToast();
 
-  // Update jobs state whenever data changes
+  // Update 
   useEffect(() => {
     if (data) {
       const allJobs = data.pages.flatMap((page) =>
