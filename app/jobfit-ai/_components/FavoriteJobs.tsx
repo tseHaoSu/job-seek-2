@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useFavoriteJobs } from "@/hooks/useFavoriteJobs";
 import { Heart } from "lucide-react";
 import axios from "axios";
@@ -19,7 +19,7 @@ const FavoriteJobs = () => {
     Record<number, boolean>
   >({});
 
-//formattedJobs
+  //formattedJobs
   const formattedJobs = useMemo(() => {
     return favoriteJobs.map((job: Job) => ({
       ...job,
@@ -41,6 +41,41 @@ const FavoriteJobs = () => {
   const handleSelectJob = (job: Job) => {
     setSelectedJobId(job.id);
   };
+  // const debouncedToggleFavorite = useCallback(
+  //   debounce(async (jobId: number, newState: boolean) => {
+  //     try {
+  //       await axios.patch(`/api/jobs/${jobId}/favorite`, {
+  //         isFavorite: newState,
+  //       });
+
+  //       // Only refresh favorites if needed
+  //       if (!newState) {
+  //         refreshFavorites();
+  //       }
+
+  //       // Clean up optimistic update
+  //       setOptimisticUpdates((prev) => {
+  //         const { [jobId]: _, ...rest } = prev;
+  //         return rest;
+  //       });
+  //     } catch (error) {
+  //       // Error handling
+  //       setOptimisticUpdates((prev) => {
+  //         const { [jobId]: _, ...rest } = prev;
+  //         return rest;
+  //       });
+
+  //       toast({
+  //         variant: "destructive",
+  //         title: "Failed to update favorites",
+  //         description: "Please try again later",
+  //       });
+
+  //       refreshFavorites();
+  //     }
+  //   }, 300),
+  //   [refreshFavorites, toast]
+  // );
 
   const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -51,6 +86,7 @@ const FavoriteJobs = () => {
       ...prev,
       [job.id]: newFavoriteState,
     }));
+
     toast({
       variant: "success",
       title: newFavoriteState
@@ -64,13 +100,13 @@ const FavoriteJobs = () => {
       await axios.patch(`/api/jobs/${job.id}/favorite`, {
         isFavorite: newFavoriteState,
       });
-      refreshFavorites();
-      setTimeout(() => {
-        setOptimisticUpdates((prev) => {
-          const { [job.id]: _, ...rest } = prev;
-          return rest;
-        });
-      }, 1000);
+      if (!newFavoriteState) {
+        refreshFavorites();
+      }
+      setOptimisticUpdates((prev) => {
+        const { [job.id]: _, ...rest } = prev;
+        return rest;
+      });
     } catch (error) {
       setOptimisticUpdates((prev) => {
         const { [job.id]: _, ...rest } = prev;

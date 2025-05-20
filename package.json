@@ -67,6 +67,7 @@
     "zustand": "^5.0.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@types/file-saver": "^2.0.7",
     "@types/node": "22.10.2",
     "@types/react": "^19.0.2",

@@ -22,7 +22,7 @@ const page = () => {
       </Video>
       <Header />
       <SearchBar />
-      <JobTabs defaultTab="jobs" />
+      <JobTabs />
     </>
   );
 };

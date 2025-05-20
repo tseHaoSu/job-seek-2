@@ -6,10 +6,6 @@ import JobsForYou from "./JobsForYou";
 import FavoriteJobs from "./FavoriteJobs";
 import { Briefcase, Heart } from "lucide-react";
 
-interface Props {
-  defaultTab?: string;
-}
-
 const getSavedTab = () => {
   if (typeof window !== "undefined") {
     return localStorage.getItem("jobfit-active-tab") || "jobs";
@@ -17,7 +13,7 @@ const getSavedTab = () => {
   return "jobs";
 };
 
-const JobTabs = ({ defaultTab = "jobs" }: Props) => {
+const JobTabs = () => {
   const [activeTab, setActiveTab] = useState(() => getSavedTab());
 
   const handleTabChange = (tab: string) => {

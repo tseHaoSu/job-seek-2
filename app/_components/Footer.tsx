@@ -10,7 +10,6 @@ export function Footer() {
           {/* Logo and description */}
           <div className="col-span-1 md:col-span-2 flex flex-col space-y-4">
             <div className="flex items-center space-x-3">
-              <Gi3dHammer className="text-red-800 text-2xl" />
               <span className="font-extrabold text-xl text-red-900">StillSkilled</span>
             </div>
             <p className="text-sm text-gray-600 max-w-md">
