@@ -39,7 +39,7 @@ const Cards = () => {
           </div>
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold text-gray-800">
-              Resume Guidance AI.
+              Resume Guidance AI
             </CardTitle>
             <CardDescription className="text-base text-gray-600">
               Advance AI model to help you guide through the obstacles of the resume building process
