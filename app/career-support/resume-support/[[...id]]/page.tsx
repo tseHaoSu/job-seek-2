@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
 
-import { Bot, ChevronDown } from "lucide-react";
 import Video from "@/app/_components/Video";
+import { Bot, ChevronDown } from "lucide-react";
 import Form from "../_components/Form";
-import JobSection from "../_components/JobSection";
 
 const Page = () => {
   return (

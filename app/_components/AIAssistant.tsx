@@ -12,6 +12,7 @@ import Hint from "./Hint";
 import { z } from "zod";
 import Script from "next/script";
 import { Resizable } from "re-resizable";
+import ReactMarkdown from "react-markdown";
 
 const presetQuestions = [
   "What is Still-Skilled?",
@@ -416,11 +417,18 @@ const AIAssistant = () => {
                   }}
                 >
                   {/* normal user question */}
-                  {msg.text}
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
 
                   {/* If it is the first system message, add a preset button after it */}
                   {msg.sender === "system" && index === 0 && (
-                    <div style={{ marginTop: "10px", display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                    <div
+                      style={{
+                        marginTop: "10px",
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "6px",
+                      }}
+                    >
                       {presetQuestions.map((q, i) => (
                         <button
                           key={i}
