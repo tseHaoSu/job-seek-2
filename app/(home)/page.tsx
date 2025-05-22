@@ -5,7 +5,7 @@ import Hero from "../_components/Hero";
 import SecondBanner from "../_components/SecondBanner";
 import BottomBanner from "../_components/BottomBanner"
 import Video from "../_components/Video";
-
+import ScrollDownButton from "../_components/ScrollDownButton";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sparkles,ChevronDown } from "lucide-react";
@@ -30,12 +30,11 @@ export default function Home() {
         </Button>
       </Link>
 
-      <div className="absolute bottom-13 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
-        <ChevronDown size={28} className="animate-bounce" />
-        <span className="text-m mt-1">Scroll down to know more</span>
-      </div>
+      <ScrollDownButton />
       </Video>
-      <DataSection />
+      <div id="data">
+        <DataSection />
+      </div>
       <Banner />
       <MainFeature/>
       <BottomBanner />

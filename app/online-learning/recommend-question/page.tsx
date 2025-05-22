@@ -2,6 +2,7 @@ import Video from "@/app/_components/Video";
 import { ChevronDown } from "lucide-react";
 import Header from "./_components/Header";
 import Questions from "./_components/Questions";
+import ScrollDownButton from "./_components/ScrollDownButton";
 
 const page = () => {
   return (
@@ -12,12 +13,11 @@ const page = () => {
         subtext="Recommend a personalized set of tools from: Word, PowerPoint,
         Excel, Acrobat, Zoom, Teams, Meet, SEEK, LinkedIn, Gmail."
       >
-        <div className="absolute bottom-13 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
-          <ChevronDown size={28} className="animate-bounce" />
-          <span className="text-m mt-1">Scroll down to start the quiz</span>
-        </div>
-        </Video>
-      <Questions />
+        <ScrollDownButton />
+      </Video>
+      <div id="header2">
+        <Questions />
+      </div>
     </>
   );
 };

@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sparkles,ChevronDown } from "lucide-react";
@@ -13,8 +15,8 @@ const Page = () => {
     <>
       <Video
         videoSrc="https://yoxrhuucqgkdxhpfubee.supabase.co/storage/v1/object/public/banner-video//writing.mp4"
-        heading="Master the Tools You Use at Work"
-        subtext="Step-by-step guides for Word, Zoom, Gmail, and more - designed just for you.">
+        heading="Tools Walkthrough"
+        subtext="Confidently learn workplace tools through easy, guided walkthroughs. Choose a recommended path or explore on your own to get started.">
 
         <Link href="/online-learning/tool-selection">
           <Button
@@ -26,14 +28,19 @@ const Page = () => {
           </Button>
         </Link>
 
-        <div className="absolute bottom-13 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white">
+        <div
+          className="absolute bottom-13 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white cursor-pointer"
+          onClick={() => {
+            document.getElementById("categories")?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
           <ChevronDown size={28} className="animate-bounce" />
           <span className="text-m mt-1">Scroll down to know more</span>
         </div>
       </Video>
-      <Header/>
-      <Banner />
-      <Categories />
+      <div id="categories">
+        <Categories />
+      </div>
     </>
   );
 };

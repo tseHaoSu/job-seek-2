@@ -48,6 +48,7 @@ const ModulePage = async ({ params }: { params: Promise<{ id: string }> }) => {
           <span className="text-m mt-1">Scroll down to start the quiz</span>
         </div>
       </Video>
+      
       <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-6 text-red-900">
         {module.title}
       </h1>
