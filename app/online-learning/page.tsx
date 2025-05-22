@@ -38,6 +38,8 @@ const Page = () => {
           <span className="text-m mt-1">Scroll down to know more</span>
         </div>
       </Video>
+      <Header />
+      <Banner />
       <div id="categories">
         <Categories />
       </div>
