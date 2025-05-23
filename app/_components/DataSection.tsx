@@ -1,5 +1,6 @@
-import React from "react";
-import Data from "./Data";
+import Data1 from "./Data1";
+import { Data2 } from "./Data2";
+import { Data3 } from "./Data3";
 
 const DataSection = () => {
   return (
@@ -32,7 +33,13 @@ const DataSection = () => {
         </p>
       </div>
       <div>
-        <Data />
+        <Data1 />
+      </div>
+      <div className="md:col-span-2">
+        <Data2 />
+      </div>
+      <div className="md:col-span-2">
+        <Data3 />
       </div>
     </div>
   );

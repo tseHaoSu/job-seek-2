@@ -1,7 +1,5 @@
 "use client";
 
-import { TrendingDown, TrendingUp } from "lucide-react";
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
   CardContent,
@@ -16,6 +14,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { populationData } from "../constants/constants";
 
 // Transform the data from separate arrays into an array of objects
@@ -47,7 +46,7 @@ const lastMonthChange = parseFloat(
 // Determine if the trend is up or down
 const isTrendingDown = lastMonthChange < 0;
 
-const Data = () => {
+const Data1 = () => {
   return (
     <Card className="w-full bg-white shadow-md border-none">
       <CardHeader>
@@ -133,4 +132,4 @@ const Data = () => {
   );
 };
 
-export default Data;
+export default Data1;

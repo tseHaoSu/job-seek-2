@@ -55,7 +55,9 @@ const JobInfoSection = ({ job }: JobInfoSectionProps) => {
       {job.timePosted && (
         <div className="flex items-center">
           <Calendar className="h-5 w-5 text-red-800 mr-2" />
-          <span className="text-gray-800">Posted: {job.timePosted}</span>
+          <span className="text-gray-800">
+            Posted: {new Date(job.created).toLocaleDateString()}
+          </span>
         </div>
       )}
       {job.lastUpdated && (
