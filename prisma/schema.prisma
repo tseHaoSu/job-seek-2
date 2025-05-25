@@ -91,12 +91,11 @@ model QuestionAttempt {
   @@map("question_attempts")
 }
 
-
 model Job {
   id              Int      @id @default(autoincrement())
   created         DateTime @default(now())
   lastUpdated     DateTime @updatedAt
-  timePosted      String?  // "2 months ago" format
+  timePosted      String? // "2 months ago" format
   title           String
   description     String   @db.Text
   seniority       String?
@@ -107,23 +106,28 @@ model Job {
   applicantsCount String?
   salary          String?
   country         String?
+
+  companyName String?
+  companyUrl  String?
+
+  isFavorite   Boolean       @default(false)
+  jobFunctions JobFunction[]
+  favoriteJob  favoriteJob?
   
-  // Company fields embedded directly
-  companyName     String?
-  companyUrl      String?
-
-  //favorite
-
-  isFavorite     Boolean  @default(false)
-
-  
-  // Relation to job functions
-  jobFunctions    JobFunction[]
 }
 
 model JobFunction {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  jobs      Job[]
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  jobs Job[]
 }
 
+model favoriteJob {
+  id    Int @id @default(autoincrement())
+  jobId Int
+  createdAt DateTime @default(now())
+  job   Job @relation(fields: [jobId], references: [id])
+
+  @@unique([jobId])
+  @@index([jobId])
+}

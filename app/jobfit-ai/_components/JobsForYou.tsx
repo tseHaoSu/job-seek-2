@@ -50,7 +50,6 @@ const JobsForYou = () => {
   const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
     e.stopPropagation();
 
-    // Optimistically update UI
       const updatedJobs = jobs.map((j) =>
         j.id === job.id ? { ...j, isFavorite: !j.isFavorite } : j
       );
@@ -63,7 +62,6 @@ const JobsForYou = () => {
         });
       }
 
-    // Show toast notification
     toast({
       variant: "success",
       title: job.isFavorite
@@ -78,19 +76,15 @@ const JobsForYou = () => {
       await axios.patch(`/api/jobs/${job.id}/favorite`, {
         isFavorite: !job.isFavorite,
       });
-
-      // Success case already handled optimistically
     } catch (error) {
       console.error("Error toggling favorite:", error);
 
-      // Revert changes on error
       toast({
         variant: "destructive",
         title: "Failed to update favorites",
         description: "Please try again later",
       });
 
-      // Revert the UI changes
       const revertedJobs = jobs.map((j) =>
         j.id === job.id ? { ...j, isFavorite: job.isFavorite } : j
       );
