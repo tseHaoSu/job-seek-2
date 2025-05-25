@@ -65,8 +65,10 @@ export function Data2() {
   return (
     <Card className="w-full bg-white shadow-md border-none">
       <CardHeader>
-        <CardTitle>Job Postings by Category</CardTitle>
-        <CardDescription>Full Time vs Part Time Distribution</CardDescription>
+        <CardTitle className="text-red-900">Job Postings by Category</CardTitle>
+        <CardDescription className="text-red-900">
+          Full Time vs Part Time Distribution
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -106,13 +108,11 @@ export function Data2() {
             <ChartLegend content={<ChartLegendContent />} />
             <Bar
               dataKey="Full Time"
-              stackId="a"
               fill={chartConfig["Full Time"].color}
-              radius={[0, 0, 4, 4]}
+              radius={[4, 4, 0, 0]}
             />
             <Bar
               dataKey="Part Time"
-              stackId="a"
               fill={chartConfig["Part Time"].color}
               radius={[4, 4, 0, 0]}
             />
@@ -122,11 +122,11 @@ export function Data2() {
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
+            <div className="flex items-center gap-2 leading-none text-red-900">
               Top Category: {chartData[0]?.Category}{" "}
               <TrendingUp className="h-4 w-4" />
             </div>
-            <div className="leading-none text-muted-foreground">
+            <div className="leading-none text-red-900">
               Showing distribution of full-time and part-time positions across
               all categories
             </div>

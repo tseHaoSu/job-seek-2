@@ -20,7 +20,7 @@ export default function Home() {
         subtext="Interactive support to help mature-age workers master everyday workplace tools with ease!"
       >
 
-      <Link href="/dashboard">
+      {/* <Link href="/dashboard">
         <Button
           variant="default"
           className="bg-red-100 text-red-700 hover:bg-red-50 hover:text-red-800 text-md w-48 h-12 rounded-xl shadow-lg hover:scale-105 duration-300"
@@ -28,7 +28,7 @@ export default function Home() {
           <Sparkles className="mr-2" />
             Go to Dashboard
         </Button>
-      </Link>
+      </Link> */}
 
       <ScrollDownButton />
       </Video>

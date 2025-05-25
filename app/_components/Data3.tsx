@@ -59,8 +59,10 @@ export function Data3() {
   return (
     <Card className="w-full bg-white shadow-md border-none">
       <CardHeader>
-        <CardTitle>Employment Trends by Industry</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-red-900">
+          Employment Trends by Industry
+        </CardTitle>
+        <CardDescription className="text-red-900">
           Projected employment growth from 2024 to 2034
         </CardDescription>
       </CardHeader>
@@ -114,10 +116,10 @@ export function Data3() {
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
+            <div className="flex items-center gap-2 leading-none text-red-900">
               Projected Growth: 2024-2034 <TrendingUp className="h-4 w-4" />
             </div>
-            <div className="leading-none text-muted-foreground">
+            <div className="leading-none text-red-900">
               Showing employment trends across major industries
             </div>
           </div>
