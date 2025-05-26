@@ -113,6 +113,8 @@ model Job {
   isFavorite   Boolean       @default(false)
   jobFunctions JobFunction[]
   favoriteJob  favoriteJob?
+
+  @@index([isFavorite])
   
 }
 

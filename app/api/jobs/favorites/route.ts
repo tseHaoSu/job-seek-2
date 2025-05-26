@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   try {
-    // Fetch all jobs where isFavorite is true
     const favoriteJobs = await prisma.job.findMany({
       where: {
         isFavorite: true,

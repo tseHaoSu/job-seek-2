@@ -152,9 +152,6 @@ const FavoriteJobs = () => {
         <PageHeader />
         <div className="text-center py-8">     
           <p className="mt-2 text-gray-500">You haven't saved any jobs yet</p>
-          <p className="text-gray-500">
-            Click the heart icon on jobs to save them here
-          </p>
         </div>
       </div>
     );
