@@ -51,7 +51,7 @@ const Data1 = () => {
     <div className="flex flex-col gap-8 max-w-4xl mx-auto p-4">
       <div className="space-y-6">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-red-900 leading-tight">
-          Working Population by Age Group (Australia)
+          The Great Digital Divide
         </h1>
         <p className="my-6 text-xl md:text-l text-red-900 leading-relaxed">
           Older Australians are quietly disappearing from the workforce — not

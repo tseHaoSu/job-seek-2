@@ -60,7 +60,7 @@ export function Data3() {
     <div className="flex flex-col gap-8 max-w-4xl mx-auto p-4">
       <div className="space-y-6">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-red-900 leading-tight">
-          The Future of Work: Employment Trends in Australia
+          The Opportunity Paradox
         </h1>
         <p className="my-6 text-xl md:text-l text-red-900 leading-relaxed">
           When we analyzed over 70 thousand job posting on seek.com.au, we found
