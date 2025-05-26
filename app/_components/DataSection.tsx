@@ -26,15 +26,15 @@ const DataSection = () => {
   };
 
   return (
-    <>
-      <div className="flex justify-center mb-12 ">
+    <div>
+      <div className="flex justify-center  mb-12">
         <SelectionBar
           onSelectionChange={setSelectedData}
           selectedValue={selectedData}
         />
       </div>
       <div>{renderSelectedData()}</div>
-    </>
+    </div>
   );
 };
 

@@ -63,76 +63,96 @@ const chartConfig = {
 
 export function Data2() {
   return (
-    <Card className="w-full bg-white shadow-md border-none">
-      <CardHeader>
-        <CardTitle className="text-red-900">Job Postings by Category</CardTitle>
-        <CardDescription className="text-red-900">
-          Full Time vs Part Time Distribution
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-              top: 20,
-              bottom: 60,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="Category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              angle={-45}
-              textAnchor="end"
-              height={100}
-              tick={{ fontSize: 12 }}
-            />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => `${value}`}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent className="border-none shadow-lg bg-white" />
-              }
-            />
-            <ChartLegend content={<ChartLegendContent />} />
-            <Bar
-              dataKey="Full Time"
-              fill={chartConfig["Full Time"].color}
-              radius={[4, 4, 0, 0]}
-            />
-            <Bar
-              dataKey="Part Time"
-              fill={chartConfig["Part Time"].color}
-              radius={[4, 4, 0, 0]}
-            />
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 leading-none text-red-900">
-              Top Category: {chartData[0]?.Category}{" "}
-              <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="leading-none text-red-900">
-              Showing distribution of full-time and part-time positions across
-              all categories
+    <div className="flex flex-col gap-8 max-w-4xl mx-auto p-4">
+      <div className="space-y-6">
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-red-900 leading-tight">
+          The Digital Skills Gap  
+        </h1>
+        <p className="my-6 text-xl md:text-l text-red-900 leading-relaxed">
+          In today’s world knowing how to use technology and tools isn’t
+          something that’s an add on in your resume; It is an essential part of
+          your portfolio. Whether you're searching for work, applying for a
+          role, managing personal tasks, or trying to stay connected, digital
+          tools like Word, Gmail, LinkedIn, Seek, or Excel is now a part of
+          daily life. For Australians over 50, this can sometimes feel
+          overwhelming. That’s exactly why our website exists: to help you learn
+          what you need, when you need it quickly and easily.
+        </p>
+      </div>
+
+      <Card className="w-full bg-white shadow-md border-none">
+        <CardHeader>
+          <CardTitle className="text-red-900">
+            Job Postings by Category
+          </CardTitle>
+          <CardDescription className="text-red-900">
+            Full Time vs Part Time Distribution
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ChartContainer config={chartConfig}>
+            <BarChart
+              accessibilityLayer
+              data={chartData}
+              margin={{
+                left: 12,
+                right: 12,
+                top: 20,
+                bottom: 60,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="Category"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                angle={-45}
+                textAnchor="end"
+                height={100}
+                tick={{ fontSize: 12 }}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => `${value}`}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent className="border-none shadow-lg bg-white" />
+                }
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Bar
+                dataKey="Full Time"
+                fill={chartConfig["Full Time"].color}
+                radius={[4, 4, 0, 0]}
+              />
+              <Bar
+                dataKey="Part Time"
+                fill={chartConfig["Part Time"].color}
+                radius={[4, 4, 0, 0]}
+              />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 leading-none text-red-900">
+                Top Category: {chartData[0]?.Category}{" "}
+                <TrendingUp className="h-4 w-4" />
+              </div>
+              <div className="leading-none text-red-900">
+                Showing distribution of full-time and part-time positions across
+                all categories
+              </div>
             </div>
           </div>
-        </div>
-      </CardFooter>
-    </Card>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

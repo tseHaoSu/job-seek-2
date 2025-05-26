@@ -48,7 +48,7 @@ const isTrendingDown = lastMonthChange < 0;
 
 const Data1 = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <div className="flex flex-col gap-8 max-w-4xl mx-auto p-4">
       <div className="space-y-6">
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-red-900 leading-tight">
           Working Population by Age Group (Australia)
