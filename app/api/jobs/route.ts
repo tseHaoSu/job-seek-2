@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
   try {
     let whereClause: any = {};
 
-    // Add search term filter
     if (search) {
       whereClause.OR = [
         { title: { contains: search, mode: "insensitive" } },

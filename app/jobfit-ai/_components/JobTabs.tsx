@@ -8,7 +8,7 @@ import { Briefcase, Heart } from "lucide-react";
 
 const getSavedTab = () => {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("jobfit-active-tab") || "jobs";
+    return sessionStorage.getItem("jobfit-active-tab") || "jobs";
   }
   return "jobs";
 };
@@ -19,7 +19,7 @@ const JobTabs = () => {
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
     if (typeof window !== "undefined") {
-      localStorage.setItem("jobfit-active-tab", tab);
+      sessionStorage.setItem("jobfit-active-tab", tab);
     }
   };
 

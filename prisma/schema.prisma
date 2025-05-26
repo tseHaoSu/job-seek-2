@@ -114,7 +114,16 @@ model Job {
   jobFunctions JobFunction[]
   favoriteJob  favoriteJob?
 
-  @@index([isFavorite])
+  @@index([created(sort: Desc)])           // For ORDER BY created DESC
+  @@index([title])                         // For title search
+  @@index([companyName])                   // For company search  
+  @@index([location])                      // For location filtering
+  @@index([employmentType])                // For job type filtering
+  @@index([isFavorite])                    // Your existing favorite index
+  
+  @@index([location, employmentType])      // Location + job type
+  @@index([location, created(sort: Desc)]) // Location + date ordering
+  @@index([employmentType, created(sort: Desc)]) // Job type + date ordering
   
 }
 

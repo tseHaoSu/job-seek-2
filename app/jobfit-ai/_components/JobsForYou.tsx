@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useJobs } from "@/hooks/useJobs";
 import { Job } from "./types";
 import JobList from "./JobList";
@@ -19,27 +19,35 @@ const JobsForYou = () => {
     isFetchingNextPage,
   } = useJobs();
 
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [selectedJobId, setSelectedJobId] = useState<number | null>(null);
+  const [favoriteOverrides, setFavoriteOverrides] = useState<
+    Record<number, boolean>
+  >({});
   const { toast } = useToast();
 
-  // Update 
-  useEffect(() => {
-    if (data) {
-      const allJobs = data.pages.flatMap((page) =>
-        page.jobs.map((job: any) => ({
-          ...job,
-          jobFunctions: Array.isArray(job.jobFunctions)
-            ? job.jobFunctions
-            : [job.jobFunction || { id: 1, name: "Unknown" }],
-        }))
-      );
-      setJobs(allJobs);
-      if (allJobs.length > 0 && !selectedJob) {
-        setSelectedJob(allJobs[0]);
-      }
+  //only re-render jobs when data changes or favorite overrides change
+  const jobs = useMemo(() => {
+    if (!data) return [];
+    return data.pages.flatMap((page) =>
+      page.jobs.map((job: any) => ({
+        ...job,
+        isFavorite: favoriteOverrides.hasOwnProperty(job.id)
+          ? favoriteOverrides[job.id]
+          : job.isFavorite,
+        jobFunctions: Array.isArray(job.jobFunctions)
+          ? job.jobFunctions
+          : [job.jobFunction || { id: 1, name: "Unknown" }],
+      }))
+    );
+  }, [data, favoriteOverrides]);
+
+  // only re-render selected job when jobs or selectedJobId changes
+  const selectedJob = useMemo(() => {
+    if (selectedJobId) {
+      return jobs.find((job) => job.id === selectedJobId) || null;
     }
-  }, [data, selectedJob]);
+    return jobs.length > 0 ? jobs[0] : null;
+  }, [jobs, selectedJobId]);
 
   const fetchMoreData = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -50,17 +58,11 @@ const JobsForYou = () => {
   const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
     e.stopPropagation();
 
-      const updatedJobs = jobs.map((j) =>
-        j.id === job.id ? { ...j, isFavorite: !j.isFavorite } : j
-      );
-      setJobs(updatedJobs);
-
-      if (selectedJob && selectedJob.id === job.id) {
-        setSelectedJob({
-          ...selectedJob,
-          isFavorite: !selectedJob.isFavorite,
-        });
-      }
+    const newFavoriteState = !job.isFavorite;
+    setFavoriteOverrides((prev) => ({
+      ...prev,
+      [job.id]: newFavoriteState,
+    }));
 
     toast({
       variant: "success",
@@ -74,7 +76,14 @@ const JobsForYou = () => {
 
     try {
       await axios.patch(`/api/jobs/${job.id}/favorite`, {
-        isFavorite: !job.isFavorite,
+        isFavorite: newFavoriteState,
+      });
+
+      // Remove override after successful API call - let server data take over
+      setFavoriteOverrides((prev) => {
+        const newOverrides = { ...prev };
+        delete newOverrides[job.id];
+        return newOverrides;
       });
     } catch (error) {
       console.error("Error toggling favorite:", error);
@@ -85,18 +94,17 @@ const JobsForYou = () => {
         description: "Please try again later",
       });
 
-      const revertedJobs = jobs.map((j) =>
-        j.id === job.id ? { ...j, isFavorite: job.isFavorite } : j
-      );
-      setJobs(revertedJobs);
-
-      if (selectedJob && selectedJob.id === job.id) {
-        setSelectedJob({
-          ...selectedJob,
-          isFavorite: job.isFavorite,
-        });
-      }
+      // Revert optimistic update
+      setFavoriteOverrides((prev) => {
+        const newOverrides = { ...prev };
+        delete newOverrides[job.id];
+        return newOverrides;
+      });
     }
+  };
+
+  const handleJobSelect = (job: Job) => {
+    setSelectedJobId(job.id);
   };
 
   if (error) return <div>Failed to load jobs</div>;
@@ -108,7 +116,7 @@ const JobsForYou = () => {
       <JobList
         jobs={jobs}
         selectedJob={selectedJob}
-        setSelectedJob={setSelectedJob}
+        setSelectedJob={handleJobSelect}
         hasNextPage={hasNextPage}
         fetchMoreData={fetchMoreData}
       />

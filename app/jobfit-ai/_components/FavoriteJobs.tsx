@@ -41,47 +41,10 @@ const FavoriteJobs = () => {
   const handleSelectJob = (job: Job) => {
     setSelectedJobId(job.id);
   };
-  // const debouncedToggleFavorite = useCallback(
-  //   debounce(async (jobId: number, newState: boolean) => {
-  //     try {
-  //       await axios.patch(`/api/jobs/${jobId}/favorite`, {
-  //         isFavorite: newState,
-  //       });
-
-  //       // Only refresh favorites if needed
-  //       if (!newState) {
-  //         refreshFavorites();
-  //       }
-
-  //       // Clean up optimistic update
-  //       setOptimisticUpdates((prev) => {
-  //         const { [jobId]: _, ...rest } = prev;
-  //         return rest;
-  //       });
-  //     } catch (error) {
-  //       // Error handling
-  //       setOptimisticUpdates((prev) => {
-  //         const { [jobId]: _, ...rest } = prev;
-  //         return rest;
-  //       });
-
-  //       toast({
-  //         variant: "destructive",
-  //         title: "Failed to update favorites",
-  //         description: "Please try again later",
-  //       });
-
-  //       refreshFavorites();
-  //     }
-  //   }, 300),
-  //   [refreshFavorites, toast]
-  // );
 
   const toggleFavorite = async (job: Job, e: React.MouseEvent) => {
     e.stopPropagation();
     const newFavoriteState = !job.isFavorite;
-
-    // Set optimistic update
     setOptimisticUpdates((prev) => ({
       ...prev,
       [job.id]: newFavoriteState,
