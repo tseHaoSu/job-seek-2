@@ -29,7 +29,7 @@ export function Footer() {
 
           {/* Links sections */}
           <div className="flex flex-col space-y-4">
-            <h3 className="text-base font-bold text-red-900">StillSkilled</h3>
+            {/* <h3 className="text-base font-bold text-red-900">StillSkilled</h3> */}
             <nav className="flex flex-col space-y-3">
               {/* <Link
                 href="#"
@@ -46,7 +46,7 @@ export function Footer() {
           </div>
 
           <div className="flex flex-col space-y-4">
-            <h3 className="text-base font-bold text-red-900">Legal</h3>
+            {/* <h3 className="text-base font-bold text-red-900">Legal</h3> */}
             <nav className="flex flex-col space-y-3">
               {/* <Link
                 href="#"

@@ -39,7 +39,6 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <Providers>
-          <PasswordProtect>
             <NavBar />
             <main className="max-w-[1200px] mx-auto mb-20 space-y-20 sm:px-6 lg:px-8">
               {children}
@@ -54,7 +53,6 @@ export default function RootLayout({
               />
             </main>
             <Footer />
-          </PasswordProtect>
           <div suppressHydrationWarning>
           <Toaster />
           </div>
